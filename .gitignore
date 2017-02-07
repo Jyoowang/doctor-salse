@@ -1,0 +1,6 @@
+asset/dist/
+node_modules/
+.build/
+web.config
+~$项目目录.xlsx
+.idea/
