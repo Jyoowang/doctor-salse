@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="balack" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<title>我的伙伴</title>
+	<link rel="stylesheet" type="text/css" href="../asset/libs/ionic/1.3.1/css/ionic.min.css">
+	<link rel="stylesheet" type="text/css" href="../asset/css/base/public.css">
+	<link rel="stylesheet" type="text/css" href="../asset/css/style.css">
+</head>
+<body>
+	<div class="bar bar-header">
+		<span class="title title-address">我的伙伴</span>
+		<button class="button button-clear top-subtitle" id="add-btn">添加伙伴</button>
+	</div>
+	<div id="wrapper" class="scroll-content single doc-reg-top">
+		<div id="scroller">
+			
+			<div class="doclist">
+				<div class="doc-item line-bot">
+					<div class="doc-pic"><img src="../asset/images/doctors/default_v2.png" alt=""></div>
+					<div class="doc-txt">
+						<p class="info">闵颖 <small>主治医师</small></br><span>上海市黄浦区妇幼保健所</span>
+						</p>
+						<div class="performance">绩效</div>
+						<div class="state line-t"><span>待注册</span><em>注册于2017.2.2</em></div>
+					</div>
+				</div>
+				
+
+				<div class="doc-item line-bot">
+					<div class="doc-pic"><img src="../asset/images/doctors/default_v2.png" alt=""></div>
+					<div class="doc-txt">
+						<p class="info">闵颖 <small>主治医师</small></br><span>上海市黄浦区妇幼保健所</span></p>
+						<div class="state line-t"><span>待注册</span><em>注册于2017.2.2</em></div>
+					</div>
+				</div>
+
+
+			</div>
+			
+			
+		</div>
+	</div>
+
+	<!-- loading -->
+	<!-- <div class="loadbox" style="display: block;">
+		<div class="load-main"><i></i><p>加载中...</p></div>
+	</div> -->
+</body>
+<script src="../asset/libs/sea/sea/2.2.0/sea.js"></script>
+<script src="../asset/libs/sea/sea-css/1.0.5/seajs-css.js"></script>
+<script src="../config.js"></script>
+<script>
+	if(!seajs.ISDEV){
+		seajs.use("../asset/dist/pages/doclist");
+	}else{
+		seajs.use("../asset/src/pages/doclist");
+	}
+
+</script>
+</html>

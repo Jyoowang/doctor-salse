@@ -1,7 +1,7 @@
 
 @charset "utf-8";
 
-body {font-family:Microsoft YaHei,Arial,SimSun; background-color: #f2f2f2;  }
+body {font-family:Microsoft YaHei,Arial,SimSun; background-color: #f6f6f6;  }
 body h1{font-family:Microsoft YaHei,Arial,SimSun; }
 
 
@@ -17,6 +17,9 @@ body h1{font-family:Microsoft YaHei,Arial,SimSun; }
 }
 */
 
+
+.fl{float: left;}
+.fr{float: right;}
 /*页面主体*/
 #scroller { position: absolute; z-index: 1; -webkit-tap-highlight-color: rgba(0,0,0,0); width: 100%; -webkit-transform: translateZ(0); -moz-transform: translateZ(0); -ms-transform: translateZ(0); -o-transform: translateZ(0); transform: translateZ(0); -webkit-touch-callout: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; -webkit-text-size-adjust: none; -moz-text-size-adjust: none; -ms-text-size-adjust: none; -o-text-size-adjust: none; text-size-adjust: none;
 }
@@ -29,7 +32,7 @@ body h1{font-family:Microsoft YaHei,Arial,SimSun; }
 
 
 /*line*/
-.line-bot:after { content: ''; height: 1px; width: 100%; border-top: 1px solid #91b2ce; position: absolute; bottom: 0px; right: 0; transform: scaleY(-.5); -webkit-transform: scaleY(-.5); z-index: 10; }
+.line-bot:after { content: ''; height: 1px; width: 100%; border-top: 1px solid #e1e1e1; position: absolute; bottom: 0px; right: 0; transform: scaleY(-.5); -webkit-transform: scaleY(-.5); z-index: 10; }
 
 .line-r:after { content: ''; height: 100%;  width: 1px; border-right: 1px solid #e1e1e1; position: absolute; top: 0; right: -1px; transform: scaleX(-.5); -webkit-transform: scaleX(-.5); z-index: 10;
 }
