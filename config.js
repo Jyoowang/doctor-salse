@@ -45,4 +45,4 @@ seajs.config({
 
 })
 
-seajs.ISDEV=false;
+seajs.ISDEV=true;

@@ -17,16 +17,14 @@ define(function(require, exports, module) {
     //初始化页面控件事件
     initEvent();
 
-    //获取页面数据s
+    //获取页面数据
     // getData();
 
     console.log(Comm.initData);
 
     function initEvent(){
         Comm.init.back();
-        $('.doc-item').on('click',function(){
-            Comm.goToUrl({h5Url:'personal.html'});
-        })
+        
     }
 
 

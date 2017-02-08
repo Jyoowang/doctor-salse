@@ -15,17 +15,20 @@ define(function(require, exports, module) {
     // initData();
 
     //初始化页面控件事件
-    initEvent();
-
-    //获取页面数据s
-    // getData();
-
-    console.log(Comm.initData);
+     initEvent();
 
     function initEvent(){
         Comm.init.back();
-        $('.doc-item').on('click',function(){
-            Comm.goToUrl({h5Url:'personal.html'});
+        $('.user-a').on('click',function(){
+            Comm.goToUrl({h5Url:'userlist.html'});
+        })
+
+        $('.account').on('click',function(){
+            Comm.goToUrl({h5Url:'account.html'});
+        })
+
+        $('.prolist').on('click',function(){
+            Comm.goToUrl({h5Url:'prolist.html'});
         })
     }
 

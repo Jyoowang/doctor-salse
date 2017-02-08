@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="balack" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../asset/libs/ionic/1.3.1/css/ionic.min.css">
+	<link rel="stylesheet" type="text/css" href="../asset/css/base/public.css">
+	<link rel="stylesheet" type="text/css" href="../asset/css/style.css">
+</head>
+<body>
+	<div class="bar bar-header">
+		<i class="icon ion-android-arrow-back icon-return goback"></i>
+		<span class="title title-address">添加产品</span>
+		<!-- <button class="button button-clear top-subtitle" id="add-btn">管理</button> -->
+	</div>
+	<div id="wrapper" class="scroll-content single doc-reg-top">
+		<div id="scroller">
+			
+			<div class="product">
+
+				<div class="pro-box line-bot">
+					<div class="pro line-bot">
+						<div class="pro-pic imgCenter"><img src="../asset/images/doctors/default_v2.png" alt=""><i></i></div>
+						<div class="pro-txt">
+							<p class="many-text-overflow">【优选】Dermatix舒痕硅凝胶 产科医师专业认可 有效淡化、软化、抚平疤痕 美国进口正品15g</p>
+							<span>售价：84.00元</span>
+						</div>
+						<div class="isadd">添加</div>
+					</div>
+					
+				</div>
+
+				<div class="pro-box line-bot">
+					<div class="pro line-bot">
+						<div class="pro-pic imgCenter"><img src="../asset/images/doctors/default_v2.png" alt=""><i></i></div>
+						<div class="pro-txt">
+							<p class="many-text-overflow">【优选】德国百瑞PARI洗鼻器 成人儿童洗鼻器 +30包专用洗鼻盐</p>
+							<span>售价：84.00元</span>
+						</div>
+						<div class="isadd">已添加</div>
+					</div>
+					
+				</div>
+
+			</div>
+			
+         
+			
+		</div>
+	</div>
+
+	
+
+	<!-- loading -->
+	<!-- <div class="loadbox" style="display: block;">
+		<div class="load-main"><i></i><p>加载中...</p></div>
+	</div> -->
+</body>
+<script src="../asset/libs/sea/sea/2.2.0/sea.js"></script>
+<script src="../asset/libs/sea/sea-css/1.0.5/seajs-css.js"></script>
+<script src="../config.js"></script>
+<script>
+	if(!seajs.ISDEV){
+		seajs.use("../asset/dist/pages/addpro");
+	}else{
+		seajs.use("../asset/src/pages/addpro");
+	}
+
+</script>
+</html>

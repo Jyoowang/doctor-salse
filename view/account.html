@@ -6,41 +6,38 @@
 	<meta content="yes" name="apple-mobile-web-app-capable">
 	<meta content="balack" name="apple-mobile-web-app-status-bar-style">
 	<meta content="telephone=no" name="format-detection">
-	<title>我的伙伴</title>
+	<title></title>
 	<link rel="stylesheet" type="text/css" href="../asset/libs/ionic/1.3.1/css/ionic.min.css">
 	<link rel="stylesheet" type="text/css" href="../asset/css/base/public.css">
 	<link rel="stylesheet" type="text/css" href="../asset/css/style.css">
 </head>
 <body>
 	<div class="bar bar-header">
-		<span class="title title-address">我的伙伴</span>
-		<button class="button button-clear top-subtitle" id="add-btn">添加伙伴</button>
+		<!-- <i class="icon ion-android-arrow-back icon-return goback"></i> -->
+		<span class="title title-address">个人收益</span>
+	<!-- 	<button class="button button-clear top-subtitle" id="add-btn">添加伙伴</button> -->
 	</div>
 	<div id="wrapper" class="scroll-content single doc-reg-top">
 		<div id="scroller">
 			
-			<div class="doclist">
-				<div class="doc-item line-bot">
-					<div class="doc-pic"><img src="../asset/images/doctors/default_v2.png" alt=""></div>
-					<div class="doc-txt">
-						<p class="info">闵颖 <small>主治医师</small></br><span>上海市黄浦区妇幼保健所</span>
-						</p>
-						<div class="performance">绩效</div>
-						<div class="state line-t"><span>待注册</span><em>注册于2017.2.2</em></div>
-					</div>
-				</div>
-				
-
-				<div class="doc-item line-bot">
-					<div class="doc-pic"><img src="../asset/images/doctors/default_v2.png" alt=""></div>
-					<div class="doc-txt">
-						<p class="info">闵颖 <small>主治医师</small></br><span>上海市黄浦区妇幼保健所</span></p>
-						<div class="state line-t"><span>待注册</span><em>注册于2017.2.2</em></div>
-					</div>
-				</div>
-
+			<div class="price-box">
+				<p class="price-tit">账户余额（元）</p>
+				<strong class="price">999.00</strong>
 			</div>
 			
+			<div class="list public-list mt10">
+                <div class="item item-icon-right line-bot expense">
+                    <img src="../asset/images/black-white/inc_img35.png" alt="" class="fl-img">
+                    <p>报销申请</p>
+                    <i class="icon ion-ios-arrow-right"></i>
+                </div>
+                <div class="item item-icon-right line-bot walletdetail">
+                    <img src="../asset/images/black-white/payments-icon.png" alt="" class="fl-img">
+                    <p>收支明细</p>
+                    <i class="icon ion-ios-arrow-right"></i>
+                </div>
+               		
+			</div>
 			
 		</div>
 	</div>
@@ -55,9 +52,9 @@
 <script src="../config.js"></script>
 <script>
 	if(!seajs.ISDEV){
-		seajs.use("../asset/dist/pages/doclist");
+		seajs.use("../asset/dist/pages/account");
 	}else{
-		seajs.use("../asset/src/pages/doclist");
+		seajs.use("../asset/src/pages/account");
 	}
 
 </script>
