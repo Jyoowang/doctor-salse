@@ -92,21 +92,16 @@ define(function(require, exports, module) {
         Comm.firstAjax({
             isload:isloadObj, //页面load
 
-            url:'http://api.yuer24h.com/app/ZHT/GetZHTDoctorBind', //接口地址
+            url:'http://api.yuer24h.com/SaleApi/GetBindOpenID', //接口地址
             value:data,     //接口参数 对象
 
             success:function(value){
             	Comm.initData.isLoading = false;
-                //跳转注册成功页
-            	if(value.JumpType==1){ //1完善信息 2注册成功
-                    Comm.goToUrl({
-                        h5Url:'regedit.html?uid=' + Comm.initData.uid
-                    });
-                }else{
-                    Comm.goToUrl({
-                        h5Url:'download.html?uid=' + Comm.initData.uid
-                    });
-                }
+                //跳转医生列表页
+            	Comm.goToUrl({
+                    h5Url:'doclist.html?sid=' + Comm.initData.sid
+                });
+               
             },
             error: function (value) {
                 console.log(value)
@@ -170,7 +165,7 @@ define(function(require, exports, module) {
         Comm.firstAjax({
             isload:isloadObj, //页面load
 
-            url:'http://api.yuer24h.com/app/ZHT/GetVCode', //接口地址
+            url:'http://api.yuer24h.com/SaleApi/GetSaleBindSendCode', //接口地址
             value:data,     //接口参数 对象
 
             success:function(value){

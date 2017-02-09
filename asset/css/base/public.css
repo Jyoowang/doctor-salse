@@ -162,7 +162,7 @@ body h1{font-family:Microsoft YaHei,Arial,SimSun; }
 .popups-content p{padding: 0 16px; margin: 15px 0; min-height: 50px; color: #888;}
 .popups-content .button-box{ position: relative; }
 .popups-content .button-box span{ position: relative; line-height: 20px;}
-.popups-content .button-box span:last-child{ color: #fe5a7c}
+.popups-content .button-box span:last-child{ color: #3ec3ba}
 
 .popups-content .button-box.line-t:before{ border-bottom-color: #D5D5D6;}
 .popups-content .title.line-bot:after { border-top-color: #D5D5D6;}

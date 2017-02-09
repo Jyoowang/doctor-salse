@@ -7,6 +7,7 @@ define(function(require, exports, module) {
     var $ = require('jquery');
 
     var Comm = require('../common/common');
+    var ScrollUtil = require('../util/scrollUtil');
 
     //--------------------------------------------------------
     
@@ -17,20 +18,100 @@ define(function(require, exports, module) {
     //初始化页面控件事件
     initEvent();
 
-    //获取页面数据s
-    // getData();
+    //获取页面数据
+    getData(true);
 
     console.log(Comm.initData);
 
     function initEvent(){
         Comm.init.back();
-        $('.doc-item').on('click',function(){
-            Comm.goToUrl({h5Url:'personal.html'});
+        
+        Comm.initData.ListScroll = ScrollUtil.init({
+            obj:'wrapper',
+            scoll:'scroller',
+            isLoading:true,
+            pullUp:function(){    //下拉
+                if (!Comm.initData.isLoading) {
+                    Comm.initData.pageindex++;
+                    getData(false);
+                    console.log(1)
+                }
+            }
         })
     }
 
-
+    //----------------------------------------------------------------------
    
+    function getData(isload){
+       
+       var data = {
+            DID:Comm.initData.docid,
+            PageIndex:Comm.initData.pageindex,
+            PageSize:15
+        }
+
+        var isloadObj = {
+            loadVal:isload,
+            loadView:{
+                loadText:false, // false   字符串
+                isTransparent:false  //布尔值
+            }
+        } 
+
+        Comm.initData.isLoading = true;
+
+        Comm.firstAjax({
+            isload:isloadObj, //页面load
+
+            url:'http://api.yuer24h.com/SaleApi/GetMySaleDoctorUserList', //接口地址
+            value:data,     //接口参数 对象
+
+            success:function(value){
+                Comm.initData.isLoading = false;
+                console.log(value);
+                var SaleDoctorUserList =  Comm.Tool.getArray(value,'SaleDoctorUserList')
+                if(!SaleDoctorUserList.length){
+                    Comm.initData.isLoading = true;
+                }
+                pushUserList(value);
+                if(Comm.initData.isLoading){
+                    Comm.initData.ListScroll.ArraynNullHideLoding()
+                }else{
+                    Comm.initData.ListScroll.hideLoding();
+                }
+               
+            }
+        })
+   }
+
+   function pushUserList(value){
+
+        var str = ''
+        if (Comm.Tool.getArray(value,'SaleDoctorUserList').length) {
+
+            $.each(Comm.Tool.getArray(value,'SaleDoctorUserList'),function(){
+
+                str +='<div class="user-item line-bot" data-doc-id="'+ Comm.Tool.getInt(this,'DoctorID')+'" data-exam-id="'+ Comm.Tool.getInt(this,'Examine')+'">'
+                str +=' <div class="user-pic fl">'
+                str +='<img src="'+ value.PicDomain + this.HeadPic +'" alt="">'
+                str +='</div>'
+                str +='<div class="user-txt fl">'
+                str +='<p class="info">'
+                str +='<i>'+ Comm.Tool.getString(this,'Name')+'</i>'
+                if(this.IsRegInvi){
+                    str+='<img src="../asset/images/new/star-on.png" alt="">'
+                }
+                str +='</br><span>'+ Comm.Tool.getString(this,'BabyAge')+'</span></p>'
+               
+                str += '</div>'
+                str +='</div>'
+            })
+        }else{
+            str+='<div class="no-data"><p>( > __ <。)</p><p>暂无用户信息！</p></div>';
+        }
+
+        $('.userlist').append(str);
+   }
 
     
 

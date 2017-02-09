@@ -33,7 +33,7 @@ define(function (require, exports, module) {
         initData: {
             isLoading: false,	//数据是否请求完成
             pageindex: 0,
-            uid: Tool.SessionAttr.getSwssionAttr('uid'),
+            sid: Tool.SessionAttr.getSwssionAttr('sid'),
             sourceData: Tool.locationObject()
         },
         //判断并赋值url传的值
@@ -42,7 +42,7 @@ define(function (require, exports, module) {
                 for (var i in this.initData.sourceData) {
                     if (this.initData.sourceData[i]) {
                         this.initData[i] = this.initData.sourceData[i];
-                        if (i == 'uid') {
+                        if (i == 'sid') {
                             Tool.SessionAttr.setSwssionAttr(i, this.initData.sourceData[i])
                         }
                     }
