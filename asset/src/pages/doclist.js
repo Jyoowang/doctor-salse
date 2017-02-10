@@ -121,7 +121,9 @@ define(function(require, exports, module) {
                 str +='</div>'
             })
         }else{
-            str+='<div class="no-data"><p>( > __ <。)</p><p>暂无医生信息！</p></div>';
+            if (Comm.initData.pageindex==0) {
+                str+='<div class="no-data"><p>( > __ <。)</p><p>暂无医生信息！</p></div>';
+            }
         }
 
         $(".doclist").append(str);

@@ -28,11 +28,11 @@ define(function(require, exports, module) {
         // })
 
         $('.prolist').on('click',function(){
-            Comm.goToUrl({h5Url:'prolist.html'});
+            Comm.goToUrl({h5Url:'prolist.html?docid=' + Comm.initData.docid});
         })
 
         $('.program').on('click',function(){
-            Comm.goToUrl({h5Url:'program.html'});
+            Comm.goToUrl({h5Url:'program.html?docid=' + Comm.initData.docid});
         })
 
         $('.toggle').on('click',fansPrice);

@@ -44,7 +44,7 @@ define(function(require, exports, module) {
    
     function getData(isload){
        
-       var data = {
+        var data = {
             DID:Comm.initData.docid,
             PageIndex:Comm.initData.pageindex,
             PageSize:15
@@ -107,7 +107,10 @@ define(function(require, exports, module) {
                 str +='</div>'
             })
         }else{
-            str+='<div class="no-data"><p>( > __ <。)</p><p>暂无用户信息！</p></div>';
+            if (Comm.initData.pageindex==0) {
+               str+='<div class="no-data"><p>( > __ <。)</p><p>暂无用户信息！</p></div>'; 
+            }
+            
         }
 
         $('.userlist').append(str);
