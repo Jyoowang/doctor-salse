@@ -115,6 +115,7 @@ define(function(require, exports, module) {
                 str +='</div>'
             })
         }else{
+            
             if (Comm.initData.pageindex==0) {
                 str+='<div class="no-data"><p>( > __ <。)</p><p>没有相关产品！</p></div>';
             }

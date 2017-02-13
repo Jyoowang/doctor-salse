@@ -191,7 +191,7 @@ define(function(require, exports, module) {
                 
             })
         }else{
-            if (Comm.initData.pageindex==0) {
+            if (Comm.initData.pageindex==1) {
                 str+='<div class="no-data"><p>( > __ <。)</p><p>没有相关产品！</p></div>';
             }
         }

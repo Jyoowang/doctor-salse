@@ -19,13 +19,12 @@ define(function(require, exports, module) {
     initEvent();
 
     //获取页面数据
-    getData(true);
+    getData();
 
     console.log(Comm.initData);
 
     function initEvent(){
         Comm.init.back();
-
         
         Comm.initData.ListScroll = ScrollUtil.init({
             obj:'wrapper',
@@ -41,84 +40,85 @@ define(function(require, exports, module) {
         })
     }
 
-    //----------------------------------------------------------------------
-   
-    function getData(isload){
-       
-        var data = {
-            DID:Comm.initData.docid,
-            PageIndex:Comm.initData.pageindex,
-            PageSize:15
+    //-------------------------------------------------------
+
+
+   function getData(isload){
+
+        var data={
+            method:'QuickSoft.AppService.DoctorService.GetDoctorUserOrderList',
+            data:{
+                userid:Comm.initData.sid,
+                doctorid:Comm.initData.docid,
+                pageindex:Comm.initData.pageindex,
+                pagesize:20
+            }
         }
 
         var isloadObj = {
             loadVal:isload,
             loadView:{
-                loadText:false, // false   字符串
-                isTransparent:false  //布尔值
+                loadText:false,
+                isTransparent:false
             }
-        } 
+        }
 
         Comm.initData.isLoading = true;
 
-        Comm.firstAjax({
+        Comm.Ajax({
             isload:isloadObj, //页面load
-
-            url:'http://api.yuer24h.com/SaleApi/GetMySaleDoctorUserList', //接口地址
             value:data,     //接口参数 对象
 
             success:function(value){
                 Comm.initData.isLoading = false;
                 console.log(value);
-                var SaleDoctorUserList =  Comm.Tool.getArray(value,'SaleDoctorUserList')
-                if(!SaleDoctorUserList.length){
+                var result =  Comm.Tool.getArray(value,'result')
+                if(!result.length){
                     Comm.initData.isLoading = true;
                 }
-                pushUserList(value);
+                pushUserdetail(value);
                 if(Comm.initData.isLoading){
                     Comm.initData.ListScroll.ArraynNullHideLoding()
                 }else{
                     Comm.initData.ListScroll.hideLoding();
                 }
-               
+                   
             }
         })
-   }
+    }
 
-   function pushUserList(value){
+    function pushUserdetail(value){
 
-        var str = ''
-        if (Comm.Tool.getArray(value,'SaleDoctorUserList').length) {
+        str = "";
+       
+        if (Comm.Tool.getArray(value,'result').length) {
 
-            $.each(Comm.Tool.getArray(value,'SaleDoctorUserList'),function(){
+            $.each(Comm.Tool.getArray(value,'result'),function(){
 
-                str +='<div class="user-item line-bot" data-doc-id="'+ Comm.Tool.getInt(this,'DoctorID')+'" data-exam-id="'+ Comm.Tool.getInt(this,'Examine')+'">'
-                str +=' <div class="user-pic fl">'
-                str +='<img src="'+ value.PicDomain + this.HeadPic +'" alt="">'
+                str +='<div class="public-list line-bot">'
+                str +='<div class="detail_left">'
+                str +='<dl>'
+                str +='<dt>'+Comm.Tool.getString(this,'prodname')+'</dt>'
+                str +='<dd>'+ this.created.replace('T',' ') +'</dd>'
+                str +='</dl>'
                 str +='</div>'
-                str +='<div class="user-txt fl">'
-                str +='<p class="info">'
-                str +='<i>'+ Comm.Tool.getString(this,'Name')+'</i>'
-                if(this.IsRegInvi){
-                    str+='<img src="../asset/images/new/star-on.png" alt="">'
-                }
-                str +='</br><span>'+ Comm.Tool.getString(this,'BabyAge')+'</span></p>'
-               
-                str += '</div>'
-                str +='</div>'
+                str +='<div class="detail_right">'
+                str +='<p class="color_red">'+ Comm.Tool.getPrice(this,'totalprice')+'元</p>'
+                str +='</div></div>'
             })
         }else{
-            if (Comm.initData.pageindex==0) {
-               str+='<div class="no-data"><p>( > __ <。)</p><p>暂无用户信息！</p></div>'; 
-            }
             
+            if (Comm.initData.pageindex==0) {
+                str+='<div class="no-data"><p>( > __ <。)</p><p>暂无消费信息！</p></div>';
+            }
         }
 
-        $('.userlist').append(str);
-        $('.user-item').on('click',function(){
-             Comm.goToUrl({h5Url:'userdetail.html?docid=' + Comm.initData.docid});
-        })
-   }
+        $('.wallts').append(str);
+
+    }
+
+
+   
 
     
 

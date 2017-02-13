@@ -10,12 +10,27 @@ define(function(require, exports, module) {
     var Hospital = require('../components/selectHospital')
     //--------------------------------------------------------
     
+    //初始化界面
+    initUi()
+
     //初始化页面数据
     initData()
 
     //初始化页面控件事件
     initEvent()
 
+    getDocinfo()
+
+    function initUi(){
+        if (Comm.initData.isView) {//审核中只能看信息
+            $('.item-code').hide();
+            $('.item-setpassword').hide();
+            $('.firstregedittit').hide();
+            $('.reg-button').hide();
+            $('.title-address').html('医生信息');
+            $('input[name=mobile]').attr('disabled','disabled')
+        }
+    }
 
     function initData(){
         Comm.initData.thisUpload = '';
@@ -31,6 +46,19 @@ define(function(require, exports, module) {
     }
 
     function initEvent(){
+
+        Comm.initData.ListScroll = ScrollUtil.init({
+            obj:'wrapper',
+            scoll:'scroller',
+            isLoading:true,
+            pullUp:function(){    //下拉
+                if (!Comm.initData.isLoading) {
+                    Comm.initData.pageindex++;
+                    getData(false);
+                    console.log(1)
+                }
+            }
+        })
 
         // 获取焦点or失去焦点
         $(".inpTxt").focus(function(){
@@ -101,7 +129,34 @@ define(function(require, exports, module) {
         });
     }
     
+    //获取注册信息
+    function getDocinfo(){
+        var data = {
+            DoctorID:Comm.initData.docid
+            
+        }
 
+        Comm.initData.isLoading = true;
+
+        Comm.firstAjax({
+            isload:true, //页面load
+
+            url:'http://api.yuer24h.com/SaleApi/GetDoctorRegMsg', //接口地址
+            value:data,     //接口参数 对象
+
+            success:function(value){
+                Comm.initData.isLoading = false;
+                console.log(value);
+            
+                if(Comm.initData.isLoading){
+                    Comm.initData.ListScroll.ArraynNullHideLoding()
+                }else{
+                    Comm.initData.ListScroll.hideLoding();
+                }
+               
+            }
+        })
+    }
 
     //保存信息验证
     function getSave(){

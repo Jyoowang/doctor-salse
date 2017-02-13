@@ -26,6 +26,10 @@ define(function(require, exports, module) {
     function initEvent(){
         Comm.init.back();
 
+        $('#add-btn').on('click',function(){
+            Comm.goToUrl({h5Url:'regedit.html?docid=' + Comm.initData.docid});
+        })
+
         Comm.initData.ListScroll = ScrollUtil.init({
             obj:'wrapper',
             scoll:'scroller',
@@ -139,13 +143,13 @@ define(function(require, exports, module) {
                     Comm.goToUrl({h5Url:'personal.html?docid='+ docid})
                     break;
                 case 2:  //未通过 信息认证页
-                    Comm.goToUrl({h5Url:'identification.html'})
+                    Comm.goToUrl({h5Url:'identification.html?check=1?docid=' +docid})
                     break;
                 case 3: //未审核 信息认证页
-                    Comm.goToUrl({h5Url:'identification.html?carddetailid='+id })
+                    Comm.goToUrl({h5Url:'identification.html?docid='+docid })
                     break;
                 case 4: //信息不完整
-                    Comm.goToUrl({h5Url:'regedit.html?carddetailid='+id })
+                    Comm.goToUrl({h5Url:'regedit.html?docid='+docid })
                     break;
             }
         
