@@ -13,6 +13,7 @@
 </head>
 <body>
 	<div class="bar bar-header">
+		<i class="icon ion-ios-arrow-left icon-return goback" style="display:none"></i>
 		<span class="title title-address">医生注册</span>
 	</div>
 	<div id="wrapper" class="scroll-content single doc-reg-top">
@@ -36,16 +37,31 @@
 				</div>
 			</div>
 			<div class="firstregedittit line-bot">完善个人资料</div>
+
 			<div class="list doc-reg-list">
+
+				<div class="radio platform line-bot">
+	                <div class="radioTit"><span>注册平台：</span></div>
+	                <div class="radio_list">
+	                    <div class="radio-btn checkedRadio"><i><input type="radio" name="channel-name" value="2"></i></div>
+	                    <label for="">育儿24小时</label>
+	                </div>
+	                <div class="radio_list">
+	                    <div class="radio-btn"><i><input type="radio" name="channel-name" value="4"></i></div>
+	                    <label for="">安健宝</label>
+	                </div>
+				</div>
+
+
 				<div class="item line-bot list-avatar">
-					<span class="list-cert-img haedimg"><img src="../asset/images/doctors/default_head.png"></span>
+					<span class="list-cert-img headimg"><img src="../asset/images/doctors/default_head.png"></span>
 					<img src="../asset/images/black-white/touxiang_icon.png">
 					<div class="list-cert-text">
 						<span class="list-text">个人头像</span>
 						<small>请上传您本人图像清晰的彩色免冠正面像照片。</small>
 					</div>
 				</div>
-				<div class="item line-bot">
+				<div class="item line-bot u-name">
 					<i class="ion-close-circled"></i>
 					<img src="../asset/images/black-white/ico_name.png">
 					<input class="inpTxt" type="text" name="username" placeholder="姓名">
@@ -79,6 +95,21 @@
 						<small>请上传您本人的医师执业资格证内页(带本人头像)清晰照片。</small>
 					</div>
 				</div>
+
+				<div class="radio isShow span_bot">
+	                <div class="radioTit">
+	                    <span>是否用户端显示：</span>
+	                </div>
+	                <div class="radio_list radio-is-show">
+	                    <div class="radio-btn checkedRadio"><i><input type="radio" name="radio-btn" value="1" checked="checked"></i></div>
+	                    <label for="">显示</label>
+	                </div>
+	                <div class="radio_list radio-is-show">
+	                    <div class="radio-btn"><i><input type="radio" name="radio-btn" value="2"></i></div>
+	                    <label for="">不显示</label>
+	                </div>
+				</div>
+				
 			</div>
 
 			<div class="reg-button">确定</div> 

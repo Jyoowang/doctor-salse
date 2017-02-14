@@ -7,7 +7,7 @@ define(function(require, exports, module) {
     var $ = require('jquery');
 
     var Comm = require('../common/common');
-    var ScrollUtil = require('../util/scrollUtil');
+
 
     //--------------------------------------------------------
     
@@ -24,32 +24,19 @@ define(function(require, exports, module) {
 
     function initEvent(){
         Comm.init.back();
-
-        Comm.initData.ListScroll = ScrollUtil.init({
-            obj:'wrapper',
-            scoll:'scroller',
-            isLoading:true,
-            pullUp:function(){    //下拉
-                if (!Comm.initData.isLoading) {
-                    Comm.initData.pageindex++;
-                    getData(false);
-                    console.log(1)
-                }
-            }
-        })
-
+        
         if (Comm.initData.check) {//未通过
             $('.review span').addClass('fail').html('抱歉，认证未通过');
-            $('.review-txt .fai').show();
+            $('.review-txt .aud').hide();
             getData();
             $('.review-txt >span').html('重新提交').on('click',function(){
                  Comm.goToUrl({h5Url:'regedit.html'});
             })
         }else{//审核中
             $('.review span').addClass('auditing');   
-            $('.review-txt .aud').show();
+            $('.review-txt .fai').hide();
             $('.review-txt >span').on('click',function(){
-                 Comm.goToUrl({h5Url:'regedit.html?isView=1?docid='+Comm.initData.docid});
+                 Comm.goToUrl({h5Url:'regedit.html?isView=1&docid='+Comm.initData.docid});
             })
         }
 
@@ -60,8 +47,7 @@ define(function(require, exports, module) {
     function getData(){
        
        var data = {
-            DoctorID:Comm.initData.docid
-            
+            DoctorID:Comm.initData.docid            
         }
 
         Comm.initData.isLoading = true;

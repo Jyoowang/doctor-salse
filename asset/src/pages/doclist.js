@@ -27,7 +27,7 @@ define(function(require, exports, module) {
         Comm.init.back();
 
         $('#add-btn').on('click',function(){
-            Comm.goToUrl({h5Url:'regedit.html?docid=' + Comm.initData.docid});
+            Comm.goToUrl({h5Url:'regedit.html?addDoc=1&sid=' + Comm.initData.sid});
         })
 
         Comm.initData.ListScroll = ScrollUtil.init({
@@ -101,7 +101,7 @@ define(function(require, exports, module) {
                 str +='<img src="'+ value.PicDomain + this.HeadPic +'" alt="">'
                 str +='</div>'
                 str +='<div class="doc-txt">'
-                str +='<p class="info line-bot">'+ this.Name+' <small>'+ this.Title+' </small></br><span>'+this.Hospital+'</span></p>'
+                str +='<p class="info line-bot">'+ Comm.Tool.getString(this,'Name')+' <small>'+ this.Title+' </small></br><span>'+ Comm.Tool.getString(this,'Hospital')+'</span></p>'
                 str +='<div class="state">'
                 
                 switch(this.Examine){
@@ -145,7 +145,7 @@ define(function(require, exports, module) {
                 case 2:  //未通过 信息认证页
                     Comm.goToUrl({h5Url:'identification.html?check=1?docid=' +docid})
                     break;
-                case 3: //未审核 信息认证页
+                case 3: //审核中 信息认证页
                     Comm.goToUrl({h5Url:'identification.html?docid='+docid })
                     break;
                 case 4: //信息不完整

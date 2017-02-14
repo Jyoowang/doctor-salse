@@ -10,10 +10,10 @@ input::-webkit-input-placeholder {color: #aaa;}
 .doc-reg-top{ top:44px; }
 .doc-reg-bottom{ bottom:40px; }
 .list{padding:0; border:none;  }
-.item{ margin:0; border:none; }
+.item{ margin:0; border:none;}
 .doc-reg-list .item i{ float: right; margin-top: 8px; color: #aaa;display: none;}
 .doc-reg-list .item img{ float: left; width: 19px; margin: 8px 10px 0px 0px; }
-.doc-reg-list .item input{ color: #464646; font-size: 16px; font-family: Microsoft YaHei; }
+.doc-reg-list .item input{ color: #464646; font-size: 16px; font-family: Microsoft YaHei; margin-top:3px;}
 .doc-reg-list .item.item-code i{margin-right: 25px;}
 .doc-reg-list .item.item-code input{ width: 45%; }
 .doc-reg-list .item.item-code .code{ float: right; color: #ff5252; font-size: 12px; margin-top: 8px; }
@@ -24,7 +24,7 @@ input::-webkit-input-placeholder {color: #aaa;}
 .doc-reg-list .item .list-cert-text small{ font-size: 12px; color: #aaa }
 .doc-reg-list .item.list-avatar .list-cert-text small{ color: #ff5252; }
 .doc-reg-list .item .list-cert-img{ float: right; width: 20%;overflow: hidden; }
-.doc-reg-list .item .list-cert-img.haedimg{border-radius: 100%;}
+.doc-reg-list .item .list-cert-img.headimg{border-radius: 100%;}
 .doc-reg-list .item .list-cert-img img{ width: auto; max-width: 100%; margin:0; float: right; }
 
 .reg-button{ width: 90%; margin:20px auto; height: 40px; line-height:40px; text-align: center; color: #fff; font-size: 16px; background-color: #ff5252; border-radius: 4px; border:1px solid #e5e5e5; box-sizing: border-box;   }
@@ -45,7 +45,18 @@ input::-webkit-input-placeholder {color: #aaa;}
 
 .foot-but{ width: 100%; height: 40px; line-height: 40px; text-align: center; color: #fff; font-size: 17px; background-color: #ff5252; position: fixed; left: 0; bottom:0; display: none; }
 .firstregedittit{width: 100%;height: 60px;line-height: 60px;color: #333;position: relative;background-color: white;text-align: center;font-size: 16px;font-weight: bold;}
-
+.radio {position: relative;overflow: hidden;background-color: white}
+.radioTit {font-size:16px;color: #666;line-height: 3em;margin-left: 16px;}
+.radio_list {float: left;padding: 0 0 1em 0;margin-left: 16px;width: calc(50% - 16px);}
+.radio-btn {width: 17px; height: 17px;float: left;display: inline-block;cursor: pointer;position: relative; -webkit-border-radius: 100%;-moz-border-radius: 100%;border-radius: 100%;border: 1px solid #666666;margin-top: 2px;margin-right: 5px;}
+.radio-btn i {border: 1px solid #E1E2E4;width: 7px;height: 7px;position: absolute;left: 4px;top: 4px;-webkit-border-radius: 100%;-moz-border-radius: 100%;border-radius: 100%;}
+.checkedRadio i {
+    background-color: #666666;
+}
+.radio-btn input[type="radio"], .check-box input[type="checkbox"] {
+    visibility: hidden;
+}
+.radio_list label {font-size: 16px;color: #464646;}
 
 /*医生列表*/
 #add-btn{color: white;font-size: 16px;}
@@ -53,24 +64,25 @@ input::-webkit-input-placeholder {color: #aaa;}
 .doclist .doc-pic{width: 70px;height: 70px;position: absolute;left: 16px;border: 1px solid #e3e3e3;border-radius: 50%;overflow: hidden;}
 .doclist .doc-pic img{width: 100%}
 .doclist .doc-txt{margin-left: 98px;}
-.doclist .doc-txt .performance{position:absolute;right: 16px;top: 8px;background: url('../images/new/date_inc.png')no-repeat 6px 4px;background-size: 26%;padding-left: 27px;color: #3dc3ba;border: 1px solid #3dc3ba;width: 60px;
-    height: 26px;line-height: 22px;border-radius: 1px;font-size: 12px;}
-.doclist .doc-txt .info {font-size: 16px;margin-bottom:4px;position: relative;padding-bottom: 5px}
-.doclist .doc-txt .info small{color: #666;font-size: 12px;}
-.doclist .doc-txt .info span{font-size: 0.6em;color: #666}
+.doclist .doc-txt .performance{position:absolute;right: 14px;top: 8px;background: url('../images/new/date_inc.png')no-repeat 6px 4px;background-size: 26%;padding-left: 27px;color: #3dc3ba;border: 1px solid #3dc3ba;width: 60px;
+    height: 26px;line-height: 26px;border-radius: 1px;font-size: 12px;}
+.doclist .doc-txt .info {font-size: 16px;margin-bottom:4px;position: relative;padding-bottom: 3px}
+.doclist .doc-txt .info small{color: #666;font-size: 13px;}
+.doclist .doc-txt .info span{font-size: 12px;color: #aaa}
 .doclist .doc-txt .state{padding-top: 8px;font-size: 12px;padding: 3px 16px 0 8px;}
 .doclist .doc-txt .state .green{background-color: #3dc3ba;}
 .doclist .doc-txt .state .yellow{background-color: #f9c700;}
 .doclist .doc-txt .state .red{background-color: #ff0600;}
 .doclist .doc-txt .state .gray{background-color: #b0b0b0;}
-.doclist .doc-txt .state span{color: white;font-size: 0.7em;padding: 1px;border-radius: 3px;}
-.doclist .doc-txt .state em{float: right;color: #999;font-size: 0.7em;}
+.doclist .doc-txt .state span{color: white;/*font-size: 0.7em;*/padding: 2px;border-radius: 3px;}
+.doclist .doc-txt .state em{float: right;color: #999;/*font-size: 0.7em;*/}
+.per-it .item{padding: 18px}
 
 /*医生绩效明细*/
 .docinfo{width: 100%;height: 170px;background-color: #ff5252;text-align: center;color: white;display:flex;align-items: center;}
 .docinfo .doc-pic{width: 90px;height: 90px;overflow: hidden;border-radius: 50%;display: inline-block;}
 .docinfo .col p{margin: 0;font-size: 16px}
-.docinfo .col p span{font-size: 0.6em}
+.docinfo .col p span{font-size: 0.8em}
 .docinfo .doc-pic img{width: 100%}
 .data{display: flex;width: 100%;height: 85px;background-color: white;align-items: center;text-align: center;}
 .data .col{position: relative;}
@@ -100,7 +112,7 @@ input::-webkit-input-placeholder {color: #aaa;}
 .toggle{margin-top: 0}
 .toggle input:checked+ .track {background-color: #ff5252;border-color: #ff5252;}
 .toggle .track { width: 46px;height: 26px;border: 1px solid #e6e6e6;}
-.toggle .handle {width: 22px;height: 22px;top: 16px}
+.toggle .handle {width: 22px;height: 22px;top: 18px}
 
 .icon-return {width: 40px;height: 44px;position: absolute;left: 0px;top: -2px;font-size: 30px;padding-top: 10px;text-align: center;color: #fff; z-index: 99999;}
 
@@ -113,8 +125,8 @@ input::-webkit-input-placeholder {color: #aaa;}
 
 .review-txt{padding: 0 16px}
 .review-txt .cha1{color: #666;font-size: 12px;margin-top: 15px;margin-bottom: 20px;}
-.review-txt .aud{display: none;}
-.review-txt .fai{display: none;}
+/*.review-txt .aud{display: none;}
+.review-txt .fai{display: none;}*/
 .review-txt span{color: white;display: inline-block;width:100%;height: 40px;background-color: #ff5252;border-radius: 3px;line-height: 40px;font-size: 16px;text-align: center}
 .re-contact{position: relative;}
 .re-contact p{padding: 0 16px;margin-top: 15px;font-size: 12px;color: #bababa;padding-top: 10px}

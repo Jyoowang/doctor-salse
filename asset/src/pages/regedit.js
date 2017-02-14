@@ -19,20 +19,28 @@ define(function(require, exports, module) {
     //初始化页面控件事件
     initEvent()
 
-    getDocinfo()
 
     function initUi(){
         if (Comm.initData.isView) {//审核中只能看信息
-            $('.item-code').hide();
-            $('.item-setpassword').hide();
-            $('.firstregedittit').hide();
-            $('.reg-button').hide();
+            $('.goback').show();
+            $('.item-code,.item-setpassword,.firstregedittit,.reg-button').hide();
             $('.title-address').html('医生信息');
-            $('input[name=mobile]').attr('disabled','disabled')
+            $('input[name=mobile]').attr('readonly','readonly');
+            $('input[name=username]').attr('readonly','readonly');
+            $('.u-name i').remove();
+            getDocinfo()
+        }
+
+        if (Comm.initData.addDoc) {
+            $('.goback').show();
+            $('.item-code').hide();
+            // $(".radio-btn").eq(0).addClass('checkedRadio')
+            // $('input[name="radio-btn"]').eq(0).attr('checked', true);
         }
     }
 
     function initData(){
+
         Comm.initData.thisUpload = '';
     	Comm.initData.HeadImg = ''; //医生头像
     	Comm.initData.CertificateImg = ''; //执业或资格证书
@@ -43,22 +51,13 @@ define(function(require, exports, module) {
         Comm.initData.RegMess = null; //全部科室
         Comm.initData.Dep = [];  //当前科室
     	Comm.initData.Txt = null; //职称
+
+        Comm.initData.Scan = false
     }
 
     function initEvent(){
 
-        Comm.initData.ListScroll = ScrollUtil.init({
-            obj:'wrapper',
-            scoll:'scroller',
-            isLoading:true,
-            pullUp:function(){    //下拉
-                if (!Comm.initData.isLoading) {
-                    Comm.initData.pageindex++;
-                    getData(false);
-                    console.log(1)
-                }
-            }
-        })
+         Comm.init.back();
 
         // 获取焦点or失去焦点
         $(".inpTxt").focus(function(){
@@ -117,8 +116,8 @@ define(function(require, exports, module) {
     	$(".reg-button").on('click',getSave);
 
         //选择头像
-        $('.haedimg').on('click', function () {
-            Comm.initData.thisUpload='haedimg';
+        $('.headimg').on('click', function () {
+            Comm.initData.thisUpload='headimg';
             $("#inputfile").click()
         });
 
@@ -127,13 +126,15 @@ define(function(require, exports, module) {
             Comm.initData.thisUpload='certificate';
             $("#inputfileDoc").click()
         });
+
+        //选择平台、是否用户端
+        $(".radio-btn").on('click',radioSelect);
     }
     
     //获取注册信息
     function getDocinfo(){
         var data = {
             DoctorID:Comm.initData.docid
-            
         }
 
         Comm.initData.isLoading = true;
@@ -147,19 +148,69 @@ define(function(require, exports, module) {
             success:function(value){
                 Comm.initData.isLoading = false;
                 console.log(value);
-            
-                if(Comm.initData.isLoading){
-                    Comm.initData.ListScroll.ArraynNullHideLoding()
-                }else{
-                    Comm.initData.ListScroll.hideLoding();
-                }
                
+                $(".reg-hospital,.reg-Departments,.reg-jobTitle,.headimg,.certificate,.radio-btn").off("click");
+
+                $('input[name=mobile]').val(Comm.Tool.getInt(value,'Phone'))
+                $('input[name=username]').val(Comm.Tool.getString(value,'Name'))
+                Comm.Tool.ImgOnload(".headimg", "", value.PicDomain + value.HeadPic);
+                //医院
+                $('.reg-hospital span').html(value.Hospital.HospitalName);
+
+                //科室
+                var depart=''
+                $.each(Comm.Tool.getArray(value,'Department'),function(index){
+                    depart += this.Department;
+                    if(value.Department.length-1!=index){
+                        depart += ','  
+                    }
+                })
+                $('.reg-Departments span').html(depart);
+
+                //职称
+                $('.reg-jobTitle span').html(Comm.Tool.getString(value.TitleR,'Title'))
+
+                //职业证书
+                Comm.Tool.ImgOnload(".certificate", "", value.PicDomain + value.CertificatePic);
+                $('.reg-Departments span,.reg-jobTitle span,.reg-hospital span').css('color','#464646')
+
+                //注册平台
+                if (Comm.Tool.getInt(value,'RegDoctorChannel')==2) {//育儿
+                    // $('.platform .radio-btn').eq(0).addClass('checkedRadio');
+                    
+                    $('.platform input[name="radio-btn"]').eq(0).attr('checked', true);
+                }else if (value.RegDoctorChannel==4) {//安建宝
+                    $(".platform .radio-btn").eq(1).addClass('checkedRadio')
+                    $('.platform .radio-btn').eq(0).removeClass('checkedRadio');
+                    $('.platform input[name="radio-btn"]').eq(1).attr('checked', true);
+                }
+
+                //是否用户端
+                if(value.IsEnable==1){
+                    // $(".isShow .radio-btn").eq(0).addClass('checkedRadio')
+                    $('.isShow input[name="radio-btn"]').eq(0).attr('checked', true);
+                }else{
+                    $(".isShow .radio-btn").eq(0).removeClass('checkedRadio')
+                    $(".isShow .radio-btn").eq(1).addClass('checkedRadio')
+                    $('.isShow input[name="radio-btn"]').eq(1).attr('checked', true);
+                }
             }
+            
+            
         })
     }
 
     //保存信息验证
     function getSave(){
+
+        //手机
+        var reg = /^0?1[3|4|5|7|8][0-9]\d{8}$/;
+        if (!reg.test($("input[name='mobile']").val())) {
+            Comm.popupsUtil.init('输入正确的手机号码！', '提示', 1, function() {
+                $("input[name='mobile']").focus()
+            });
+            return;
+        }
 
     	//密码验证
     	if ($('input[name=password]').val() == '') { 
@@ -202,13 +253,13 @@ define(function(require, exports, module) {
         }
 
     	
-        addDocInfo()
+        addDocInfo();
 
     }
 
     //保存信息提交
     function addDocInfo(){
-        $(".reg-button").off('click');
+         $(".reg-button").off('click');
 
         var DepStr=[];
 
@@ -217,13 +268,13 @@ define(function(require, exports, module) {
         }
 
         var data = {
-            SID:0, //销售编号
-            DoctorID:Comm.initData.docid?Comm.initData.docid:0,
-            OpenID:Comm.initData.openid,
-            // Phone: $('input[name=mobile]').val(), //手机号
-            // Password: hex_md5($('input[name=password]').val()),  //密码
+            SID:Comm.initData.sid, //销售编号
+            // DoctorID:Comm.initData.docid?Comm.initData.docid:0,
+            // OpenID:Comm.initData.openid,
+            Phone: $('input[name=mobile]').val(), //手机号
+            //Password: hex_md5($('input[name=password]').val()),  //密码
             Password: $('input[name=password]').val(),  //密码
-            // VCode: $('input[name=yzm]').val(), //验证码
+            VCode: $('input[name=yzm]').val(), //验证码
             HeadPic:Comm.initData.HeadImg, //头像
             Name:$('input[name=username]').val(),  //医生姓名
             // PID:AddreEvent.Province,  //省份编号
@@ -232,7 +283,8 @@ define(function(require, exports, module) {
             Title: Comm.initData.Txt.TitleID,  //职称
             CertificatePic:Comm.initData.CertificateImg,  //执业或资格证书
             HospitalID:Comm.initData.SelectHospita.HospitalID, //医院编号
-            IsEnable:2 //是否显示在医生列表
+            IsEnable:$("input:radio[name='radio-btn']:checked").val(),//是否显示在医生列表
+            RegDoctorChannel:$("input:radio[name='channel-name']:checked").val()
         }
 
         var isloadObj = {
@@ -241,22 +293,26 @@ define(function(require, exports, module) {
                 loadText:false, // false   字符串
                 isTransparent:false  //布尔值
             }
-        } 
-
+        }
+        console.log(data); 
+        debugger;
         Comm.initData.isLoading = true;
-
+       
         Comm.firstAjax({
             isload:isloadObj, //页面load
 
-            url:'http://api.yuer24h.com/app/ZHT/GetZHTDoctorReg', //接口地址
+            url:'http://api.yuer24h.com/SaleApi/GetSaleDoctorReg', //接口地址
             value:data,     //接口参数 对象
 
             success:function(value){
                 Comm.initData.isLoading = false;
-                
-                Comm.goToUrl({
-                    h5Url:'download.html?uid=' + Comm.initData.uid
-                });
+                console.log(value);
+
+                if (Comm.initData.Scan) {
+                    WeixinJSBridge.call('closeWindow');
+                }else{
+                     Comm.goToUrl({h5Url:'doclist.html'});
+                }
 
             },
             error: function (value) {
@@ -265,8 +321,15 @@ define(function(require, exports, module) {
         })
     }
 
-
-    
+    function radioSelect(){
+        var _this = $(this),
+        block = _this.parent().parent();
+        block.find('input[type="radio"]').attr('checked', false);
+        block.find(".radio-btn").removeClass('checkedRadio');
+        _this.addClass('checkedRadio');
+        _this.find('input[type="radio"]').attr('checked', true);
+    }
+  
 
     $('#inputfile').change(function(){
         Comm.UploadImg("https://www.yuer24h.com/webapi/API/upload_json.ashx", "inputfile", 2, function(value) {
@@ -280,22 +343,21 @@ define(function(require, exports, module) {
     })
     function postIMGCallback(value) {       
         console.log(value.qiniufilePath);
-        if(Comm.initData.thisUpload == 'haedimg'){
+        if(Comm.initData.thisUpload == 'headimg'){
             var w = ($(window).width()-32)*0.2;
-            Comm.initData.HeadImg = value.qiniudomain + value.qiniufilePath
-            $(".haedimg img").attr("src", Comm.initData.HeadImg);
-            $(".haedimg").height(w)
-            Comm.Tool.ImgOnload(".haedimg", "",  Comm.initData.HeadImg);
+            Comm.initData.HeadImg = value.qiniufilePath
+            $(".headimg img").attr("src", Comm.initData.HeadImg);
+            $(".headimg").height(w)
+            Comm.Tool.ImgOnload(".headimg", "",  Comm.initData.HeadImg);
         }else{
             var w = ($(window).width()-32)*0.2*0.75;
-            Comm.initData.CertificateImg = value.qiniudomain + value.qiniufilePath
+            Comm.initData.CertificateImg = value.qiniufilePath
             $(".certificate img").attr("src", Comm.initData.CertificateImg);
             $(".certificate").height(w)
             Comm.Tool.ImgOnload(".certificate", "",  Comm.initData.CertificateImg);
         } 
     }
 
-   
 
 
     
