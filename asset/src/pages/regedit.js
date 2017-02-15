@@ -31,7 +31,7 @@ define(function(require, exports, module) {
             getDocinfo()
         }
 
-        if (Comm.initData.addDoc) {
+        if (Comm.initData.addDoc) {//邀请医生
             $('.goback').show();
             $('.item-code').hide();
             // $(".radio-btn").eq(0).addClass('checkedRadio')
@@ -148,11 +148,15 @@ define(function(require, exports, module) {
             success:function(value){
                 Comm.initData.isLoading = false;
                 console.log(value);
-               
+                var w = ($(window).width()-32)*0.2;
+                $(".headimg,.certificate").height(w);
+
                 $(".reg-hospital,.reg-Departments,.reg-jobTitle,.headimg,.certificate,.radio-btn").off("click");
 
                 $('input[name=mobile]').val(Comm.Tool.getInt(value,'Phone'))
                 $('input[name=username]').val(Comm.Tool.getString(value,'Name'))
+
+                //头像
                 Comm.Tool.ImgOnload(".headimg", "", value.PicDomain + value.HeadPic);
                 //医院
                 $('.reg-hospital span').html(value.Hospital.HospitalName);
@@ -341,6 +345,7 @@ define(function(require, exports, module) {
             postIMGCallback(value);
         });
     })
+
     function postIMGCallback(value) {       
         console.log(value.qiniufilePath);
         if(Comm.initData.thisUpload == 'headimg'){
@@ -348,11 +353,11 @@ define(function(require, exports, module) {
             Comm.initData.HeadImg = value.qiniufilePath
             $(".headimg img").attr("src", Comm.initData.HeadImg);
             $(".headimg").height(w)
-            Comm.Tool.ImgOnload(".headimg", "",  Comm.initData.HeadImg);
+            Comm.Tool.ImgOnload(".headimg", "",  value.qiniudomain + value.qiniufilePath);
         }else{
             var w = ($(window).width()-32)*0.2*0.75;
             Comm.initData.CertificateImg = value.qiniufilePath
-            $(".certificate img").attr("src", Comm.initData.CertificateImg);
+            $(".certificate img").attr("src", value.qiniudomain + value.qiniufilePath);
             $(".certificate").height(w)
             Comm.Tool.ImgOnload(".certificate", "",  Comm.initData.CertificateImg);
         } 

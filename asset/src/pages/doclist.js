@@ -136,6 +136,7 @@ define(function(require, exports, module) {
 
 
     function gotopage(){
+        
         var docid = $(this).attr('data-doc-id');
         var state = $(this).attr('data-exam-id');
             switch(parseInt(state)){
@@ -143,13 +144,13 @@ define(function(require, exports, module) {
                     Comm.goToUrl({h5Url:'personal.html?docid='+ docid})
                     break;
                 case 2:  //未通过 信息认证页
-                    Comm.goToUrl({h5Url:'identification.html?check=1?docid=' +docid})
+                    Comm.goToUrl({h5Url:'identification.html?check=1&docid=' + docid})
                     break;
                 case 3: //审核中 信息认证页
-                    Comm.goToUrl({h5Url:'identification.html?docid='+docid })
+                    Comm.goToUrl({h5Url:'identification.html?docid='+ docid })
                     break;
                 case 4: //信息不完整
-                    Comm.goToUrl({h5Url:'regedit.html?docid='+docid })
+                    Comm.goToUrl({h5Url:'regedit.html?docid='+ docid })
                     break;
             }
         

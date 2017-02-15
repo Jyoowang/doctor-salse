@@ -16,15 +16,13 @@ define(function(require, exports, module) {
     // initData();
 
     //初始化页面控件事件
-    initEvent();
-
-   
+    initEvent();   
 
     console.log(Comm.initData);
 
     function initEvent(){
+
         Comm.init.back();
-        
         if (Comm.initData.check) {//未通过
             $('.review span').addClass('fail').html('抱歉，认证未通过');
             $('.review-txt .aud').hide();
@@ -70,12 +68,6 @@ define(function(require, exports, module) {
         })
    }
 
-
-
-
-   
-
-    
 
 
 
