@@ -298,8 +298,7 @@ define(function(require, exports, module) {
                 isTransparent:false  //布尔值
             }
         }
-        console.log(data); 
-        debugger;
+
         Comm.initData.isLoading = true;
        
         Comm.firstAjax({

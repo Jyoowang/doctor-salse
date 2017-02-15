@@ -69,7 +69,7 @@ define(function(require, exports, module) {
     function personalinfo(value){
         
         Comm.Tool.ImgOnload(".doc-pic", "", value.PicDomain + value.HeadPic);
-        $(".docinfo .col p").html('<p>'+ Comm.Tool.getString(value,'Name')+'<br><span>'+ Comm.Tool.getString(value.Hospital,'HospitalName') +'</span></p>');
+        $(".docinfo .col p").html( Comm.Tool.getString(value,'Name')+'<br><span>'+ Comm.Tool.getString(value.Hospital,'HospitalName') +'</span>');
 
         $('.user-num').html(Comm.Tool.getInt(value,'UserCount'));//用户数
         $('.ask-num').html(Comm.Tool.getInt(value,'PictextCount'));//咨询量
