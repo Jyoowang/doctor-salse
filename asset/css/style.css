@@ -1,7 +1,5 @@
 @charset "utf-8";
 
-
-
 input::-webkit-input-placeholder {color: #aaa;}
 /*i.ion-close-circled{ display: none }*/
 /*注册*/
@@ -41,7 +39,7 @@ input::-webkit-input-placeholder {color: #aaa;}
 
 .reg-list-con .item i{ float: right; color: #d32f2f; font-size: 18px; display: none }
 .reg-list-con .item p{ color: #666; font-size: 16px; }
-.reg-list-con .reg-list-terms{ margin:16px; color:#666; font-size: 16px; }
+.reg-list-con .reg-list-terms{ margin:16px; color:#666; font-size: 16px;}
 
 .foot-but{ width: 100%; height: 40px; line-height: 40px; text-align: center; color: #fff; font-size: 17px; background-color: #d32f2f; position: fixed; left: 0; bottom:0; display: none; }
 .firstregedittit{width: 100%;height: 60px;line-height: 60px;color: #333;position: relative;background-color: white;text-align: center;font-size: 16px;font-weight: bold;}
@@ -50,12 +48,8 @@ input::-webkit-input-placeholder {color: #aaa;}
 .radio_list {float: left;padding: 0 0 1em 0;margin-left: 16px;width: calc(50% - 16px);}
 .radio-btn {width: 17px; height: 17px;float: left;display: inline-block;cursor: pointer;position: relative; -webkit-border-radius: 100%;-moz-border-radius: 100%;border-radius: 100%;border: 1px solid #666666;margin-top: 2px;margin-right: 5px;}
 .radio-btn i {border: 1px solid #E1E2E4;width: 7px;height: 7px;position: absolute;left: 4px;top: 4px;-webkit-border-radius: 100%;-moz-border-radius: 100%;border-radius: 100%;}
-.checkedRadio i {
-    background-color: #666666;
-}
-.radio-btn input[type="radio"], .check-box input[type="checkbox"] {
-    visibility: hidden;
-}
+.checkedRadio i {background-color: #666666;}
+.radio-btn input[type="radio"], .check-box input[type="checkbox"] {visibility: hidden;}
 .radio_list label {font-size: 16px;color: #464646;}
 
 /*医生列表*/
@@ -74,8 +68,8 @@ input::-webkit-input-placeholder {color: #aaa;}
 .doclist .doc-txt .state .yellow{background-color: #f9c700;}
 .doclist .doc-txt .state .red{background-color: #ff0600;}
 .doclist .doc-txt .state .gray{background-color: #b0b0b0;}
-.doclist .doc-txt .state span{color: white;/*font-size: 0.7em;*/padding: 2px;border-radius: 3px;}
-.doclist .doc-txt .state em{float: right;color: #999;/*font-size: 0.7em;*/}
+.doclist .doc-txt .state span{color: white;padding: 2px;border-radius: 3px;}
+.doclist .doc-txt .state em{float: right;color: #999;}
 .per-it .item{padding: 18px}
 
 /*医生绩效明细*/
@@ -97,7 +91,7 @@ input::-webkit-input-placeholder {color: #aaa;}
 .public-list .ion-close-circled{ font-size: 20px; color: #ccc; right: 5px;}
 /*.public-list .item.item-icon-right{padding: 10px 26px 10px 16px; line-height: 30px; margin:0; }*/
 .public-list .item:last-child{margin-bottom: -1px;}
-.public-list .fl-img{ width: 18px; float: left; margin-right: 10px;margin-top: 2px;}
+.public-list .fl-img{ width: 18px; float: left; margin-right: 10px;margin-top: 1px;}
 .public-list .fl-img img{width: 100%}
 .public-list .fr-text{ color: #aaa;font-size: 15px;text-align: right;float: right;}
 .public-list .fl-text{float: left; color: #666; font-size: 15px;}
@@ -125,11 +119,11 @@ input::-webkit-input-placeholder {color: #aaa;}
 
 .review-txt{padding: 0 16px}
 .review-txt .cha1{color: #666;font-size: 12px;margin-top: 15px;margin-bottom: 20px;}
-/*.review-txt .aud{display: none;}
-.review-txt .fai{display: none;}*/
+
 .review-txt span{color: white;display: inline-block;width:100%;height: 40px;background-color: #d32f2f;border-radius: 3px;line-height: 40px;font-size: 16px;text-align: center}
 .re-contact{position: relative;}
 .re-contact p{padding: 0 16px;margin-top: 15px;font-size: 12px;color: #bababa;padding-top: 10px}
+.re-contact p span{display: block}
 .re-contact p strong{color: #929292;text-decoration: underline;}
 
 
@@ -141,7 +135,7 @@ input::-webkit-input-placeholder {color: #aaa;}
 .userlist .user-txt{margin-left: 100px;margin-top: 10px;min-height: 62px;}
 .userlist .user-txt .info{font-size: 17px;color: #333;line-height: 24px}
 .userlist .user-txt .info span{font-size: 13px;color: #aaa}
-.userlist .user-txt .info img{width: 15px}
+.userlist .user-txt .info img{width: 15px;margin-left: 5px;}
 
 /*个人收益*/
 .price-box{width: 100%;height: 168px;background-color: #d32f2f;color: white;padding: 0 16px}
@@ -173,7 +167,7 @@ input::-webkit-input-placeholder {color: #aaa;}
 .pro-box .turntop p{text-align: right;font-size: 0.9em;padding-right: 4%;}
 .pro-box .turntop p em {float: left;border: 1px solid #d32f2f;display: inline-block;line-height: 19px;padding: 0 7px;margin: 4px 0 0 16px;border-radius: 3px;color: #d32f2f;}
 .pro-box .turntop p span {color: #d32f2f;}
-.pro-footer {padding: 0;color: #fff; font-size: 15px;line-height: 34px;z-index: 3;}
+.pro-footer {padding: 0;color: #fff; font-size: 15px;line-height: 34px;z-index: 1;}
 .determine{ position: relative;background-color: #d32f2f;text-align: center;font-size: 16px;text-align: center;color: #fff;border: none;padding: 5px;}
 .doc-reg-bottom{bottom: 46px}
 

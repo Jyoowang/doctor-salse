@@ -13,7 +13,7 @@ define(function(require, exports, module) {
     
 
     //初始化页面数据
-    // initData();
+    //initData();
 
     //初始化页面控件事件
     initEvent();   
@@ -23,18 +23,21 @@ define(function(require, exports, module) {
     function initEvent(){
 
         Comm.init.back();
-        if (Comm.initData.check) {//未通过
+        if (Comm.initData.check) {//未通过 2
+           
             $('.review span').addClass('fail').html('抱歉，认证未通过');
+            $('.re-contact p').append('<span>客服邮箱：fuwu@yuer24h.com</span><span>微信客服：请添加微信号 yuer24h</span>'); 
             $('.review-txt .aud').hide();
             getData();
             $('.review-txt >span').html('重新提交').on('click',function(){
-                 Comm.goToUrl({h5Url:'regedit.html'});
+                 Comm.goToUrl({h5Url:'regedit.html?isView=2&docid='+Comm.initData.docid});
+            
             })
-        }else{//审核中
+        }else{//审核中 1
             $('.review span').addClass('auditing');   
             $('.review-txt .fai').hide();
             $('.review-txt >span').on('click',function(){
-                 Comm.goToUrl({h5Url:'regedit.html?isView=1&docid='+Comm.initData.docid});
+                Comm.goToUrl({h5Url:'regedit.html?isView=1&docid='+Comm.initData.docid});
             })
         }
 
@@ -44,7 +47,7 @@ define(function(require, exports, module) {
 
     function getData(){
        
-       var data = {
+        var data = {
             DoctorID:Comm.initData.docid            
         }
 
@@ -60,14 +63,13 @@ define(function(require, exports, module) {
                 Comm.initData.isLoading = false;
                 console.log(value);
                  if(value.ExamineFailReason){
-                    $('.remark').html('备注：' + value.ExamineFailReason );
+                    $('.retroaction').html('备注：' + value.ExamineFailReason );
                 }else{
-                    $('.remark').hide();
+                    $('.retroaction').hide();
                 }
             }
         })
    }
-
 
 
 

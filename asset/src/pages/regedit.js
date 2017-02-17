@@ -10,34 +10,42 @@ define(function(require, exports, module) {
     var Hospital = require('../components/selectHospital')
     //--------------------------------------------------------
     
-    //初始化界面
-    initUi()
+    
 
     //初始化页面数据
     initData()
+
+    //初始化界面
+    //initUi()
 
     //初始化页面控件事件
     initEvent()
 
 
-    function initUi(){
-        if (Comm.initData.isView) {//审核中只能看信息
-            $('.goback').show();
-            $('.item-code,.item-setpassword,.firstregedittit,.reg-button').hide();
-            $('.title-address').html('医生信息');
-            $('input[name=mobile]').attr('readonly','readonly');
-            $('input[name=username]').attr('readonly','readonly');
-            $('.u-name i').remove();
-            getDocinfo()
-        }
 
-        if (Comm.initData.addDoc) {//邀请医生
-            $('.goback').show();
-            $('.item-code').hide();
-            // $(".radio-btn").eq(0).addClass('checkedRadio')
-            // $('input[name="radio-btn"]').eq(0).attr('checked', true);
-        }
-    }
+    // function initUi(){
+
+    //     if (Comm.initData.isView) {//审核中只能看信息
+    //         $('.goback').show();
+    //         $('.item-code,.item-setpassword,.firstregedittit,.reg-button').hide();
+    //         $('.title-address').html('医生信息');
+    //         $('input[name=mobile]').attr('readonly','readonly');
+    //         $('input[name=username]').attr('readonly','readonly');
+    //         $('.u-name i').remove();
+    //         getDocinfo()
+    //     }
+
+    //     if (Comm.initData.addDoc) {//邀请医生不要验证码
+    //         $('.goback').show();
+    //         $('.item-code').hide();
+    //         // $(".radio-btn").eq(0).addClass('checkedRadio')
+    //         // $('input[name="radio-btn"]').eq(0).attr('checked', true);
+    //     }else{
+    //         if (Comm.initData.Scan) { //自己注册
+    //             getDocinfo();
+    //         }
+    //     }
+    // }
 
     function initData(){
 
@@ -54,6 +62,7 @@ define(function(require, exports, module) {
 
         Comm.initData.Scan = false
     }
+
 
     function initEvent(){
 
@@ -129,7 +138,31 @@ define(function(require, exports, module) {
 
         //选择平台、是否用户端
         $(".radio-btn").on('click',radioSelect);
+
+
+        if (Comm.initData.isView == 1) {//审核中只能看信息            
+            $('.item-code,.item-setpassword,.firstregedittit,.reg-button').hide();
+            $('.title-address').html('医生信息');
+            $('input[name=mobile]').attr('readonly','readonly');
+            $('input[name=username]').attr('readonly','readonly');
+            $(".reg-hospital,.reg-Departments,.reg-jobTitle,.headimg,.certificate,.radio-btn").off("click");
+            $('.u-name i').remove();
+        }
+
+        if (Comm.initData.addDoc) {//邀请医生不要验证码
+            $('.goback').show();
+            $('.item-code').hide();
+        }else{
+            if (Comm.initData.isView) { //审核中或审核失败
+                $('.goback').show();
+                $('.item-code').hide();
+                getDocinfo();
+            }
+        }
+
     }
+
+//==============================================================
     
     //获取注册信息
     function getDocinfo(){
@@ -150,8 +183,6 @@ define(function(require, exports, module) {
                 console.log(value);
                 var w = ($(window).width()-32)*0.2;
                 $(".headimg,.certificate").height(w);
-
-                $(".reg-hospital,.reg-Departments,.reg-jobTitle,.headimg,.certificate,.radio-btn").off("click");
 
                 $('input[name=mobile]').val(Comm.Tool.getInt(value,'Phone'))
                 $('input[name=username]').val(Comm.Tool.getString(value,'Name'))
@@ -217,12 +248,13 @@ define(function(require, exports, module) {
         }
 
     	//密码验证
-    	if ($('input[name=password]').val() == '') { 
+        if ($('input[name=password]').val() == '') { 
             Comm.popupsUtil.init('请输入密码！', '提示', 1, function() {
-	            $("input[name='password']").focus()
-	        });
+                $("input[name='password']").focus()
+            });
             return;
         }
+     
 
         //姓名验证
     	if ($('input[name=username]').val() == '') { 

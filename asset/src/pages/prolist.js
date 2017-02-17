@@ -130,43 +130,8 @@ define(function(require, exports, module) {
             }
         })
     }
+
     
-    //删除
-    function delPro(){
-        var _this=$(this)
-        var linkid = _this.parent().siblings('.turntop').attr('data-linked');  
-        console.log(linkid);
-        var data={
-            method:'QuickSoft.AppService.DoctorService.DoctorDeleteProduct',
-            data:{
-                linkid:linkid
-            }
-        }
-
-        Comm.initData.isLoading = true;
-
-        Comm.Ajax({
-            isload:true, //页面load
-            value:data,     //接口参数 对象
-
-            success:function(value){
-                Comm.initData.isLoading = false;
-                console.log(value);
-                _this.parent().parent('.pro-box').remove();
-                if (!$('.product .pro-box').length) {
-                    var str = '<div class="no-data"><p>( > __ <。)</p><p>没有相关产品！</p></div>';
-                    $(".product").append(str);
-                }
-                $('.pro-box').each(function(index){
-                    $(this).find('>span').html(index+1);
-                })
-
-                Comm.popupsUtil.init(value.message,'系统提示',1)
-                 
-            }
-        })
-    }
-
     function pushProList(value){
 
         var str = "";
@@ -200,6 +165,44 @@ define(function(require, exports, module) {
         $(".turntop").on('click',sequence);
         $(".del").on('click',delPro);
     }
+    
+    //删除
+    function delPro(){
+        var _this=$(this)
+        var linkid = _this.parent().siblings('.turntop').attr('data-linked');  
+        console.log(linkid);
+        var data={
+            method:'QuickSoft.AppService.DoctorService.DoctorDeleteProduct',
+            data:{
+                linkid:linkid
+            }
+        }
+
+        Comm.initData.isLoading = true;
+
+        Comm.Ajax({
+            isload:true, //页面load
+            value:data,     //接口参数 对象
+
+            success:function(value){
+                Comm.initData.isLoading = false;
+                console.log(value);
+                _this.parent().parent('.pro-box').remove();
+                console.log($('.product .pro-box').length);
+                if (!$('.product .pro-box').length) {
+                    var str = '<div class="no-data"><p>( > __ <。)</p><p>没有相关产品！</p></div>';
+                    $(".product").append(str);
+                }
+                $('.pro-box').each(function(index){
+                    $(this).find('>span').html(index+1);
+                })
+
+                Comm.popupsUtil.init(value.message,'系统提示',1)
+                 
+            }
+        })
+    }
+
 
     function editPro(e){
         if ($(e.currentTarget).html()=='管理') {
