@@ -199,7 +199,7 @@ define(function(require, exports, module) {
                 depIdArray.push(this.DepartmentID);
             })
         }
-
+        console.log(Comm.initData.Dep);
         if(DepR.length){
             $.each(DepR,function(){
                 str += '<div class="item line-bot ';

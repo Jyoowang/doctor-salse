@@ -24,8 +24,9 @@ define(function(require, exports, module) {
 
         Comm.init.back();
         if (Comm.initData.check) {//未通过 2
-           
-            $('.review span').addClass('fail').html('抱歉，认证未通过');
+            $('.fai').show();
+            $('.review p img').attr('src','../asset/images/black-white/authenticate_inc02.png');
+            $('.review p span').html('抱歉，认证未通过');
             $('.re-contact p').append('<span>客服邮箱：fuwu@yuer24h.com</span><span>微信客服：请添加微信号 yuer24h</span>'); 
             $('.review-txt .aud').hide();
             getData();
@@ -34,6 +35,7 @@ define(function(require, exports, module) {
             
             })
         }else{//审核中 1
+            $('.aud').show();
             $('.review span').addClass('auditing');   
             $('.review-txt .fai').hide();
             $('.review-txt >span').on('click',function(){

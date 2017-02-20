@@ -200,9 +200,11 @@ define(function(require, exports, module) {
                         depart += ','  
                     }
                 })
+                Comm.initData.Dep  = value.Department;
                 $('.reg-Departments span').html(depart);
 
                 //职称
+                Comm.initData.Txt = value.TitleR;
                 $('.reg-jobTitle span').html(Comm.Tool.getString(value.TitleR,'Title'))
 
                 //职业证书

@@ -141,7 +141,7 @@ define(function(require, exports, module) {
         var state = $(this).attr('data-exam-id');
             switch(parseInt(state)){
                 case 1: //审核通过
-                    Comm.goToUrl({h5Url:'personal.html?docid='+ docid})
+                    Comm.goToUrl({h5Url:'docdetail.html?docid='+ docid})
                     break;
                 case 2:  //未通过 信息认证页
                     Comm.goToUrl({h5Url:'identification.html?check=1&docid=' + docid})

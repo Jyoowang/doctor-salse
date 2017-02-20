@@ -82,8 +82,8 @@ body h1{font-family:Microsoft YaHei,Arial,SimSun; }
 
 
 /*取色*/
-.gray{-webkit-filter: grayscale(50%);  -moz-filter: grayscale(50%); -ms-filter: grayscale(50%);  -o-filter: grayscale(50%); filter: grayscale(50%); filter: #999;}
-
+/*.gray{-webkit-filter: grayscale(50%);  -moz-filter: grayscale(50%); -ms-filter: grayscale(50%);  -o-filter: grayscale(50%); filter: grayscale(50%); filter: #999;}*/
+.gray{background-color: #999!important;}
 
 /*接口数组返回为空时*/
 .scroll-content .no-data{ color: #999!important;text-align: center; padding: 20px;}
