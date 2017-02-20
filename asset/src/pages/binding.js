@@ -99,7 +99,7 @@ define(function(require, exports, module) {
             	Comm.initData.isLoading = false;
                 //跳转医生列表页
             	Comm.goToUrl({
-                    h5Url:'doclist.html?sid=' + Comm.initData.sid
+                    h5Url:'mydoctor.html?sid=' + Comm.initData.sid
                 });
                
             },

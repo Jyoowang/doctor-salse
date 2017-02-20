@@ -156,7 +156,9 @@ define(function(require, exports, module) {
                 
             })
         }else{
+           
             if (Comm.initData.pageindex==1) {
+                $('#add-btn').hide();
                 str+='<div class="no-data"><p>( > __ <。)</p><p>没有相关产品！</p></div>';
             }
         }
@@ -190,6 +192,7 @@ define(function(require, exports, module) {
                 _this.parent().parent('.pro-box').remove();
                 console.log($('.product .pro-box').length);
                 if (!$('.product .pro-box').length) {
+                    $('#add-btn').hide();
                     var str = '<div class="no-data"><p>( > __ <。)</p><p>没有相关产品！</p></div>';
                     $(".product").append(str);
                 }
@@ -210,7 +213,7 @@ define(function(require, exports, module) {
             $('.pro .del').animate({'right':0},170);
         }else{
             $(e.currentTarget).html('管理');
-            $('.pro .del').animate({'right':'-18%'},170);
+            $('.pro .del').animate({'right':'-17%'},170);
         }
 
     }

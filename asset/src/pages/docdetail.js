@@ -51,7 +51,7 @@ define(function(require, exports, module) {
         Comm.firstAjax({
             isload:{loadVal:true}, //页面load
 
-            url:'http://api.yuer24h.com/SaleApi/GetDoctorRegMsg',     //接口地址
+            url:'http://api.yuer24h.com/SaleApi/GetDoctorRegMsg',  //接口地址
 
             value:data,     //接口参数 对象
 
@@ -70,10 +70,14 @@ define(function(require, exports, module) {
         
         Comm.Tool.ImgOnload(".doc-pic", "", value.PicDomain + value.HeadPic);
         $(".docinfo .col p").html( Comm.Tool.getString(value,'Name')+'<br><span>'+ Comm.Tool.getString(value.Hospital,'HospitalName') +'</span>');
+        //用户数
+        $('.user-num').html(Comm.Tool.getInt(value,'UserCount'));
 
-        $('.user-num').html(Comm.Tool.getInt(value,'UserCount'));//用户数
-        $('.ask-num').html(Comm.Tool.getInt(value,'PictextCount'));//咨询量
-        $('.account span').html(Comm.Tool.getInt(value,'WalletMoney'));//账户额
+        //咨询量
+        $('.ask-num').html(Comm.Tool.getInt(value,'PictextCount'));
+
+        //账户额
+        $('.account span').html(Comm.Tool.getInt(value,'WalletMoney'));
 
         if (value.IsEnjoyFans) {
             $("input[name='isdefault']").prop('checked', true)
@@ -92,7 +96,7 @@ define(function(require, exports, module) {
         Comm.firstAjax({
             isload:{loadVal:false}, //页面load
 
-            url:'http://api.yuer24h.com/SaleApi/GetChangeEnjoyFans',     //接口地址
+            url:'http://api.yuer24h.com/SaleApi/GetChangeEnjoyFans',  //接口地址
 
             value:data,     //接口参数 对象
 
@@ -109,7 +113,7 @@ define(function(require, exports, module) {
 
 
    
-    //------------------------------------------------------------------------
+   //-----------------------------------------------------------------
 
 
     // 或者通过 module.exports 提供整个接口
