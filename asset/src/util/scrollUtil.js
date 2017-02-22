@@ -21,7 +21,7 @@ define(function(require, exports, module) {
 		if(this.options.isLoading){
 			var oDiv=document.createElement("div");
 	        oDiv.className='scroller-loding';
-	        oDiv.innerHTML='<img src="../asset/images/public/loading.gif" /><span>加载更多...</span>';
+	        oDiv.innerHTML='<img src="../asset/images/public/loading1.gif" /><span>加载更多...</span>';
 	        this.scrollBox.appendChild(oDiv);
 		}
 	 

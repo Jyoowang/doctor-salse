@@ -134,7 +134,7 @@ define(function(require, exports, module) {
         Comm.initData.isLoading = true;
 
         Comm.Ajax({
-            isload:true, //页面load
+            isload:{loadVal:true}, //页面load
             value:data,     //接口参数 对象
 
             success:function(value){

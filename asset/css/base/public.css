@@ -140,7 +140,7 @@ body h1{font-family:Microsoft YaHei,Arial,SimSun; }
 .load-main{ width: 100px; height: 100px; position: absolute; left: 50%; margin-left: -50px; top:50%; margin-top: -50px; background-color: #fff; border-radius: 5px; }
 
 
-.load-main> i{ display: block; width: 80px; height: 55px; margin: 0 auto; margin-top: 10px; background: url('../../../asset/images/doctors/loading2.gif') no-repeat center center; background-size: 45px 45px;}
+.load-main> i{ display: block; width: 80px; height: 55px; margin: 0 auto; margin-top: 10px; background: url('../../../asset/images/public/loading2.gif') no-repeat center center; background-size: 45px 45px;}
 .load-main> p{text-align: center; font-size: 14px; color: #666;}
 
 

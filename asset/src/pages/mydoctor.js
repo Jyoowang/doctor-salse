@@ -78,7 +78,7 @@ define(function(require, exports, module) {
                 if(!SaleDoctorList.length){
                     Comm.initData.isLoading = true;
                 }
-                 pushDocList(value);
+                  pushDocList(value);
                 if(Comm.initData.isLoading){
                     Comm.initData.ListScroll.ArraynNullHideLoding()
                 }else{
@@ -97,8 +97,8 @@ define(function(require, exports, module) {
             $.each(Comm.Tool.getArray(value,'SaleDoctorList'),function(){
 
                 str +='<div class="doc-item line-bot" data-doc-id="'+ Comm.Tool.getInt(this,'DoctorID')+'" data-exam-id="'+ Comm.Tool.getInt(this,'Examine')+'">'
-                str +=' <div class="doc-pic">'
-                str +='<img src="'+ value.PicDomain + this.HeadPic +'" alt="">'
+                str +='<div class="doc-pic">'
+                str +='<img src="'+ value.PicDomain + this.HeadPic +'" alt="" height="100%">'
                 str +='</div>'
                 str +='<div class="doc-txt">'
                 str +='<p class="info line-bot">'+ Comm.Tool.getString(this,'Name')+' <small>'+ this.Title+' </small></br><span>'+ Comm.Tool.getString(this,'Hospital')+'</span></p>'

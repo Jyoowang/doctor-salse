@@ -31,16 +31,17 @@ define(function(require, exports, module) {
             $('.review-txt .aud').hide();
             getData();
             $('.review-txt >span').html('重新提交').on('click',function(){
-                 Comm.goToUrl({h5Url:'regedit.html?isView=2&docid='+Comm.initData.docid});
-            
+                 Comm.goToUrl({h5Url:'regedit.html?isView=2&docid='+Comm.initData.docid});            
             })
         }else{//审核中 1
+            $('.loadbox').hide();
             $('.aud').show();
             $('.review span').addClass('auditing');   
             $('.review-txt .fai').hide();
             $('.review-txt >span').on('click',function(){
                 Comm.goToUrl({h5Url:'regedit.html?isView=1&docid='+Comm.initData.docid});
-            })
+            });
+            
         }
 
     }
@@ -56,7 +57,7 @@ define(function(require, exports, module) {
         Comm.initData.isLoading = true;
 
         Comm.firstAjax({
-            isload:true, //页面load
+            isload:{loadVal:true}, //页面load
 
             url:'http://api.yuer24h.com/SaleApi/GetExamineFail', //接口地址
             value:data,     //接口参数 对象

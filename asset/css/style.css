@@ -106,8 +106,10 @@ input::-webkit-input-placeholder {color: #aaa;}
 
 .toggle{margin-top: 0}
 .toggle input:checked+ .track {background-color: #d32f2f;border-color: #d32f2f;}
-.toggle .track { width: 46px;height: 26px;border: 1px solid #e6e6e6;}
-.toggle .handle {width: 22px;height: 22px;top: 18px}
+.toggle .track { width: 50px;height: 30px;border: 1px solid #e6e6e6;}
+.toggle .handle {    width: 26px;
+    height: 26px;
+    top: 16px;}
 
 .icon-return {width: 40px;height: 44px;position: absolute;left: 0px;top: -2px;font-size: 30px;padding-top: 10px;text-align: center;color: #fff; z-index: 99999;}
 
@@ -153,7 +155,7 @@ input::-webkit-input-placeholder {color: #aaa;}
 /*关联产品*/
 .product .pro-box{width: 100%;background-color: #fff;position: relative;}
 .product .pro-box .pro{position: relative;padding: 14px 0}
-.pro-box >span{width: 20px;height: 20px;display: inline-block;background-color: #f53333;position: absolute;top: 2px;left: 3px;color: white;line-height: 20px;text-align: center;z-index: 3}
+.pro-box >span{width: 21px;height: 21px;display: inline-block;background-color: #f53333;position: absolute;top: 2px;left: 3px;color: white;line-height: 21px;text-align: center;z-index: 3}
 .pro .pro-pic{ width: 68px;height: 68px;position: absolute;left: 13px;border: 1px solid #e3e3e3;overflow: hidden;top: 12px}
 .pro .pro-txt{padding-left: 90px;font-size: 16px;color: #333;width: 86%}
 .pro .pro-txt p{margin-bottom: 5px}
@@ -161,9 +163,9 @@ input::-webkit-input-placeholder {color: #aaa;}
 .pro .del {width: 17%;height: 100%;display: inline-block;vertical-align: middle;color: #fff;text-align: center;background-color: #f53333;position: absolute;top: 0;right: -17%;z-index: 2;}
 .pro .del span {vertical-align: middle;font-size: 16px;}
 .pro .del i{vertical-align: middle;display: inline-block;height: 100%;}
-.pro-box .turntop{background-color: #f9f1f1;width: 100%;height: 30px;line-height: 30px;}
+.pro-box .turntop{background-color: #f9f1f1;width: 100%;height: 34px;line-height: 34px;}
 .pro-box .turntop p{text-align: right;font-size: 0.9em;padding-right: 4%;}
-.pro-box .turntop p em {float: left;border: 1px solid #d32f2f;display: inline-block;line-height: 19px;padding: 0 7px;margin: 4px 0 0 16px;border-radius: 3px;color: #d32f2f;}
+.pro-box .turntop p em {float: left;border: 1px solid #d32f2f;display: inline-block;line-height: 19px;padding: 2px 8px;margin: 4px 0 0 16px;border-radius: 3px;color: #d32f2f;}
 .pro-box .turntop p span {color: #d32f2f;}
 .pro-footer {padding: 0;color: #fff; font-size: 15px;line-height: 34px;z-index: 1;}
 .determine{ position: relative;background-color: #d32f2f;text-align: center;font-size: 16px;text-align: center;color: #fff;border: none;padding: 5px;}

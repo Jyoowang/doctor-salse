@@ -126,8 +126,8 @@ define(function(require, exports, module) {
     }
 
     function addPro(){
-        var _this = $(this)
-        var proid = _this.attr('data-proid')
+        var _this = $(this);
+        var proid = _this.attr('data-proid');
 
          var data={
             method:'QuickSoft.AppService.DoctorService.DoctorAddProduct',
@@ -140,7 +140,7 @@ define(function(require, exports, module) {
         Comm.initData.isLoading = true;
 
         Comm.Ajax({
-            isload:true, //页面load
+            isload:{loadVal:true}, //页面load
             value:data,     //接口参数 对象
 
             success:function(value){

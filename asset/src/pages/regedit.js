@@ -141,7 +141,7 @@ define(function(require, exports, module) {
 
 
         if (Comm.initData.isView == 1) {//审核中只能看信息            
-            $('.item-code,.item-setpassword,.firstregedittit,.reg-button').hide();
+            $('.item-setpassword,.firstregedittit,.reg-button').hide();
             $('.title-address').html('医生信息');
             $('input[name=mobile]').attr('readonly','readonly');
             $('input[name=username]').attr('readonly','readonly');
@@ -151,15 +151,17 @@ define(function(require, exports, module) {
 
         if (Comm.initData.addDoc) {//邀请医生不要验证码
             $('.goback').show();
-            $('.item-code').hide();
+           
         }else{
             if (Comm.initData.isView) { //审核中或审核失败
                 $('.goback').show();
-                $('.item-code').hide();
                 getDocinfo();
-            }
+            } 
         }
 
+        if (Comm.initData.Scan) {
+            $('.item-code').show();
+        }
     }
 
 //==============================================================
@@ -223,10 +225,10 @@ define(function(require, exports, module) {
                 }
 
                 //是否用户端
-                if(value.IsEnable==1){
+                if(value.IsEnable==1){  //1显示
                     // $(".isShow .radio-btn").eq(0).addClass('checkedRadio')
                     $('.isShow input[name="radio-btn"]').eq(0).attr('checked', true);
-                }else{
+                }else{  //2不显示
                     $(".isShow .radio-btn").eq(0).removeClass('checkedRadio')
                     $(".isShow .radio-btn").eq(1).addClass('checkedRadio')
                     $('.isShow input[name="radio-btn"]').eq(1).attr('checked', true);
@@ -249,10 +251,38 @@ define(function(require, exports, module) {
             return;
         }
 
-    	//密码验证
+    	//验证码验证
+        if (Comm.initData.Scan) {
+            if ($('input[name=code]').val() == '') { 
+                Comm.popupsUtil.init('请输入验证码！', '提示', 1, function() {
+                    $("input[name='code']").focus()
+                });
+                return;
+            }
+        }
+
+        //密码验证
         if ($('input[name=password]').val() == '') { 
             Comm.popupsUtil.init('请输入密码！', '提示', 1, function() {
                 $("input[name='password']").focus()
+            });
+            return;
+        }
+
+        //注册平台
+        Comm.initData.channel = $("input:radio[name='channelName'][checked='checked']").val();
+        if(!Comm.initData.channel){
+            Comm.popupsUtil.init('请选择注册平台！','提示', 1, function() {
+                $('input[name="channelName"]').focus();
+            });
+            return;
+        }
+
+        //用户端显示
+        Comm.initData.IsEnable = $("input:radio[name='radio-btn'][checked='checked']").val();
+        if(!Comm.initData.IsEnable){
+            Comm.popupsUtil.init('请选择用户端','提示', 1, function() {
+                $('input[name="radio-btn"]').focus();
             });
             return;
         }
@@ -300,17 +330,16 @@ define(function(require, exports, module) {
          $(".reg-button").off('click');
 
         var DepStr=[];
+        // var IsEnable = $("input:radio[name='radio-btn'][checked='checked']").val();
+        // var channel = $("input:radio[name='channelName'][checked='checked']").val();
 
         for(var i=0; i<Comm.initData.Dep.length;i++){
             DepStr.push(Comm.initData.Dep[i].DepartmentID)
         }
 
         var data = {
-            SID:Comm.initData.sid, //销售编号
-            // DoctorID:Comm.initData.docid?Comm.initData.docid:0,
-            // OpenID:Comm.initData.openid,
+            SID:Comm.initData.sid, //销售编号         
             Phone: $('input[name=mobile]').val(), //手机号
-            //Password: hex_md5($('input[name=password]').val()),  //密码
             Password: $('input[name=password]').val(),  //密码
             VCode: $('input[name=yzm]').val(), //验证码
             HeadPic:Comm.initData.HeadImg, //头像
@@ -321,8 +350,8 @@ define(function(require, exports, module) {
             Title: Comm.initData.Txt.TitleID,  //职称
             CertificatePic:Comm.initData.CertificateImg,  //执业或资格证书
             HospitalID:Comm.initData.SelectHospita.HospitalID, //医院编号
-            IsEnable:$("input:radio[name='radio-btn']:checked").val(),//是否显示在医生列表
-            RegDoctorChannel:$("input:radio[name='channel-name']:checked").val()
+            IsEnable:Comm.initData.IsEnable,//是否用户端显示
+            RegDoctorChannel:Comm.initData.channel//选择注册平台
         }
 
         var isloadObj = {
@@ -332,26 +361,26 @@ define(function(require, exports, module) {
                 isTransparent:false  //布尔值
             }
         }
-
+        debugger;
         Comm.initData.isLoading = true;
        
         Comm.firstAjax({
             isload:isloadObj, //页面load
 
-            url:'http://api.yuer24h.com/SaleApi/GetSaleDoctorReg', //接口地址
+            // url:'http://api.yuer24h.com/SaleApi/GetSaleDoctorReg', //接口地址
             value:data,     //接口参数 对象
 
-            success:function(value){
-                Comm.initData.isLoading = false;
-                console.log(value);
+            // success:function(value){
+            //     Comm.initData.isLoading = false;
+            //     console.log(value);
 
-                if (Comm.initData.Scan) {
-                    WeixinJSBridge.call('closeWindow');
-                }else{
-                     Comm.goToUrl({h5Url:'doclist.html'});
-                }
+            //     if (Comm.initData.Scan) {
+            //         WeixinJSBridge.call('closeWindow');
+            //     }else{
+            //          Comm.goToUrl({h5Url:'doclist.html'});
+            //     }
 
-            },
+            // },
             error: function (value) {
                 console.log(value)
             }
