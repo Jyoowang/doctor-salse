@@ -125,10 +125,12 @@ define(function(require, exports, module) {
             $('input[name=username]').attr('readonly','readonly');
             $(".reg-hospital,.reg-Departments,.reg-jobTitle,.headimg,.certificate,.radio-btn").off("click");
             $('.u-name i').remove();
+        }else if (Comm.initData.isView == 2){
+            $('.item-setpassword').show();
         }
 
         if (Comm.initData.addDoc) {//邀请医生不要验证码
-            $('.goback,.item-setpassword').show();
+            $('.goback,.item-setpassword,.firstregedittit').show();
            
         }else{
             if (Comm.initData.isView) { //审核中或审核失败
@@ -370,27 +372,26 @@ define(function(require, exports, module) {
                 isTransparent:false  //布尔值
             }
         }
-        console.log(data);
     
         Comm.initData.isLoading = true;
        
         Comm.firstAjax({
             isload:isloadObj, //页面load
 
-            // url:'http://api.yuer24h.com/SaleApi/GetSaleDoctorReg', //接口地址
+            url:'http://api.yuer24h.com/SaleApi/GetSaleDoctorReg', //接口地址
             value:data,     //接口参数 对象
 
-            // success:function(value){
-            //     Comm.initData.isLoading = false;
-            //     console.log(value);
+            success:function(value){
+                Comm.initData.isLoading = false;
+                console.log(value);
 
-            //     if (Comm.initData.Scan) {
-            //         WeixinJSBridge.call('closeWindow');
-            //     }else{
-            //          Comm.goToUrl({h5Url:'doclist.html'});
-            //     }
+                if (Comm.initData.Scan) {
+                    WeixinJSBridge.call('closeWindow');
+                }else{
+                     Comm.goToUrl({h5Url:'doclist.html'});
+                }
 
-            // },
+            },
             error: function (value) {
                 console.log(value)
             }
