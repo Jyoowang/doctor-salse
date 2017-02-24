@@ -134,13 +134,10 @@ define(function(require, exports, module) {
 
     //删除
     function delPro(){
-        var _this=$(this);
-        var linkid = _this.parent().siblings('.subtotal').attr('data-linkid'); 
-        console.log(linkid);
         var data={
             method:'QuickSoft.AppService.DoctorService.DoctorDeleteScheme',
             data:{
-                linkid:linkid
+                linkid:Comm.initData.linkid
             }
         }
 
@@ -153,7 +150,7 @@ define(function(require, exports, module) {
             success:function(value){
                 Comm.initData.isLoading = false;
                 console.log(value);
-                _this.parent().parent('.pro-box').remove();
+                Comm.initData.this.parent().parent('.pro-box').remove();
                 if (!$('.product .pro-box').length) {
                     $('#add-btn').hide();
                     var str = '<div class="no-data"><p>( > __ <。)</p><p>没有相关方案！</p></div>';
@@ -161,11 +158,6 @@ define(function(require, exports, module) {
                 }
                 $('.pro-box').each(function(index){
                     $(this).find('>span').html(index+1);
-                })
-
-                Comm.popupsUtil.init({
-                    msgText:'删除成功',
-                    btnType:1 //1 2
                 })
                  
             }
@@ -201,7 +193,17 @@ define(function(require, exports, module) {
 
         $('.product').append(str);
         $('.subtotal').on('click',sequence);
-        $(".del").on('click',delPro);
+        $(".del").on('click',function(){
+            Comm.initData.this=$(this);
+            Comm.initData.linkid = $(this).parent().siblings('.subtotal').attr('data-linkid'); 
+            Comm.popupsUtil.init({
+                msgText:'是否删除',
+                btnType:2,//1 2
+                yesEvent:function(){
+                    delPro();
+                }
+            })
+        });
 
     }
 

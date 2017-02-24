@@ -106,7 +106,7 @@ define(function (require, exports, module) {
                                     defaults.error();
                                 }
                                 popups.init({
-                                    msgText:'',
+                                    msgText:data.message,
                                     topTitle:'提示',
                                     yesEvent:function(){
                                         console.log('确定');
@@ -119,7 +119,7 @@ define(function (require, exports, module) {
                             } else {
                                 // alert('系统错误！');
                                 popups.init({
-                                    msgText:'',
+                                    msgText:data.message,
                                     topTitle:'提示',
                                     yesEvent:function(){
                                         console.log('确定');
@@ -219,7 +219,7 @@ define(function (require, exports, module) {
                                     defaults.error();
                                 }
                                 popups.init({
-                                    msgText:'',
+                                    msgText:data.message,
                                     topTitle:'提示',
                                     yesEvent:function(){
                                         console.log('确定');
@@ -232,7 +232,7 @@ define(function (require, exports, module) {
                             } else {
                                 // alert('系统错误！');
                                 popups.init({
-                                    msgText:'',
+                                    msgText:data.message,
                                     topTitle:'提示',
                                     yesEvent:function(){
                                         console.log('确定');
