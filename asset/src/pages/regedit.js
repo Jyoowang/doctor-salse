@@ -33,8 +33,6 @@ define(function(require, exports, module) {
         Comm.initData.RegMess = null; //全部科室
         Comm.initData.Dep = [];  //当前科室
     	Comm.initData.Txt = null; //职称
-
-        Comm.initData.issaoma = false 
     }
 
 
@@ -114,9 +112,6 @@ define(function(require, exports, module) {
         //选择平台、是否用户端
         $(".radio-btn").on('click',radioSelect);
 
-        if (Comm.initData.issaoma) {
-            Comm.initData.issaoma = true;
-        }
 
         if (Comm.initData.isView == 1) {//审核中只能看信息            
             $('.item-setpassword,.reg-button').hide();
@@ -193,24 +188,28 @@ define(function(require, exports, module) {
                 Comm.Tool.ImgOnload(".certificate", "", value.PicDomain + value.CertificatePic);
                 $('.reg-Departments span,.reg-jobTitle span,.reg-hospital span').css('color','#464646')
 
+
                 //注册平台
                  if (value.RegDoctorChannel==2) {//育儿
-                    $('.platform input[name="radio-btn"]').eq(0).attr('checked', true);
+
+                    $('.platform input[name="channel-name"]').eq(0).attr('checked', true);
                     $(".platform .radio-btn").eq(0).addClass('checkedRadio')
                 }else if (value.RegDoctorChannel==4) {//安建宝
                     $(".platform .radio-btn").eq(1).addClass('checkedRadio')
                     $('.platform .radio-btn').eq(0).removeClass('checkedRadio');
-                    $('.platform input[name="radio-btn"]').eq(1).attr('checked', true);
+                    $('.platform input[name="channel-name"]').eq(1).attr('checked', true);
                 }
 
                 //是否用户端
                 if(value.IsEnable==1){  //1显示
                     $(".isShow .radio-btn").eq(0).addClass('checkedRadio')
                     $('.isShow input[name="radio-btn"]').eq(0).attr('checked', true);
+                    Comm.initData.IsEnable = 1
                 }else{  //2不显示
                     $(".isShow .radio-btn").eq(0).removeClass('checkedRadio')
                     $(".isShow .radio-btn").eq(1).addClass('checkedRadio')
                     $('.isShow input[name="radio-btn"]').eq(1).attr('checked', true);
+                    Comm.initData.IsEnable = 2;
                 }
             }
             
@@ -263,6 +262,7 @@ define(function(require, exports, module) {
 
         //注册平台
         Comm.initData.channel = $("input:radio[name='channel-name']:checked").val();
+        console.log(Comm.initData.channel);
         if(!Comm.initData.channel){
 
             Comm.popupsUtil.init({
@@ -374,7 +374,7 @@ define(function(require, exports, module) {
             }
         }
         
-        // console.log(data);
+        console.log(data);
         Comm.initData.isLoading = true;
        
         Comm.firstAjax({

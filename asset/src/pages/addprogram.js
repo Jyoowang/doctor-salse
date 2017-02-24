@@ -58,7 +58,7 @@ define(function(require, exports, module) {
             loadVal:isload,
             loadView:{
                 loadText:false,
-                isTransparent:false
+                isTransparent:true
             }
         }
 

@@ -18,7 +18,7 @@ input::-webkit-input-placeholder {color: #aaa;}
 .doc-reg-list .item.item-code .code{ float: right; color: #d32f2f; font-size: 12px; margin-top: 8px; }
 .doc-reg-list .item.item-code .code.cur{color: #aaa;}
 .doc-reg-list .item .list-text{ height: 34px; line-height: 34px; color: #aaa; font-size: 15px; }
-.doc-reg-list .item .list-cert-text{ float: left; width: 50%; line-height: 14px; white-space:normal; margin-top: 4px; }
+.doc-reg-list .item .list-cert-text{ float: left; width: 50%; line-height: 14px; white-space:normal; margin-top: 7px; }
 .doc-reg-list .item .list-cert-text span{display: block; height: auto; line-height:20px; color: #333}
 .doc-reg-list .item .list-cert-text small{ font-size: 12px; color: #aaa }
 .doc-reg-list .item.list-avatar .list-cert-text small{ color: #d32f2f; }
@@ -35,7 +35,7 @@ input::-webkit-input-placeholder {color: #aaa;}
 .bar-hospital .search-text{ width: 70%; height: 34px;  background-color: #fff; border-radius: 5px; display: inline-block; position: relative; margin-left: 10px; }
 .bar-hospital .search-text i{position: absolute; right: 8px; top:8px; color: #aaa; font-size: 16px;  }
 .bar-hospital .search-text img{ float: left; width: 19px; margin:8px; }
-.bar-hospital .search-text input{color: #464646; font-size: 15px; font-family: Microsoft YaHei; }
+.bar-hospital .search-text input{color: #464646; font-size: 15px; font-family: Microsoft YaHei;padding-top: 5px; }
 .bar-hospital .search-but{ position: absolute; right: 16px; top:5px; color: #fff; font-size: 16px;line-height: 34px; }
 
 .reg-list-con .item i{ float: right; color: #d32f2f; font-size: 18px; display: none }
@@ -126,7 +126,7 @@ input::-webkit-input-placeholder {color: #aaa;}
 .re-contact{position: relative;}
 .re-contact p{padding: 0 16px;margin-top: 15px;font-size: 12px;color: #bababa;padding-top: 10px}
 .re-contact p span{display: block}
-.re-contact p strong{color: #929292;text-decoration: underline;}
+.re-contact p strong a{color: #929292;}
 
 
 /*用户明细*/
