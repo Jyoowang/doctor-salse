@@ -125,12 +125,10 @@ define(function(require, exports, module) {
             $('input[name=username]').attr('readonly','readonly');
             $(".reg-hospital,.reg-Departments,.reg-jobTitle,.headimg,.certificate,.radio-btn").off("click");
             $('.u-name i').remove();
-        }else if (Comm.initData.isView == 2){
-            $('.item-setpassword').show();
         }
 
         if (Comm.initData.addDoc) {//邀请医生不要验证码
-            $('.goback,.item-setpassword,.firstregedittit').show();
+            $('.goback,.firstregedittit').show();
            
         }else{
             if (Comm.initData.isView) { //审核中或审核失败
@@ -140,7 +138,7 @@ define(function(require, exports, module) {
         }
 
         if (Comm.initData.Scan) {
-            $('.item-code,.firstregedittit,.item-setpassword').show();
+            $('.item-code,.firstregedittit,').show();
         }
     }
 
@@ -378,7 +376,7 @@ define(function(require, exports, module) {
         Comm.firstAjax({
             isload:isloadObj, //页面load
 
-            url:'http://api.yuer24h.com/SaleApi/GetSaleDoctorReg', //接口地址
+            // url:'http://api.yuer24h.com/SaleApi/GetSaleDoctorReg', //接口地址
             value:data,     //接口参数 对象
 
             success:function(value){
