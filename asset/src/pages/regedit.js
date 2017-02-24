@@ -15,10 +15,10 @@ define(function(require, exports, module) {
     //initUi()
 
     //初始化页面控件事件
-    initEvent()
+    initEvent();
 
     //初始化页面数据
-    initData()
+    initData();
     console.log(Comm.initData);
 
     function initData(){
@@ -34,7 +34,7 @@ define(function(require, exports, module) {
         Comm.initData.Dep = [];  //当前科室
     	Comm.initData.Txt = null; //职称
 
-        Comm.initData.Scan = false 
+        Comm.initData.issaoma = false 
     }
 
 
@@ -114,8 +114,8 @@ define(function(require, exports, module) {
         //选择平台、是否用户端
         $(".radio-btn").on('click',radioSelect);
 
-        if (Comm.initData.Scan) {
-            Comm.initData.Scan = true;
+        if (Comm.initData.issaoma) {
+            Comm.initData.issaoma = true;
         }
 
         if (Comm.initData.isView == 1) {//审核中只能看信息            
@@ -137,7 +137,7 @@ define(function(require, exports, module) {
             } 
         }
 
-        if (Comm.initData.Scan) {
+        if (Comm.initData.issaoma) {
             $('.item-code,.firstregedittit,').show();
         }
     }
@@ -169,7 +169,9 @@ define(function(require, exports, module) {
 
                 //头像
                 Comm.Tool.ImgOnload(".headimg", "", value.PicDomain + value.HeadPic);
+
                 //医院
+                Comm.initData.SelectHospita = value.Hospital;
                 $('.reg-hospital span').html(value.Hospital.HospitalName);
 
                 //科室
@@ -233,7 +235,7 @@ define(function(require, exports, module) {
         }
 
     	//验证码验证
-        if (Comm.initData.Scan) {
+        if (Comm.initData.issaoma) {
             if ($('input[name=code]').val() == '') { 
                 
                 Comm.popupsUtil.init({
@@ -273,19 +275,6 @@ define(function(require, exports, module) {
             return;
         }
 
-        //用户端显示
-        Comm.initData.IsEnable = $("input:radio[name='radio-btn']:checked").val();
-        if(!Comm.initData.IsEnable){
-            Comm.popupsUtil.init({
-                msgText:'请选择用户端',
-                btnType:1,
-                yesEvent:function(){
-                    $("input[name='radio-btn']").focus();
-                }
-            });
-            
-            return;
-        }
      
 
         //姓名验证
@@ -331,6 +320,20 @@ define(function(require, exports, module) {
             return;
         }
 
+        //用户端显示
+        Comm.initData.IsEnable = $("input:radio[name='radio-btn']:checked").val();
+        if(!Comm.initData.IsEnable){
+            Comm.popupsUtil.init({
+                msgText:'请选择用户端',
+                btnType:1,
+                yesEvent:function(){
+                    $("input[name='radio-btn']").focus();
+                }
+            });
+            
+            return;
+        }
+
     	
         addDocInfo();
 
@@ -370,7 +373,8 @@ define(function(require, exports, module) {
                 isTransparent:false  //布尔值
             }
         }
-    
+        
+        // console.log(data);
         Comm.initData.isLoading = true;
        
         Comm.firstAjax({
@@ -383,7 +387,7 @@ define(function(require, exports, module) {
                 Comm.initData.isLoading = false;
                 console.log(value);
 
-                if (Comm.initData.Scan) {
+                if (Comm.initData.issaoma) {
                     WeixinJSBridge.call('closeWindow');
                 }else{
                      Comm.goToUrl({h5Url:'doclist.html'});
