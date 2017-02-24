@@ -27,7 +27,7 @@ define(function(require, exports, module) {
 
 
     function initEvent(){
-        
+    
 	    // 获取焦点or失去焦点
     	$(".inpTxt").focus(function(){
 	    	$(this).siblings('i').show()
@@ -87,18 +87,11 @@ define(function(require, exports, module) {
     		VCode:inpCode,
     	}
 
-    	var isloadObj = {
-            loadVal:true,
-            loadView:{
-                loadText:false, // false   字符串
-                isTransparent:false  //布尔值
-            }
-        } 
 
         Comm.initData.isLoading = true;
 
         Comm.firstAjax({
-            isload:isloadObj, //页面load
+            isload:{loadVal:true}, //页面load
 
             url:'http://api.yuer24h.com/SaleApi/GetBindOpenID', //接口地址
             value:data,     //接口参数 对象
