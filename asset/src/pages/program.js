@@ -163,7 +163,10 @@ define(function(require, exports, module) {
                     $(this).find('>span').html(index+1);
                 })
 
-                Comm.popupsUtil.init(value.message,'系统提示',1)
+                Comm.popupsUtil.init({
+                    msgText:'删除成功',
+                    btnType:1 //1 2
+                })
                  
             }
         })

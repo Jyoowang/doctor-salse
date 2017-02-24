@@ -60,16 +60,24 @@ define(function(require, exports, module) {
 	    var reg = /^0?1[3|4|5|7|8][0-9]\d{8}$/;
 
     	if (!reg.test(inpMobile)) {  //手机号验证
-	        Comm.popupsUtil.init('请输入正确的手机号码！', '提示', 1, function() {
-	            $("input[name='mobile']").focus()
-	        });
+            Comm.popupsUtil.init({
+                msgText:'请输入正确的手机号码！',
+                btnType:1,
+                yesEvent:function(){
+                    $("input[name='mobile']").focus();
+                }
+            });
 	        return
 	    }
 	  
     	if (inpCode == '') {  //验证码
-	        Comm.popupsUtil.init('请输入验证码！', '提示', 1, function() {
-	            $("input[name='code']").focus()
-	        });
+            Comm.popupsUtil.init({
+                msgText:'请输入验证码！',
+                btnType:1,
+                yesEvent:function(){
+                    $("input[name='code']").focus();
+                }
+            });
 	        return
 	    }
 
@@ -116,9 +124,13 @@ define(function(require, exports, module) {
     	var reg = /^0?1[3|4|5|7|8][0-9]\d{8}$/;
 
     	if (!reg.test(inpMobile)) {  //手机号验证
-	        Comm.popupsUtil.init('请输入正确的手机号码！', '提示', 1, function() {
-	            $("input[name='mobile']").focus()
-	        });
+            Comm.popupsUtil.init({
+                msgText:'请输入正确的手机号码！',
+                btnType:1,
+                yesEvent:function(){
+                    $("input[name='mobile']").focus();
+                }
+            });
 	        return
 	    }
 

@@ -12,6 +12,7 @@ input::-webkit-input-placeholder {color: #aaa;}
 .doc-reg-list .item i{ float: right; margin-top: 8px; color: #aaa;display: none;}
 .doc-reg-list .item img{ float: left; width: 19px; margin: 8px 10px 0px 0px; }
 .doc-reg-list .item input{ color: #464646; font-size: 16px; font-family: Microsoft YaHei; margin-top:2px;}
+.doc-reg-list .item input[readonly]:not(cloned-text-input){background-color: white;}
 .doc-reg-list .item.item-code i{margin-right: 25px;}
 .doc-reg-list .item.item-code input{ width: 45%; }
 .doc-reg-list .item.item-code .code{ float: right; color: #d32f2f; font-size: 12px; margin-top: 8px; }
@@ -106,11 +107,12 @@ input::-webkit-input-placeholder {color: #aaa;}
 
 .toggle{margin-top: 0}
 .toggle input:checked+ .track {background-color: #d32f2f;border-color: #d32f2f;}
-.toggle .track { width: 50px;height: 30px;border: 1px solid #e6e6e6;}
-.toggle .handle {    width: 26px;
-    height: 26px;
-    top: 16px;}
-
+.toggle .track { width: 55px;height: 30px;border: 1px solid #e6e6e6;}
+.toggle .handle {width: 26px;height: 26px;top: 16px;left: 7px}
+.toggle input:checked+.track .handle {
+    -webkit-transform: translate3d(26px,0,0);
+    transform: translate3d(26px,0,0);
+}
 .icon-return {width: 40px;height: 44px;position: absolute;left: 0px;top: -2px;font-size: 30px;padding-top: 10px;text-align: center;color: #fff; z-index: 99999;}
 
 /*信息认证*/
@@ -136,6 +138,7 @@ input::-webkit-input-placeholder {color: #aaa;}
 .userlist .user-txt .info{font-size: 17px;color: #333;line-height: 24px}
 .userlist .user-txt .info span{font-size: 13px;color: #aaa}
 .userlist .user-txt .info img{width: 15px;margin-left: 5px;}
+
 
 /*个人收益*/
 .price-box{width: 100%;height: 168px;background-color: #d32f2f;color: white;padding: 0 16px}

@@ -105,14 +105,28 @@ define(function (require, exports, module) {
                                 if (defaults.error) {
                                     defaults.error();
                                 }
-                                popups.init(data.message, '系统提示', 1, function () {
-                                    return
+                                popups.init({
+                                    msgText:'',
+                                    topTitle:'提示',
+                                    yesEvent:function(){
+                                        console.log('确定');
+                                    },
+                                    noEvent:function(){
+                                        console.log('取消');
+                                    }
                                 })
                                 // alert(data.message);
                             } else {
                                 // alert('系统错误！');
-                                popups.init('系统错误！', '系统提示', 1, function () {
-                                    return
+                                popups.init({
+                                    msgText:'',
+                                    topTitle:'提示',
+                                    yesEvent:function(){
+                                        console.log('确定');
+                                    },
+                                    noEvent:function(){
+                                        console.log('取消');
+                                    }
                                 })
                             }
 
@@ -204,14 +218,28 @@ define(function (require, exports, module) {
                                 if (defaults.error) {
                                     defaults.error();
                                 }
-                                popups.init(response.ResultMessage, '系统提示', 1, function () {
-                                    return
+                                popups.init({
+                                    msgText:'',
+                                    topTitle:'提示',
+                                    yesEvent:function(){
+                                        console.log('确定');
+                                    },
+                                    noEvent:function(){
+                                        console.log('取消');
+                                    }
                                 })
                                 // alert(data.message);
                             } else {
                                 // alert('系统错误！');
-                                popups.init('系统错误！', '系统提示', 1, function () {
-                                    return
+                                popups.init({
+                                    msgText:'',
+                                    topTitle:'提示',
+                                    yesEvent:function(){
+                                        console.log('确定');
+                                    },
+                                    noEvent:function(){
+                                        console.log('取消');
+                                    }
                                 })
                             }
                         }
