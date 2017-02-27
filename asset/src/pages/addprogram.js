@@ -101,7 +101,7 @@ define(function(require, exports, module) {
                 str +='</div>'
                 
                 if (Comm.Tool.getInt(this,'doctorid')) {
-                    str +='<div class="subtotal gray" data-proid="'+ Comm.Tool.getInt(this,'themeid')+'">已添加</div>' 
+                    str +='<div class="subtotal gray">已添加</div>' 
                 }else{
                      str +='<div class="subtotal" data-proid="'+ Comm.Tool.getInt(this,'themeid')+'">添加</div>'
                 }
@@ -116,18 +116,28 @@ define(function(require, exports, module) {
         }
 
         $('.product').append(str);
-        $('.subtotal').on('click',addPro);
+        // $('.subtotal').off('click');
+        $('.subtotal').on('click',function(){
+            Comm.initData.this = $(this);
+            Comm.initData.proid = $(this).attr('data-proid');
+            switch($(this).html()){
+                case '添加':
+                    addPro()
+                break;
+                
+            }
+        });
     }
 
     function addPro(){
-        var _this = $(this);
-        var proid = _this.attr('data-proid');
+        // var _this = $(this);
+        // var proid = _this.attr('data-proid');
 
          var data={
             method:'QuickSoft.AppService.DoctorService.DoctorAddScheme',
             data:{
                 doctorid:Comm.initData.docid,
-                themeid:proid
+                themeid:Comm.initData.proid
             }
         }
 
@@ -140,8 +150,8 @@ define(function(require, exports, module) {
             success:function(value){
                 Comm.initData.isLoading = false;
                 console.log(value);
-                _this.addClass('gray');
-                _this.html('已添加');
+                Comm.initData.this.addClass('gray');
+                Comm.initData.this.html('已添加');
             }
         })
 

@@ -153,7 +153,7 @@ define(function(require, exports, module) {
                 Comm.initData.this.parent().parent('.pro-box').remove();
                 if (!$('.product .pro-box').length) {
                     $('#add-btn').hide();
-                    var str = '<div class="no-data"><p>( > __ <。)</p><p>没有相关方案！</p></div>';
+                    var str = '<div class="no-data"><p>( > __ <。)</p><p>没有相关产品！</p></div>';
                     $(".product").append(str);
                 }
                 $('.pro-box').each(function(index){
@@ -187,7 +187,7 @@ define(function(require, exports, module) {
         }else{
             if (Comm.initData.pageindex==0) {
                 $('#add-btn').hide();
-                str+='<div class="no-data"><p>( > __ <。)</p><p>没有相关方案！</p></div>';
+                str+='<div class="no-data"><p>( > __ <。)</p><p>没有相关产品！</p></div>';
             }
         }
 

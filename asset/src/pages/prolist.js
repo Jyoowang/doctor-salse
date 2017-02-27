@@ -97,7 +97,7 @@ define(function(require, exports, module) {
 
     //升序
     function sequence(){
-        var linkid = $(this).attr('data-linked');  
+        var linkid = $(this).attr('data-linkid');  
         var data={
             method:'QuickSoft.AppService.DoctorService.DoctorProductSortUp',
             data:{

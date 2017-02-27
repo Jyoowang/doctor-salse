@@ -259,10 +259,9 @@ define(function(require, exports, module) {
         }
 
         //注册平台
+      
         Comm.initData.channel = $("input:radio[name='channel-name']:checked").val();
-        console.log(Comm.initData.channel);
         if(!Comm.initData.channel){
-
             Comm.popupsUtil.init({
                 msgText:'请选择注册平台！',
                 btnType:1,
@@ -270,6 +269,7 @@ define(function(require, exports, module) {
                     return;
                 }
             });
+            return;
             
         }
 

@@ -109,7 +109,7 @@ define(function(require, exports, module) {
             })
         }else{
             if (Comm.initData.pageindex==0) {
-               str+='<div class="no-data"><p>( > __ <。)</p><p>暂无用户信息！</p></div>'; 
+               str+='<div class="no-data"><p>( > __ <。)</p><p>暂无粉丝信息！</p></div>'; 
             }
             
         }
