@@ -61,9 +61,7 @@ define(function (require, exports, module) {
                 success: function (value) {
                     console.log(value)
                 },
-                error: function (value) {
-                    console.log(value)
-                },
+                error: null, //function
                 errorError: function (xhr, status, err) {
                     console.log(value)
                 },
@@ -93,42 +91,32 @@ define(function (require, exports, module) {
                         //关闭菊花
                         if (defaults.isload) {
                             loading.hide();
-                        }
-                        ;
+                        };
 
                         var data = JSON.parse(response);
 
                         if (data.error > 0) {
                             defaults.success(data);
                         } else {
-                            if (data.message) {
-                                if (defaults.error) {
+               
+                            if (defaults.error) {
+                                    if (typeof defaults.error != 'function')
                                     defaults.error();
+
+                                }else{
+                                    popups.init({
+                                        msgText:data.message,
+                                        topTitle:'提示',
+                                        yesEvent:function(){
+                                            console.log('确定');
+                                        },
+                                        noEvent:function(){
+                                            console.log('取消');
+                                        }
+                                    })
                                 }
-                                popups.init({
-                                    msgText:data.message,
-                                    topTitle:'提示',
-                                    yesEvent:function(){
-                                        console.log('确定');
-                                    },
-                                    noEvent:function(){
-                                        console.log('取消');
-                                    }
-                                })
                                 // alert(data.message);
-                            } else {
-                                // alert('系统错误！');
-                                popups.init({
-                                    msgText:data.message,
-                                    topTitle:'提示',
-                                    yesEvent:function(){
-                                        console.log('确定');
-                                    },
-                                    noEvent:function(){
-                                        console.log('取消');
-                                    }
-                                })
-                            }
+                            } 
 
                             //弹出窗口
                         }
@@ -182,9 +170,7 @@ define(function (require, exports, module) {
                 success: function (value) {
                     console.log(value)
                 },
-                error: function (value) {
-                    console.log(value)
-                },
+                error: null,  //function
                 errorError: function (xhr, status, err) {
                     console.log(value)
                 },
@@ -214,34 +200,24 @@ define(function (require, exports, module) {
                             defaults.success(response);
                         } else {
                             // ResultMessage
-                            if (response.ResultCode) {
+                            // if (Math.abs(response.ResultCode) || response.ResultCode==0) {
                                 if (defaults.error) {
+                                    if (typeof defaults.error != 'function')
                                     defaults.error();
+                                }else{
+                                    popups.init({
+                                        msgText:data.message,
+                                        topTitle:'提示',
+                                        yesEvent:function(){
+                                            console.log('确定');
+                                        },
+                                        noEvent:function(){
+                                            console.log('取消');
+                                        }
+                                    })
                                 }
-                                popups.init({
-                                    msgText:data.message,
-                                    topTitle:'提示',
-                                    yesEvent:function(){
-                                        console.log('确定');
-                                    },
-                                    noEvent:function(){
-                                        console.log('取消');
-                                    }
-                                })
                                 // alert(data.message);
-                            } else {
-                                // alert('系统错误！');
-                                popups.init({
-                                    msgText:data.message,
-                                    topTitle:'提示',
-                                    yesEvent:function(){
-                                        console.log('确定');
-                                    },
-                                    noEvent:function(){
-                                        console.log('取消');
-                                    }
-                                })
-                            }
+                            // }
                         }
                     },
                     error: function (xhr, status, err) {

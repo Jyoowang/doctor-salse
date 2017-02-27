@@ -116,22 +116,14 @@ define(function(require, exports, module) {
         }
 
         $('.product').append(str);
-        // $('.subtotal').off('click');
-        $('.subtotal').on('click',function(){
-            Comm.initData.this = $(this);
-            Comm.initData.proid = $(this).attr('data-proid');
-            switch($(this).html()){
-                case '添加':
-                    addPro()
-                break;
-                
-            }
-        });
+
+        $('.subtotal').off('click');
+        $('.subtotal').on('click',addPro);
     }
 
     function addPro(){
-        // var _this = $(this);
-        // var proid = _this.attr('data-proid');
+        var _this = $(this);
+        var proid = _this.attr('data-proid');
 
          var data={
             method:'QuickSoft.AppService.DoctorService.DoctorAddScheme',
@@ -149,9 +141,12 @@ define(function(require, exports, module) {
 
             success:function(value){
                 Comm.initData.isLoading = false;
-                console.log(value);
-                Comm.initData.this.addClass('gray');
-                Comm.initData.this.html('已添加');
+                _this.addClass('gray');
+                _this.html('已添加');
+
+            },
+            error:function(){
+                
             }
         })
 
