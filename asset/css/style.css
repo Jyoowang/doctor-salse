@@ -182,3 +182,4 @@ input::-webkit-input-placeholder {color: #aaa;}
 .pro .pro_img {width: 94%;box-sizing: border-box;margin: 0 auto;}
 .pro-box .subtotal {position: absolute;right: 16px;top: 14px;color: #fff;z-index:1;background-color: #d32f2f;font-size: 14px;text-align: center;width: 48px;height: 28px;line-height: 28px;}
 
+.doc-reg-list .item .certificate{width: 30%;margin-top: 5px}

@@ -338,7 +338,7 @@ define(function(require, exports, module) {
         var data = {
             SID:Comm.initData.sid, //销售编号         
             Phone: $('input[name=mobile]').val(), //手机号
-            Password: $('input[name=password]').val(),  //密码
+            Password: md5($('input[name=password]').val()),  //密码
             VCode: $('input[name=yzm]').val(), //验证码
             HeadPic:Comm.initData.HeadImg, //头像
             Name:$('input[name=username]').val(),  //医生姓名

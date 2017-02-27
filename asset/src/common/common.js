@@ -119,9 +119,8 @@ define(function (require, exports, module) {
                             } 
 
                             //弹出窗口
-                        }
-                    },
-                    error: function (xhr, status, err) {
+                        },
+                        error: function (xhr, status, err) {
                         if (defaults.errorError) {
                             defaults.errorError(xhr, status, err);
                         }
@@ -130,8 +129,10 @@ define(function (require, exports, module) {
                         }
                         ;
                         //弹出系统异常
-                    }
-                })
+                     }
+                    
+                   
+                });
 
             }
 

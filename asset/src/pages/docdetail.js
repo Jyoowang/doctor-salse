@@ -35,7 +35,8 @@ define(function(require, exports, module) {
             Comm.goToUrl({h5Url:'program.html?docid=' + Comm.initData.docid});
         })
 
-        $('.toggle').on('click',fansPrice);
+        // $('.toggle').on('click',fansPrice);
+        $('input[name=isdefault]').on('click',fansPrice);
     }
 
     //-------------------------------------------------------------------
@@ -109,6 +110,7 @@ define(function(require, exports, module) {
             value:data,     //接口参数 对象
 
             success:function(value){
+                console.log(value);
 
                 Comm.initData.isLoading = false;
                 
