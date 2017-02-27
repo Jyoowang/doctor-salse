@@ -93,19 +93,22 @@ define(function(require, exports, module) {
         Comm.firstAjax({
             isload:{loadVal:true}, //页面load
 
-            url:'http://api.yuer24h.com/SaleApi/GetBindOpenID', //接口地址
+            url:'/SaleApi/GetBindOpenID', //接口地址
             value:data,     //接口参数 对象
 
             success:function(value){
             	Comm.initData.isLoading = false;
                 //跳转医生列表页
             	Comm.goToUrl({
-                    h5Url:'mydoctor.html?sid=' + Comm.initData.sid
+                    h5Url:'mydoctor.html?sid=' + value.SID
                 });
                
             },
             error: function (value) {
-                console.log(value)
+                Comm.initData.code = 60;
+                $(".code").on('click',clickCode);
+                $(".code").removeClass('cur');
+                $(".code").html('获取验证码');
             }
         })
     }
@@ -170,7 +173,7 @@ define(function(require, exports, module) {
         Comm.firstAjax({
             isload:isloadObj, //页面load
 
-            url:'http://api.yuer24h.com/SaleApi/GetSaleBindSendCode', //接口地址
+            url:'/SaleApi/GetSaleBindSendCode', //接口地址
             value:data,     //接口参数 对象
 
             success:function(value){

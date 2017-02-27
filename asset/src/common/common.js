@@ -20,7 +20,7 @@ define(function (require, exports, module) {
 
     var common = {
         //初始化
-        pageUrl: 'http://www.yuer24h.com/zht_doc/',
+        pageUrl: 'http://www.yuer24h.com/wechat/',
 
         init: {
             back: function () {
@@ -198,7 +198,7 @@ define(function (require, exports, module) {
                 };
 
                 $.ajax({
-                    url: defaults.url,
+                    url: ApiUrls + defaults.url,
                     type: "POST",
                     dataType: "jsonp",
                     data: defaults.value,

@@ -68,7 +68,7 @@ define(function(require, exports, module) {
         Comm.firstAjax({
             isload:isloadObj, //页面load
 
-            url:'http://api.yuer24h.com/SaleApi/GetMySaleDoctorList', //接口地址
+            url:'/SaleApi/GetMySaleDoctorList', //接口地址
             value:data,     //接口参数 对象
 
             success:function(value){

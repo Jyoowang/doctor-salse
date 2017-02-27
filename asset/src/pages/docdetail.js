@@ -51,7 +51,7 @@ define(function(require, exports, module) {
         Comm.firstAjax({
             isload:{loadVal:true}, //页面load
 
-            url:'http://api.yuer24h.com/SaleApi/GetDoctorRegMsg',  //接口地址
+            url:'/SaleApi/GetDoctorRegMsg',  //接口地址
 
             value:data,     //接口参数 对象
 
@@ -91,12 +91,20 @@ define(function(require, exports, module) {
             DoctorID:Comm.initData.docid
         };
 
+        var isloadObj = {
+            loadVal:true,
+            loadView:{
+                loadText:false, // false   字符串
+                isTransparent:true  //布尔值
+            }
+        } 
+
         Comm.initData.isLoading = true; 
 
         Comm.firstAjax({
-            isload:{loadVal:false}, //页面load
+            isload:isloadObj, //页面load
 
-            url:'http://api.yuer24h.com/SaleApi/GetChangeEnjoyFans',  //接口地址
+            url:'/SaleApi/GetChangeEnjoyFans',  //接口地址
 
             value:data,     //接口参数 对象
 

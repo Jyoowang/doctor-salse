@@ -106,7 +106,7 @@ define(function(require, exports, module) {
         //选择资格证书
         $('.certificate').on('click', function () {
             Comm.initData.thisUpload='certificate';
-            $("#inputfileDoc").click()
+            $("#inputfile").click()
         });
 
         //选择平台、是否用户端
@@ -150,7 +150,7 @@ define(function(require, exports, module) {
         Comm.firstAjax({
             isload:true, //页面load
 
-            url:'http://api.yuer24h.com/SaleApi/GetDoctorRegMsg', //接口地址
+            url:'/SaleApi/GetDoctorRegMsg', //接口地址
             value:data,     //接口参数 对象
 
             success:function(value){
@@ -203,13 +203,11 @@ define(function(require, exports, module) {
                 //是否用户端
                 if(value.IsEnable==1){  //1显示
                     $(".isShow .radio-btn").eq(0).addClass('checkedRadio')
-                    $('.isShow input[name="radio-btn"]').eq(0).attr('checked', true);
-                    Comm.initData.IsEnable = 1
+                    $('.isShow input[name="radio-btn"]').eq(0).attr('checked', true);                  
                 }else{  //2不显示
                     $(".isShow .radio-btn").eq(0).removeClass('checkedRadio')
                     $(".isShow .radio-btn").eq(1).addClass('checkedRadio')
                     $('.isShow input[name="radio-btn"]').eq(1).attr('checked', true);
-                    Comm.initData.IsEnable = 2;
                 }
             }
             
@@ -269,10 +267,10 @@ define(function(require, exports, module) {
                 msgText:'请选择注册平台！',
                 btnType:1,
                 yesEvent:function(){
-                    $("input[name='channel-name']").focus();
+                    return;
                 }
             });
-            return;
+            
         }
 
      
@@ -322,19 +320,7 @@ define(function(require, exports, module) {
 
         //用户端显示
         Comm.initData.IsEnable = $("input:radio[name='radio-btn']:checked").val();
-        if(!Comm.initData.IsEnable){
-            Comm.popupsUtil.init({
-                msgText:'请选择用户端',
-                btnType:1,
-                yesEvent:function(){
-                    $("input[name='radio-btn']").focus();
-                }
-            });
-            
-            return;
-        }
-
-    	
+          	
         addDocInfo();
 
     }
@@ -380,7 +366,7 @@ define(function(require, exports, module) {
         Comm.firstAjax({
             isload:isloadObj, //页面load
 
-            url:'http://api.yuer24h.com/SaleApi/GetSaleDoctorReg', //接口地址
+            url:'/SaleApi/GetSaleDoctorReg', //接口地址
             value:data,     //接口参数 对象
 
             success:function(value){
@@ -412,11 +398,6 @@ define(function(require, exports, module) {
 
     $('#inputfile').change(function(){
         Comm.UploadImg("https://www.yuer24h.com/webapi/API/upload_json.ashx", "inputfile", 2, function(value) {
-            postIMGCallback(value);
-        });
-    })
-    $('#inputfileDoc').change(function(){
-        Comm.UploadImg("https://www.yuer24h.com/webapi/API/upload_json.ashx", "inputfileDoc", 2, function(value) {
             postIMGCallback(value);
         });
     })

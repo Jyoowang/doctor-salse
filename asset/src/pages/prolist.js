@@ -149,7 +149,7 @@ define(function(require, exports, module) {
                 str +='</div>'
                 str +='<div class="del"><span>删除</span><i></i></div>'
                 str +='</div>'
-                str +='<div class="turntop" data-linked="'+ Comm.Tool.getInt(this,'linkid')+'">'
+                str +='<div class="turntop" data-linkid="'+ Comm.Tool.getInt(this,'linkid')+'">'
                 str +='<p><em>向上</em>小计（共售'+ Comm.Tool.getInt(this,'productcnt') +'件）：<span>￥'+ Comm.Tool.getInt(this,'totalprice') +'</span></p>'
                 str +='</div>'
                 str +='</div>'
@@ -165,18 +165,26 @@ define(function(require, exports, module) {
 
         $(".product").append(str);
         $(".turntop").on('click',sequence);
-        $(".del").on('click',delPro);
+        $(".del").on('click',function(){
+            Comm.initData.this=$(this);
+            Comm.initData.linkid = $(this).parent().siblings('.turntop').attr('data-linkid'); 
+            console.log(Comm.initData.linkid);
+            Comm.popupsUtil.init({
+                msgText:'是否删除',
+                btnType:2,//1 2
+                yesEvent:function(){
+                    delPro();
+                }
+            })
+        });
     }
     
     //删除
     function delPro(){
-        var _this=$(this)
-        var linkid = _this.parent().siblings('.turntop').attr('data-linked');  
-        console.log(linkid);
         var data={
             method:'QuickSoft.AppService.DoctorService.DoctorDeleteProduct',
             data:{
-                linkid:linkid
+                linkid:Comm.initData.linkid
             }
         }
 
@@ -189,7 +197,7 @@ define(function(require, exports, module) {
             success:function(value){
                 Comm.initData.isLoading = false;
                 console.log(value);
-                _this.parent().parent('.pro-box').remove();
+                Comm.initData.this.parent().parent('.pro-box').remove();
                 console.log($('.product .pro-box').length);
                 if (!$('.product .pro-box').length) {
                     $('#add-btn').hide();
@@ -200,11 +208,6 @@ define(function(require, exports, module) {
                     $(this).find('>span').html(index+1);
                 })
 
-                Comm.popupsUtil.init({
-                    msgText:'删除成功',
-                    btnType:1 //1 2
-                })
-                 
             }
         })
     }
