@@ -27,7 +27,7 @@ define(function(require, exports, module) {
         Comm.firstAjax({
             isload:isloadObj, //页面load
 
-            url:'http://api.yuer24h.com/SaleApi/GetHospitalAllList', //接口地址
+            url:'/SaleApi/GetHospitalAllList', //接口地址
             value:data,     //接口参数 对象
 
             success:function(value){
@@ -151,8 +151,9 @@ define(function(require, exports, module) {
                     $(this).find('i').show();
                     Comm.initData.Dep.push(_thisInfo)
                 }else{
-                    Comm.popupsUtil.init('科室最多只能选择三项', '提示', 1, function() {
-                        return false
+                    Comm.popupsUtil.init({
+                        msgText:'科室最多只能选择三项',
+                        btnType:1,
                     });
                 }
             }

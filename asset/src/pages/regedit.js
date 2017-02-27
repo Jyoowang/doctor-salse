@@ -376,7 +376,7 @@ define(function(require, exports, module) {
                 if (Comm.initData.issaoma) {
                     WeixinJSBridge.call('closeWindow');
                 }else{
-                     Comm.goToUrl({h5Url:'doclist.html'});
+                     Comm.goToUrl({h5Url:'mydoctor.html'});
                 }
 
             },
