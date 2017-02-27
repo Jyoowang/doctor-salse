@@ -52,7 +52,7 @@ define(function(require, exports, module) {
        var data = {
             SID:Comm.initData.sid,
             PageIndex:Comm.initData.pageindex,
-            PageSize:15
+            PageSize:20
         }
 
         var isloadObj = {

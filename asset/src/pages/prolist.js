@@ -57,7 +57,7 @@ define(function(require, exports, module) {
             data:{
                 doctorid:Comm.initData.docid,
                 pageindex:Comm.initData.pageindex,
-                pagesize:15
+                pagesize:20
             }
         }
 

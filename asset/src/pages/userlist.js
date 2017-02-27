@@ -48,7 +48,7 @@ define(function(require, exports, module) {
         var data = {
             DID:Comm.initData.docid,
             PageIndex:Comm.initData.pageindex,
-            PageSize:15
+            PageSize:20
         }
 
         var isloadObj = {

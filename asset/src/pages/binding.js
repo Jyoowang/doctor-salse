@@ -84,7 +84,7 @@ define(function(require, exports, module) {
 	    var data = {
     		OpenID:Comm.initData.openid,
     		Phone:inpMobile,
-    		VCode:inpCode,
+    		VCode:inpCode
     	}
 
 
@@ -96,7 +96,7 @@ define(function(require, exports, module) {
             url:'/SaleApi/GetBindOpenID', //接口地址
             value:data,     //接口参数 对象
 
-            success:function(value){
+            suc cess:function(value){
             	Comm.initData.isLoading = false;
                 //跳转医生列表页
             	Comm.goToUrl({
@@ -189,8 +189,6 @@ define(function(require, exports, module) {
     
 
     
-
-
 
 
    
