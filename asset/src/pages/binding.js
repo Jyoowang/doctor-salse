@@ -96,7 +96,7 @@ define(function(require, exports, module) {
             url:'/SaleApi/GetBindOpenID', //接口地址
             value:data,     //接口参数 对象
 
-            suc cess:function(value){
+            success:function(value){
             	Comm.initData.isLoading = false;
                 //跳转医生列表页
             	Comm.goToUrl({
