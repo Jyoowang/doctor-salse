@@ -100,7 +100,7 @@ define(function (require, exports, module) {
                         } else {
                
                             if (defaults.error) {
-                                    if (typeof defaults.error != 'function')
+                                    if (typeof defaults.error == 'function')
                                     defaults.error();
 
                                 }else{
@@ -203,7 +203,7 @@ define(function (require, exports, module) {
                             // ResultMessage
                             // if (Math.abs(response.ResultCode) || response.ResultCode==0) {
                                 if (defaults.error) {
-                                    if (typeof defaults.error != 'function')
+                                    if (typeof defaults.error == 'function')
                                     defaults.error();
                                 }else{
                                     popups.init({
