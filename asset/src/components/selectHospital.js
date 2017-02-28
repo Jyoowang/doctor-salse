@@ -226,9 +226,9 @@ define(function(require, exports, module) {
     }
 
 
-    //选择职称
+    //选择职务名称
     Component.selectJobTitle = function(){
-        // var data = null;
+       
         var isloadObj = {
             loadVal:true,
             loadView:{
@@ -237,27 +237,22 @@ define(function(require, exports, module) {
             }
         } 
         Comm.initData.isLoading = true;
-        if (isloadObj.loadVal) {
-            loading.show(isloadObj.loadView);
-        };
-        $.ajax({  
-            url: "http://api.yuer24h.com/SaleApi/GetRegMess", 
+      
+        $.ajax({
+            isload:isloadObj, //页面load
+            // url: '/SaleApi/GetSaleDoctorBasicsReg',
+            url: Comm.ApiUrls +'/SaleApi/GetSaleDoctorBasicsReg',
             type: "POST",
             dataType: "jsonp",
-            // data: value,
-            success: function(value){
-                if (isloadObj.loadVal) {
-                    loading.hide();
-                };
+            success:function(value){
                 Comm.initData.isLoading = false;
-
-                console.log(value)
+                console.log(value);
                 Comm.initData.RegMess = value;
-
                 Component.addJobTitleEvent();
+            }
+           
 
-           }
-        });
+        })
     }
 
     Component.addJobTitleEvent = function(){
@@ -273,11 +268,10 @@ define(function(require, exports, module) {
             }else{
                 $(this).addClass('round-on');
                 $(this).find('i').show();
-                Comm.initData.Txt = Comm.initData.RegMess.TitleR[$(this).index()]
-                text=Comm.initData.Txt.Title;
+                Comm.initData.Txt = Comm.initData.RegMess[$(this).index()]
+                text=Comm.initData.Txt.name;
                 $(".reg-jobTitle span").css('color','#333')
             }
-
             $(".reg-jobTitle span").html(text)
             setTimeout(function() {
                 $('.reg-filter,.bar-Departments').hide();
@@ -289,24 +283,53 @@ define(function(require, exports, module) {
     }
 
 
+    //选择职称级别
+    Component.selectJobLevel = function(){
+        $(".bar-Departments .title").html('选择级别');
+        $(".reg-list-con").html(Component.pushJobTitleHTML(Comm.initData.Txt.list,Comm.initData.PageIndex));
+
+        $(".reg-list-con .item").on('click',function(){
+            var text='职称级别'
+            if($(this).hasClass('round-on')){
+                $(this).removeClass('round-on');
+                $(this).find('i').hide();
+                $(".reg-jobTitle span").css('color','#aaa')
+                Comm.initData.Txt = null;
+            }else{
+                $(this).addClass('round-on');
+                $(this).find('i').show();
+                Comm.initData.level = Comm.initData.Txt.list[$(this).index()]
+                console.log(Comm.initData.level.name);
+                text = Comm.initData.level.name;
+                $(".reg-jobTitle span").css('color','#333')
+            }
+            $(".reg-jobLevel span").html(text);
+            setTimeout(function() {
+                $('.reg-filter,.bar-Departments').hide();
+            }, 200)
+
+        })
+
+    }
+
+
     Component.pushJobTitleHTML = function(value,pageindex){
         var str='';
-        var TitleR = Comm.Tool.getArray(value,'TitleR');
 
-        if(TitleR.length){
-            $.each(TitleR,function(){
+        if(value){
+            $.each(value,function(){
                 var isNone='none'
                 str += '<div class="item line-bot '
-
+                console.log(this.id);
                 if(Comm.initData.Txt){
-                    if(Comm.initData.Txt.TitleID == this.TitleID){  
+                    if(Comm.initData.Txt.id == this.id){  
                         str+='round-on';
                         isNone='block'
                     }
                 }
-                str+='" data-title-id="'+ this.TitleID +'">'
+                str+='" data-title-id="'+ this.id +'">'
                 str+='<i class="ion-checkmark-round" style="display:'+ isNone +'" ></i>'
-                str+='<p>'+ this.Title +'</p>'
+                str+='<p>'+ this.name +'</p>'
                 str+='</div>'
             })
         }else{

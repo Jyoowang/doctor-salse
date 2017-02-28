@@ -32,7 +32,8 @@ define(function(require, exports, module) {
         Comm.initData.HospitaData = []; //全部医院
         Comm.initData.RegMess = null; //全部科室
         Comm.initData.Dep = [];  //当前科室
-    	Comm.initData.Txt = null; //职称
+        Comm.initData.Txt = null; //职称
+    	Comm.initData.level = null; //职称级别
     }
 
 
@@ -93,6 +94,20 @@ define(function(require, exports, module) {
             $('.reg-filter,.bar-Departments').show();
             
         })
+        //选择职称级别
+        $(".reg-jobLevel").on('click',function(){
+            if (Comm.initData.Txt) {
+                $(".reg-list-con").html('');
+                Hospital.selectJobLevel();
+                $('.reg-filter,.bar-Departments').show();
+            }else{
+                Comm.popupsUtil.init({
+                    msgText:'请先选择职务名称!',
+                    btnType:1
+                });
+            }
+           
+        })
 
     	//保存信息
     	$(".reg-button").on('click',getSave);
@@ -137,6 +152,8 @@ define(function(require, exports, module) {
         }
     }
 
+    
+
 //==============================================================
     
     //获取注册信息
@@ -180,7 +197,7 @@ define(function(require, exports, module) {
                 Comm.initData.Dep  = value.Department;
                 $('.reg-Departments span').html(depart);
 
-                //职称
+                //职务名称
                 Comm.initData.Txt = value.TitleR;
                 $('.reg-jobTitle span').html(Comm.Tool.getString(value.TitleR,'Title'))
 
@@ -345,7 +362,8 @@ define(function(require, exports, module) {
             // PID:AddreEvent.Province,  //省份编号
             // CID: AddreEvent.City,  //城市编号
             DepartmentID: DepStr.toString(), //科室 多个用英文逗号隔开
-            Title: Comm.initData.Txt.TitleID,  //职称
+            RoleTitleID:Comm.initData.level.id ,//职务名称
+            Title: Comm.initData.Txt.id,  //职称
             CertificatePic:Comm.initData.CertificateImg,  //执业或资格证书
             HospitalID:Comm.initData.SelectHospita.HospitalID, //医院编号
             IsEnable:Comm.initData.IsEnable,//是否用户端显示
@@ -366,7 +384,7 @@ define(function(require, exports, module) {
         Comm.firstAjax({
             isload:isloadObj, //页面load
 
-            url:'/SaleApi/GetSaleDoctorReg', //接口地址
+            // url:'/SaleApi/GetSaleDoctorReg', //接口地址
             value:data,     //接口参数 对象
 
             success:function(value){
