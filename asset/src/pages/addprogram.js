@@ -129,7 +129,7 @@ define(function(require, exports, module) {
             method:'QuickSoft.AppService.DoctorService.DoctorAddScheme',
             data:{
                 doctorid:Comm.initData.docid,
-                themeid:Comm.initData.proid
+                themeid:proid
             }
         }
 

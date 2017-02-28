@@ -24,7 +24,7 @@ input::-webkit-input-placeholder {color: #aaa;}
 .doc-reg-list .item.list-avatar .list-cert-text small{ color: #d32f2f; }
 .doc-reg-list .item .list-cert-img{ float: right; width: 20%;overflow: hidden; }
 .doc-reg-list .item .list-cert-img.headimg{border-radius: 100%;}
-.doc-reg-list .item .list-cert-img img{ width: auto; max-width: 100%; margin:0; float: right; }
+.doc-reg-list .item .list-cert-img img{ width: 100%; max-width: 100%; margin:0; float: right; }
 
 .reg-button{ width: 90%; margin:20px auto; height: 40px; line-height:40px; text-align: center; color: #fff; font-size: 16px; background-color: #d32f2f; border-radius: 4px; border:1px solid #e5e5e5; box-sizing: border-box;   }
 .reg-remind{padding: 0 16px;color: #666}
@@ -182,4 +182,14 @@ input::-webkit-input-placeholder {color: #aaa;}
 .pro .pro_img {width: 94%;box-sizing: border-box;margin: 0 auto;}
 .pro-box .subtotal {position: absolute;right: 16px;top: 14px;color: #fff;z-index:1;background-color: #d32f2f;font-size: 14px;text-align: center;width: 48px;height: 28px;line-height: 28px;}
 
-.doc-reg-list .item .certificate{width: 30%;margin-top: 5px}
+.doc-reg-list .item .certificate{width: 25%;margin-top: 8px}
+
+/*二维码*/
+.invite {background-color: #fff;position: relative;text-align: center;vertical-align: middle;padding: 12px 0;}
+.invite img {width: 26px;display: inline;vertical-align: middle;margin-right: 10px;}
+.invite span {font-size: 19px;display: inline;vertical-align: middle;color: #666666;}
+.invite span small{font-size: 100%;}
+.codebox{margin-top: 26px;}
+.codebox .code{margin: 0 auto;width: 200px}
+.codebox .code img{width: 100%;}
+.codebox p{color: #666;font-size: 16px;margin-top: 13px;text-align: center;}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="balack" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<title>二维名片</title>
+	<link rel="stylesheet" type="text/css" href="../asset/libs/ionic/1.3.1/css/ionic.min.css">
+	<link rel="stylesheet" type="text/css" href="../asset/css/base/public.css">
+	<link rel="stylesheet" type="text/css" href="../asset/css/style.css">
+</head>
+<body>
+	
+	<div id="wrapper" class="scroll-content single">
+		<div id="scroller">
+			<div class="docinfo">
+				<!-- <i class="icon ion-ios-arrow-left icon-return goback"></i> -->
+				<div class="col">
+					<div class="doc-pic"><img src="../asset/images/doctors/default_v2.png" alt=""></div>
+					<p>User</br><span>育儿好医生区域代表</span></p>
+				</div>
+			</div>
+
+			<div class="invite line-bot"><img src="../asset/images/black-white/invite_inc01.png"><span>邀请码：<small>872804</small></span></div>
+
+			<div class="codebox">
+				<div class="code"><img src="../asset/images/new/code.jpg" alt=""></div>
+				<p>请用微信[扫一扫]功能扫描</p>
+			</div>		
+			
+			
+		</div>
+	</div>
+
+	<!-- loading -->
+	<!-- <div class="loadbox" style="display: block;">
+		<div class="load-main"><i></i><p>加载中...</p></div>
+	</div> -->
+</body>
+<script src="../asset/libs/sea/sea/2.2.0/sea.js"></script>
+<script src="../asset/libs/sea/sea-css/1.0.5/seajs-css.js"></script>
+<script src="../config.js"></script>
+<script>
+	if(!seajs.ISDEV){
+		seajs.use("../asset/dist/pages/card");
+	}else{
+		seajs.use("../asset/src/pages/card");
+	}
+
+</script>
+</html>

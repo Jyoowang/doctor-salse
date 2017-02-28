@@ -411,7 +411,7 @@ define(function(require, exports, module) {
             $(".headimg").height(w)
             Comm.Tool.ImgOnload(".headimg", "",  value.qiniudomain + value.qiniufilePath);
         }else{
-            var w = ($(window).width()-32)*0.2*0.75;
+            var w = ($(window).width()-32)*0.2*1.55;
             Comm.initData.CertificateImg = value.qiniufilePath
             $(".certificate img").attr("src", value.qiniudomain + value.qiniufilePath);
             $(".certificate").height(w)
