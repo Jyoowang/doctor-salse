@@ -48,7 +48,7 @@ define(function(require, exports, module) {
             $('input[name=mobile]').attr('readonly','readonly');
             $('input[name=username]').attr('readonly','readonly');
             $(".reg-hospital,.reg-Departments,.reg-jobTitle,.headimg,.certificate,.radio-btn,.reg-jobLevel").off("click");
-            $('.u-name i').remove();
+            $('.item i').remove();
         }
 
         if (Comm.initData.addDoc) {//销售添加医生不要验证码
@@ -485,8 +485,10 @@ define(function(require, exports, module) {
                     $('.search-input-box input').focus();
                 }
             });
+        }else{
+            getHospital(true);
         }
-        getHospital(true)
+        
     }
 
     //获取医院数据
@@ -636,10 +638,12 @@ define(function(require, exports, module) {
                 $('.reg-Departments span').html(depart);
 
 
+                //职务名称
 
                 //职称级别
                 Comm.initData.currTitle = value.TitleR;
                 $('.reg-jobLevel span').html(value.TitleR.Title)
+
 
 
                 //职业证书

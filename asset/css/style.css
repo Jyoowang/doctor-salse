@@ -213,7 +213,7 @@ input::-webkit-input-placeholder {color: #aaa;}
 
 .public-list-s{background-color: #fff;}
 .public-list-s li{ height: 50px;line-height: 50px; padding: 0 16px;position: relative;}
-.public-list-s li p{margin-bottom: 0;font-size: 14px;}
+.public-list-s li p{margin-bottom: 0;font-size: 14px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
 .public-list-s li span{position: absolute;right: 16px; display: none; font-size: 22px; color: #d32f2f;}
 .public-list-s li.cur span{ display: block}
 
@@ -222,4 +222,4 @@ input::-webkit-input-placeholder {color: #aaa;}
 .select-list-public .layer-title{position: absolute;}
 .select-list-public .layer-title .button-clear.button-clear{ color: #fff;}
 
-.public-select{ display: none; background-color: #d32f2f; color: #fff; text-align: center;font-size: 16px;}
+.public-select{ display: none; background-color: #d32f2f; color: #fff; text-align: center;font-size: 16px;z-index: 12;}
