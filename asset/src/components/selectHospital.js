@@ -240,7 +240,6 @@ define(function(require, exports, module) {
       
         $.ajax({
             isload:isloadObj, //页面load
-            // url: '/SaleApi/GetSaleDoctorBasicsReg',
             url: Comm.ApiUrls +'/SaleApi/GetSaleDoctorBasicsReg',
             type: "POST",
             dataType: "jsonp",
@@ -299,9 +298,9 @@ define(function(require, exports, module) {
                 $(this).addClass('round-on');
                 $(this).find('i').show();
                 Comm.initData.level = Comm.initData.Txt.list[$(this).index()]
-                console.log(Comm.initData.level.name);
+                // console.log(Comm.initData.level.name);
                 text = Comm.initData.level.name;
-                $(".reg-jobTitle span").css('color','#333')
+                $(".reg-jobLevel span").css('color','#333')
             }
             $(".reg-jobLevel span").html(text);
             setTimeout(function() {
@@ -318,9 +317,9 @@ define(function(require, exports, module) {
 
         if(value){
             $.each(value,function(){
+                
                 var isNone='none'
                 str += '<div class="item line-bot '
-                console.log(this.id);
                 if(Comm.initData.Txt){
                     if(Comm.initData.Txt.id == this.id){  
                         str+='round-on';

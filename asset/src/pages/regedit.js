@@ -203,7 +203,7 @@ define(function(require, exports, module) {
 
                 //职业证书
                 Comm.Tool.ImgOnload(".certificate", "", value.PicDomain + value.CertificatePic);
-                $('.reg-Departments span,.reg-jobTitle span,.reg-hospital span').css('color','#464646')
+                $('.reg-Departments span,.reg-jobTitle span,.reg-jobLevel span,.reg-hospital span').css('color','#464646')
 
 
                 //注册平台
