@@ -9,8 +9,8 @@ input::-webkit-input-placeholder {color: #aaa;}
 .doc-reg-bottom{ bottom:40px; }
 .list{padding:0; border:none;  }
 .item{ margin:0; border:none;}
-.doc-reg-list .item i{ float: right; margin-top: 8px; color: #aaa;display: none;}
-.doc-reg-list .item img{ float: left; width: 19px; margin: 8px 10px 0px 0px; }
+.doc-reg-list .item >i{ float: right; margin-top: 8px; color: #aaa;display: none;}
+.doc-reg-list .item >img{ float: left; width: 19px; margin: 8px 10px 0px 0px; }
 .doc-reg-list .item input{ color: #464646; font-size: 16px; font-family: Microsoft YaHei; margin-top:2px;}
 .doc-reg-list .item input[readonly]:not(cloned-text-input){background-color: white;}
 .doc-reg-list .item.item-code i{margin-right: 25px;}
@@ -22,9 +22,9 @@ input::-webkit-input-placeholder {color: #aaa;}
 .doc-reg-list .item .list-cert-text span{display: block; height: auto; line-height:20px; color: #333}
 .doc-reg-list .item .list-cert-text small{ font-size: 12px; color: #aaa }
 .doc-reg-list .item.list-avatar .list-cert-text small{ color: #d32f2f; }
-.doc-reg-list .item .list-cert-img{ float: right; width: 20%;overflow: hidden; }
-.doc-reg-list .item .list-cert-img.headimg{border-radius: 100%;}
-.doc-reg-list .item .list-cert-img img{ width: 100%; max-width: 100%; margin:0; float: right; }
+.doc-reg-list .item .list-cert-img{ float: right; overflow: hidden; }
+.doc-reg-list .item .list-cert-img.headimg{ width: 70px; height: 70px; border-radius: 100%;}
+.doc-reg-list .item .list-cert-img img{  }
 
 .reg-button{ width: 90%; margin:20px auto; height: 40px; line-height:40px; text-align: center; color: #fff; font-size: 16px; background-color: #d32f2f; border-radius: 4px; border:1px solid #e5e5e5; box-sizing: border-box;   }
 .reg-remind{padding: 0 16px;color: #666}
@@ -182,7 +182,9 @@ input::-webkit-input-placeholder {color: #aaa;}
 .pro .pro_img {width: 94%;box-sizing: border-box;margin: 0 auto;}
 .pro-box .subtotal {position: absolute;right: 16px;top: 14px;color: #fff;z-index:1;background-color: #d32f2f;font-size: 14px;text-align: center;width: 48px;height: 28px;line-height: 28px;}
 
-.doc-reg-list .item .certificate{width: 25%;margin-top: 8px}
+.doc-reg-list .item .certificate{ width: 90px; height: 68px; margin-top: 8px; text-align: center; background-color: #ccc;}
+.doc-reg-list .item .certificate img{ vertical-align: middle;max-width: 100%; max-height: 100%; display: inline-block;}
+.doc-reg-list .item .certificate i{display: inline-block; height: 100%; vertical-align: middle;}
 
 /*二维码*/
 .invite {background-color: #fff;position: relative;text-align: center;vertical-align: middle;padding: 12px 0;}

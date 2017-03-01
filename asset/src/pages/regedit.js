@@ -12,7 +12,7 @@ define(function(require, exports, module) {
     
     
     //初始化界面
-    //initUi()
+    initUi()
 
     //初始化页面控件事件
     initEvent();
@@ -36,11 +36,36 @@ define(function(require, exports, module) {
     	Comm.initData.level = null; //职称级别
     }
 
+    function initUi(){
+
+        if (Comm.initData.isView == 1) {//审核中只能看信息            
+            $('.item-setpassword,.reg-button').hide();
+            $('.title-address').html('医生信息');
+            $('input[name=mobile]').attr('readonly','readonly');
+            $('input[name=username]').attr('readonly','readonly');
+            $(".reg-hospital,.reg-Departments,.reg-jobTitle,.headimg,.certificate,.radio-btn").off("click");
+            $('.u-name i').remove();
+        }
+
+        if (Comm.initData.addDoc) {//邀请医生不要验证码
+            $('.goback,.firstregedittit').show();
+        }else{
+            if (Comm.initData.isView) { //审核中或审核失败
+                $('.goback').show();
+                getDocinfo();
+            } 
+        }
+
+        if (Comm.initData.issaoma) {
+            $('.item-code,.firstregedittit,').show();
+        }
+
+
+    }
 
     function initEvent(){
 
         Comm.init.back();
-        $('.loadbox').hide();
 
         // 获取焦点or失去焦点
         $(".inpTxt").focus(function(){
@@ -103,7 +128,9 @@ define(function(require, exports, module) {
             }else{
                 Comm.popupsUtil.init({
                     msgText:'请先选择职务名称!',
-                    btnType:1
+                    yesEvent:function(){
+                        return;
+                    }
                 });
             }
            
@@ -128,28 +155,15 @@ define(function(require, exports, module) {
         $(".radio-btn").on('click',radioSelect);
 
 
-        if (Comm.initData.isView == 1) {//审核中只能看信息            
-            $('.item-setpassword,.reg-button').hide();
-            $('.title-address').html('医生信息');
-            $('input[name=mobile]').attr('readonly','readonly');
-            $('input[name=username]').attr('readonly','readonly');
-            $(".reg-hospital,.reg-Departments,.reg-jobTitle,.headimg,.certificate,.radio-btn").off("click");
-            $('.u-name i').remove();
-        }
+        $('#inputfile').change(function(){
+            Comm.UploadImg("https://www.yuer24h.com/webapi/API/upload_json.ashx", "inputfile", 2, function(value) {
+                postIMGCallback(value);
+            });
+        })
 
-        if (Comm.initData.addDoc) {//邀请医生不要验证码
-            $('.goback,.firstregedittit').show();
-           
-        }else{
-            if (Comm.initData.isView) { //审核中或审核失败
-                $('.goback').show();
-                getDocinfo();
-            } 
-        }
 
-        if (Comm.initData.issaoma) {
-            $('.item-code,.firstregedittit,').show();
-        }
+
+
     }
 
     
@@ -414,26 +428,15 @@ define(function(require, exports, module) {
     }
   
 
-    $('#inputfile').change(function(){
-        Comm.UploadImg("https://www.yuer24h.com/webapi/API/upload_json.ashx", "inputfile", 2, function(value) {
-            postIMGCallback(value);
-        });
-    })
-
     function postIMGCallback(value) {       
         console.log(value.qiniufilePath);
         if(Comm.initData.thisUpload == 'headimg'){
-            var w = ($(window).width()-32)*0.2;
             Comm.initData.HeadImg = value.qiniufilePath
-            $(".headimg img").attr("src", Comm.initData.HeadImg);
-            $(".headimg").height(w)
-            Comm.Tool.ImgOnload(".headimg", "",  value.qiniudomain + value.qiniufilePath);
+            $(".headimg img").attr("src", Comm.Tool.getPicUrl(value.qiniudomain + value.qiniufilePath,70,70) );
         }else{
-            var w = ($(window).width()-32)*0.2*1.55;
             Comm.initData.CertificateImg = value.qiniufilePath
             $(".certificate img").attr("src", value.qiniudomain + value.qiniufilePath);
-            $(".certificate").height(w)
-            Comm.Tool.ImgOnload(".certificate", "",  Comm.initData.CertificateImg);
+     
         } 
     }
 
