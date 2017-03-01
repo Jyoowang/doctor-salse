@@ -13,8 +13,8 @@ define(function (require, exports, module) {
 
     var TrackApiUrl = "http://webapi.yuer24h.com/API/Track/TrackReceive.ashx";
     //var ApiUrl='http://webapitest.yuer24h.com/API/HttpToSoap.aspx'
-    // var ApiUrls = 'http://api.yuer24h.com';
-    var ApiUrls='http://218.80.0.87:8029'
+    var ApiUrls = 'http://api.yuer24h.com';
+    // var ApiUrls='http://218.80.0.87:8029'
 
     var urls = 'view';
 

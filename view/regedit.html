@@ -66,11 +66,7 @@
 					<img src="../asset/images/black-white/ico_name.png">
 					<input class="inpTxt" type="text" name="username" placeholder="姓名">
 				</div>
-				<!-- <div class="item line-bot">
-					<i class="ion-chevron-right"></i>
-					<img src="../asset/images/black-white/chengshi_icon.png">
-					<span class="list-text">所在地</span>
-				</div> -->
+	
 				<div class="item line-bot reg-hospital">
 					<i class="ion-chevron-right" style="display: block;"></i>
 					<img src="../asset/images/black-white/inc_img32.png">
@@ -121,42 +117,47 @@
 		</div>
 	</div>
 	<!-- 内容结束 -->
-	<div class="reg-filter">
-		<!-- 医院搜索 -->
-		<div class="bar bar-header bar-hospital">
-			<span class="ion-chevron-left reg-return"></span>
-			<span class="search-text">
-				<i class="ion-close-circled"></i>
-				<img src="../asset/images/doctors/search.png">
-				<input type="text" name="search" placeholder="搜索医院名称">
-			</span>
-			<span class="search-but">搜索</span>
-		</div>
-		<!-- 科室选择 -->
-		<div class="bar bar-header bar-Departments">
-			<span class="ion-chevron-left reg-return"></span>
-			<span class="title title-address"></span>
-		</div>
 
-		<!-- 职称 -->
-		<!-- <div class="bar bar-header bar-jobTitle">
-			<span class="ion-chevron-left reg-return"></span>
-			<span class="title title-address">职称</span>
-		</div> -->
+	
 
-		<div id="scroll" class="scroll-content single doc-reg-top">
-			<!-- <p class="reg-list-terms">输入医院名称查询</p> -->
-			<div class="list reg-list-con">
-				<div class="item line-bot">
-					<i class="ion-checkmark-round"></i>
-					<p>北京协和医院</p>
-				</div>
+	<div class="floating-layer hospital-search">
+		<div class="search-input">
+			<i class="icon ion-ios-arrow-left"></i>
+			<div class="search-input-box">
+				<em></em>
+				<form><input type="text" name="search" id="search"  placeholder="医院名称" ></form>
+				<i class="ion-ios-close"></i>
 			</div>
+			<span>搜索</span>
 		</div>
-		
-		<div class="foot-but">确定</div>
+		<div class="layer-content" id="hospital-box">
+			<p class="Tip padding">输入医院名称查询</p>
+			<ul class="hospital-list public-list-s" id="hospital-list">
+		<!-- 		<li class="line-bot cur">
+					<p>上海瑞金医院 </p>
+					<span class="ion-checkmark top-bottom-center"></span>
+				</li> -->
 
+			</ul>
+		</div>
 	</div>
+
+	<!-- 选择科室、职称 -->
+	<div class="floating-layer select-list-public">
+		<div class="layer-title bar bar-header">
+			<button class="button button-clear icon ion-ios-arrow-left close-layer"></button>
+			<p class="title"></p>
+		</div>
+		<div class="layer-content" >
+			<ul class="public-list-s">
+
+			</ul>
+		</div>
+		<div class="bar bar-footer public-select ">
+			<p class="col">确定</p>
+		</div>
+	</div>
+
 	
 	<input type="file" id="inputfile" style="opacity:0">
 

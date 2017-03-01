@@ -7,19 +7,19 @@ define(function(require, exports, module) {
     var $ = require('jquery');
     var Comm = require('../common/common');
     var md5 = require('../tool/md5');
-    var Hospital = require('../components/selectHospital')
+    // var Hospital = require('../components/selectHospital')
+    var ScrollUtil = require('../util/scrollUtil');
+
     //--------------------------------------------------------
-    
+    //初始化页面控件事件
+    initEvent();
     
     //初始化界面
     initUi()
 
-    //初始化页面控件事件
-    initEvent();
 
     //初始化页面数据
     initData();
-    console.log(Comm.initData);
 
     function initData(){
 
@@ -27,13 +27,17 @@ define(function(require, exports, module) {
     	Comm.initData.HeadImg = ''; //医生头像
     	Comm.initData.CertificateImg = ''; //执业或资格证书
 
-    	Comm.initData.PageIndex = 0;
-        Comm.initData.SelectHospita = null; //当前医院
+        Comm.initData.currHospita = {HospitalID:0}; //当前医院
         Comm.initData.HospitaData = []; //全部医院
-        Comm.initData.RegMess = null; //全部科室
-        Comm.initData.Dep = [];  //当前科室
-        Comm.initData.Txt = null; //职称
-    	Comm.initData.level = null; //职称级别
+
+
+        Comm.initData.DepartmentData = []; //全部科室
+        Comm.initData.currDepartment = [];  //当前科室
+
+
+        Comm.initData.titleData = null; //职称
+        Comm.initData.currTitleClass = {id:0}; //职称级别
+    	Comm.initData.currTitle = {id:0}; //职称级别
     }
 
     function initUi(){
@@ -43,20 +47,20 @@ define(function(require, exports, module) {
             $('.title-address').html('医生信息');
             $('input[name=mobile]').attr('readonly','readonly');
             $('input[name=username]').attr('readonly','readonly');
-            $(".reg-hospital,.reg-Departments,.reg-jobTitle,.headimg,.certificate,.radio-btn").off("click");
+            $(".reg-hospital,.reg-Departments,.reg-jobTitle,.headimg,.certificate,.radio-btn,.reg-jobLevel").off("click");
             $('.u-name i').remove();
         }
 
-        if (Comm.initData.addDoc) {//邀请医生不要验证码
+        if (Comm.initData.addDoc) {//销售添加医生不要验证码
             $('.goback,.firstregedittit').show();
         }else{
             if (Comm.initData.isView) { //审核中或审核失败
                 $('.goback').show();
-                getDocinfo();
+                getDocinfo(); //获取注册信息
             } 
         }
 
-        if (Comm.initData.issaoma) {
+        if (Comm.initData.issaoma) { //医生注册 //显示验证码，完善资料title
             $('.item-code,.firstregedittit,').show();
         }
 
@@ -66,6 +70,20 @@ define(function(require, exports, module) {
     function initEvent(){
 
         Comm.init.back();
+
+
+        Comm.initData.hospitalListScroll = ScrollUtil.init({
+            obj:'hospital-box',
+            scoll:'hospital-list',
+            isLoading:true,
+            pullUp:function(){    //下拉
+                if (!Comm.initData.isLoading) {
+                    Comm.initData.pageindex++;
+                    getHospital(false)
+                    console.log(1)
+                }
+            }
+        })
 
 
         // 获取焦点or失去焦点
@@ -85,76 +103,69 @@ define(function(require, exports, module) {
 	    	$(this).siblings('input').val('')
 	    })
 
-    	//返回上一页
-    	$(".reg-return").off('click')
-    	$(".reg-return,.foot-but").on('click',function(){
-    		$(".reg-filter,.bar-hospital,.bar-Departments,.foot-but").hide();
-    		$(".reg-list-con").removeClass('reg-list-hospital');
-    		$("#scroll").removeClass('doc-reg-bottom')
-    	})
 
-    	//显示医院列表 存数据
-    	$(".reg-hospital").on('click',function(){
-            var phone = $('input[name="mobile"]').val();//手机号
-            var password = $('input[name="password"]').val();//密码
-            var channel = $('input[name="channel-name"]').val();//注册平台
-            var username = $('input[name="username"]').val();//姓名
-            var departments = $('.reg-Departments span').html();//科室
-            var jobTitle = $('.reg-jobTitle span').html();//职称
-            var jobLevel = $('.reg-jobLevel span').html();//级别
 
-            var data = {
-                userpic:Comm.initData.qiniudomain+Comm.initData.HeadImg,
-                certificate:Comm.initData.qiniudomain+Comm.initData.CertificateImg,
-                username:username,
-                phone:phone,
-                password:password,
-                jobTitle:jobTitle,
-                jobLevel:jobLevel,
-                hosname:Comm.initData.hosname,
-                channel:channel
+        $('#search').blur(function () {
+            var sVal = $.trim($('.search-input-box input').val());
+            if (sVal == '') {
+                $('.search-input i').hide();
+            };
+        });
+
+        $('#search').bind('input propertychange', function () {
+            // console.log($(this).val());
+            var valStr = $(this).val();
+            if (valStr != '') {
+                $('.search-input-box i').show();
+
             }
-            console.log(data);
-            Comm.Tool.SessionAttr.setSwssionAttr('beforedata',JSON.stringify(data));
+        });
+        $("#search").on('keypress', function (e) {
+            var keycode = e.keyCode;
+            if (keycode == '13') {
+                e.preventDefault();
 
-            Comm.goToUrl({h5Url:'selectHospital.html'});
-    	})
+                Comm.initData.pageindex = 0;
+                Comm.initData.hospitalData = [];
+                $('.hospital-list').html('');
+                //请求搜索接口
+                getHospital(true);
+            }
+        });
 
-    	 
 
-    	//选择科室
-    	$(".reg-Departments").on('click',function(){
-    		$(".reg-list-con").html('');
-    		Hospital.selectDepartments();
-            $("#scroll").addClass('doc-reg-bottom');
-            $('.reg-filter,.bar-Departments,.foot-but').show();
-            
-    	})
+        //搜索
+        $('.reg-hospital').on('click',hospitalSearch);
+
+        $('.search-input >span').on('click',searchEvent);
+        
+        $('.search-input-box .ion-ios-close').on('click', function () {
+            $('#search').val('');
+            $('#search').focus();
+            $('.search-input-box i').hide();
+        });
+
+        $('.hospital-search .ion-ios-arrow-left').on('click',function(){
+            $('.hospital-search').hide();
+        })
+
+        // //选择科室
+        $(".reg-Departments").on('click', selectDepartment)
+
+
+        $('.public-select,.close-layer').on('click',function(){
+            $('.select-list-public').hide();
+            $('.public-select').show();
+            $('.select-list-public').removeClass('dep-top');
+        })
+
 
         //选择职称
-        $(".reg-jobTitle").on('click',function(){
-            $(".reg-list-con").html('');
-            Hospital.selectJobTitle();
-            // $("#scroll").addClass('doc-reg-bottom')
-            $('.reg-filter,.bar-Departments').show();
-            
-        })
-        //选择职称级别
-        $(".reg-jobLevel").on('click',function(){
-            if (Comm.initData.Txt) {
-                $(".reg-list-con").html('');
-                Hospital.selectJobLevel();
-                $('.reg-filter,.bar-Departments').show();
-            }else{
-                Comm.popupsUtil.init({
-                    msgText:'请先选择职务名称!',
-                    yesEvent:function(){
-                        return;
-                    }
-                });
-            }
-           
-        })
+        $(".reg-jobTitle").on('click',selectTitleClass)
+
+
+        $(".reg-jobLevel").on('click',selectTitle)
+
 
     	//保存信息
     	$(".reg-button").on('click',getSave);
@@ -183,35 +194,401 @@ define(function(require, exports, module) {
             });
         })
 
-        //获取当前页面信息
-        var currentinfo = Comm.Tool.SessionAttr.getSwssionAttr('beforedata');
-            if (currentinfo) {
-                var jsonData = JSON.parse(currentinfo);
-                console.log(jsonData);
-                $('input[name="mobile"]').val(jsonData.phone);//手机
-                $('input[name="password"]').val(jsonData.password);//密码
-                $('input[name="username"]').val(jsonData.username);//名字
-                $('.reg-hospital span').html(decodeURI(Comm.initData.hosname));//医院
-                $('.reg-Departments span').html(jsonData.departments);//科室
-                $('.reg-jobTitle span').html(jsonData.jobTitle);//职称
-                $('.reg-jobLevel span').html(jsonData.jobLevel);//级别
-                Comm.Tool.ImgOnload(".headimg", "", jsonData.userpic);//头像
-                Comm.Tool.ImgOnload(".certificate", "", jsonData.certificate);//职业证书
 
-                if (jsonData.channel==2) {//育儿
-
-                    $('.platform input[name="channel-name"]').eq(0).attr('checked', true);
-                    $(".platform .radio-btn").eq(0).addClass('checkedRadio')
-                }else if (jsonData.channel==4) {//安建宝
-                    $(".platform .radio-btn").eq(1).addClass('checkedRadio')
-                    $('.platform .radio-btn').eq(0).removeClass('checkedRadio');
-                    $('.platform input[name="channel-name"]').eq(1).attr('checked', true);
-                }
-            }
-            Comm.Tool.SessionAttr.removeSwssionAllAttr();
     }
 
+
+    function selectTitle(){
+
+        if(Comm.initData.currTitleClass.id==0){
+            Comm.popupsUtil.init({
+                msgText: '请先选择职务名称',
+                yesEvent: function () {
+                    return;
+                }
+            });
+            return;
+        }else{
+            $('.select-list-public').show();
+            $('.select-list-public .title').html('选择职务级别');
+            $('.public-list-s').html('');
+            pushTitleHTML();
+        }
+
+    }
+
+    function pushTitleHTML(){
+        var str=''
+        var currData = Comm.initData.currTitleClass.list
+        if(currData.length){
+            $.each(currData,function(){
+                str += '<li class="line-bot';
+
+                if (Comm.initData.currTitle.id == this.id) {
+                    str += ' cur';
+                }
     
+                str += '">';
+                str += '<p>' + this.name + '</p>';
+                str += '<span class="ion-checkmark top-bottom-center"></span>';
+                str += '</li>'
+            })
+        }else{
+            str += '<div class="no-data"><p>( > __ <。)</p><p>暂无数据！</p></div>'
+        }
+        $('.public-list-s').append(str);
+        $('.public-list-s li').off('click');
+        $('.public-list-s li').on('click', selcetTitleEvent)
+    }
+
+    function selcetTitleEvent(){
+        $('.public-list-s li').removeClass('cur');
+        $(this).addClass('cur');
+        var _index = $(this).index();
+         var currData = Comm.initData.currTitleClass.list
+        Comm.initData.currTitle = currData[_index];
+
+        $('.reg-jobLevel span').html(Comm.initData.currTitle.name);
+        $('.reg-jobLevel span').css({'color':'#464646'})
+        setTimeout(function () {
+            $('.select-list-public').hide();
+        }, 300)
+
+    }
+
+// /////
+
+    function selectTitleClass(){
+        $('.select-list-public').show();
+        $('.select-list-public .title').html('选择职务名称');
+        $('.public-list-s').html('');
+        getTitleData();
+    }
+
+
+    function getTitleData(){
+        Comm.loadingUtil.show({isTransparent:true})
+        Comm.initData.isLoading = true;
+        $.ajax({  
+            url: Comm.ApiUrls + "/SaleApi/GetSaleDoctorBasicsReg", 
+            type: "GET",
+            dataType: "jsonp",
+            success: function(value){
+
+                Comm.loadingUtil.hide();
+
+                Comm.initData.isLoading = false;
+
+                Comm.initData.titleData = value;
+
+                pushTitleClassHTML();
+
+           }
+        });
+    }
+
+    function pushTitleClassHTML(){
+        var str=''
+        if(Comm.initData.titleData.length){
+            $.each(Comm.initData.titleData,function(){
+                str += '<li class="line-bot';
+
+                if (Comm.initData.currTitleClass.id == this.id) {
+                    str += ' cur';
+                }
+    
+                str += '">';
+                str += '<p>' + this.name + '</p>';
+                str += '<span class="ion-checkmark top-bottom-center"></span>';
+                str += '</li>'
+            })
+        }else{
+            str += '<div class="no-data"><p>( > __ <。)</p><p>暂无数据！</p></div>'
+        }
+        $('.public-list-s').append(str);
+        $('.public-list-s li').off('click');
+        $('.public-list-s li').on('click', selcetTitleClassEvent)
+
+    }
+
+    function selcetTitleClassEvent(){
+        $('.public-list-s li').removeClass('cur');
+        $(this).addClass('cur');
+
+        var _index = $(this).index();
+        Comm.initData.currTitleClass = Comm.initData.titleData[_index];
+
+        $('.reg-jobTitle span').html(Comm.initData.currTitleClass.name);
+        $('.reg-jobTitle span').css({'color':'#464646'})
+        setTimeout(function () {
+            $('.select-list-public').hide();
+        }, 300)
+
+    }
+
+
+//////////////////////////////////
+
+    //选择科室
+    function selectDepartment(){
+        $('.select-list-public').show();
+        $('.public-select').show();
+        $('.select-list-public').addClass('dep-top');
+        $('.select-list-public .title').html('选择科室(最多选择三项)');
+        $('.public-list-s').html('');
+        getDepartmentData();
+    }
+
+    //获取科室数据
+    function getDepartmentData(){
+
+        Comm.loadingUtil.show({isTransparent:true})
+        Comm.initData.isLoading = true;
+        $.ajax({  
+            url: Comm.ApiUrls + "/SaleApi/GetRegMess", 
+            type: "GET",
+            dataType: "jsonp",
+            success: function(value){
+
+                Comm.loadingUtil.hide();
+
+                Comm.initData.isLoading = false;
+
+                Comm.initData.DepartmentData = Comm.Tool.getArray(value,'DepR');
+
+                pushDepRHTML();
+
+           }
+        });
+    }
+    //遍历科室html
+    function pushDepRHTML(value){
+
+        var str=''
+        if(Comm.initData.DepartmentData.length){
+            $.each(Comm.initData.DepartmentData,function(){
+                str += '<li class="line-bot';
+                for(var i=0; i<Comm.initData.currDepartment.length;i++){
+                    if (Comm.initData.currDepartment[i].DepartmentID == this.DepartmentID) {
+                        str += ' cur';
+                    }
+                }
+                str += '">';
+                str += '<p>' + this.Department + '</p>';
+                str += '<span class="ion-checkmark top-bottom-center"></span>';
+                str += '</li>'
+            })
+        }else{
+            str += '<div class="no-data"><p>( > __ <。)</p><p>暂无数据！</p></div>'
+        }
+        $('.public-list-s').append(str);
+        $('.public-list-s li').off('click');
+        $('.public-list-s li').on('click', selcetDepartmentEvent)
+
+    }
+    //选择科室事件
+    function selcetDepartmentEvent(){
+
+        // $('.public-list-s li').removeClass('cur');
+        
+
+        var _index = $(this).index();
+        var currDepartment = Comm.initData.DepartmentData[_index];
+
+        if(isItemExist(Comm.initData.currDepartment,currDepartment)){
+            $(this).removeClass('cur');
+            Comm.initData.currDepartment = removeDepartmentArrayItem(Comm.initData.currDepartment,currDepartment)
+
+        }else{
+            if(Comm.initData.currDepartment.length<3){
+                $(this).addClass('cur');
+                Comm.initData.currDepartment.push(currDepartment);
+            }else{
+                Comm.popupsUtil.init({
+                    msgText: '科室最多只能选择三项',
+                    yesEvent: function () {
+                        return;
+                    }
+                });
+            }
+        }
+
+        // console.log(Comm.initData.currDepartment)
+
+        if(Comm.initData.currDepartment.length){
+            var str='';
+
+            $.each(Comm.initData.currDepartment,function(i){
+                if(i!=0){
+                    str+=',';
+                }
+                str += this.Department
+            });
+
+            $('.reg-Departments span').html(str);
+            $('.reg-Departments span').css({'color':'#464646'})
+        }else{
+            $('.reg-Departments span').html('科室');
+            $('.reg-Departments span').css({'color':'#aaa'})
+        }
+
+        // setTimeout(function () {
+        //     $('.select-list-public').hide();
+        // }, 300)
+
+    }
+
+    //判断是否存在
+    function isItemExist(array, item) {
+        var isExist = false;
+        for (var i = 0; i < array.length; i++) {
+            if (item.DepartmentID == array[i].DepartmentID) {
+                isExist = true;
+            }
+        }
+        return isExist;
+    }
+
+    //删除医生数组的元素
+    function removeDepartmentArrayItem(array, item) {
+        var arr = [];
+        for (var i = 0; i < array.length; i++) {
+            if (item.DepartmentID != array[i].DepartmentID) {
+                arr.push(array[i]);
+            }
+        }
+        return arr;
+    }
+
+
+
+// //////////////////////////////
+    //搜索
+    function hospitalSearch(){
+        $('#search').val('');
+        $('.hospital-list').html('')
+        $('.Tip').show();
+
+        $('.hospital-search').show()
+        Comm.initData.pageindex = 0;
+        Comm.initData.HospitaData=[];
+    }
+
+    //医院搜索事件
+    function searchEvent(){
+        var inputText = $.trim($('.search-input-box input').val());
+
+        if(inputText==''){
+            Comm.popupsUtil.init({
+                msgText: '请输入医院名称',
+                yesEvent: function () {
+                    $('.search-input-box input').focus();
+                }
+            });
+        }
+        getHospital(true)
+    }
+
+    //获取医院数据
+    function getHospital(isload){
+        var inputText = $.trim($('.search-input-box input').val());
+        var data = {
+            HospitalName:inputText,
+            PageIndex:Comm.initData.pageindex,
+            PageSize:20
+        }
+
+        var isloadObj = {
+            loadVal:isload,
+            loadView:{
+                loadText:false, // false   字符串
+                isTransparent:true  //布尔值
+            }
+        } 
+
+        Comm.initData.isLoading = true;
+
+        Comm.firstAjax({
+            isload:isloadObj, //页面load
+
+            url:'/SaleApi/GetHospitalAllList', //接口地址
+            value:data,     //接口参数 对象
+
+            success:function(value){
+                 console.log(value);
+
+                Comm.initData.isLoading = false;
+
+                var HospitaData = Comm.Tool.getArray(value,'Hospitals');
+
+                if(!HospitaData.length){
+                    Comm.initData.isLoading = true;
+                }
+
+                if(Comm.initData.pageindex==0){
+                    Comm.initData.HospitaData =  HospitaData;
+                }else{
+                    Comm.initData.HospitaData = Comm.initData.HospitaData.concat(HospitaData);
+                }
+
+                puchHospitalHTML(value);
+
+                if(Comm.initData.isLoading){
+                    Comm.initData.hospitalListScroll.ArraynNullHideLoding()
+                }else{
+                    Comm.initData.hospitalListScroll.hideLoding();
+                }
+            }
+        })
+    }
+
+    //遍历医院节点
+    function puchHospitalHTML(value){
+        var HospitaData = Comm.Tool.getArray(value,'Hospitals');
+        var str = '';
+        if (HospitaData.length) {
+            $.each(HospitaData, function () {
+                str += '<li class="line-bot';
+                if (Comm.initData.currHospita.HospitalID == this.HospitalID) {
+                    str += ' cur';
+                }
+                str += '">';
+                str += '<p>' + this.HospitalName + '</p>';
+                str += '<span class="ion-checkmark top-bottom-center"></span>';
+                str += '</li>'
+            });
+        } else {
+            if (Comm.initData.pageindex == 0) {
+                str += '<div class="no-data"><p>( > __ <。)</p><p>暂无医院数据！</p></div>'
+            }
+        }
+        if (Comm.initData.pageindex == 0) {
+            // $('.hospital-list').html('');
+            $('.Tip').hide();
+        }
+
+        $('.hospital-list').append(str);
+        $('.hospital-list li').off('click');
+        $('.hospital-list li').on('click', selcetHospitalEvent)
+    }
+
+    //选择医院
+    function selcetHospitalEvent(){
+
+        $('.hospital-list li').removeClass('cur');
+        $(this).addClass('cur');
+
+        var _index = $(this).index();
+        Comm.initData.currHospita = Comm.initData.HospitaData[_index];
+
+        $('.reg-hospital span').html(Comm.initData.currHospita.HospitalName);
+        $('.reg-hospital span').css({'color':'#464646'})
+        setTimeout(function () {
+            $('.hospital-search').hide();
+        }, 300)
+
+        console.log(Comm.initData.currHospita)
+    }
 
 //==============================================================
     
@@ -234,17 +611,16 @@ define(function(require, exports, module) {
                 console.log(value);
 
 
-                var w = ($(window).width()-32)*0.2;
-                $(".headimg,.certificate").height(w);
-
                 $('input[name=mobile]').val(Comm.Tool.getInt(value,'Phone'))
                 $('input[name=username]').val(Comm.Tool.getString(value,'Name'))
 
                 //头像
-                Comm.Tool.ImgOnload(".headimg", "", value.PicDomain + value.HeadPic);
+                Comm.initData.HeadImg = value.HeadPic;
+                $(".headimg img").attr("src", Comm.Tool.getPicUrl(value.PicDomain + value.HeadPic,70,70) );
+
 
                 //医院
-                Comm.initData.SelectHospita = value.Hospital;
+                Comm.initData.currHospita = value.Hospital
                 $('.reg-hospital span').html(value.Hospital.HospitalName);
 
                 //科室
@@ -255,15 +631,21 @@ define(function(require, exports, module) {
                         depart += ','  
                     }
                 })
-                Comm.initData.Dep  = value.Department;
+                Comm.initData.currDepartment  = value.Department;
+
                 $('.reg-Departments span').html(depart);
 
-                //职务名称
-                Comm.initData.Txt = value.TitleR;
-                $('.reg-jobTitle span').html(Comm.Tool.getString(value.TitleR,'Title'))
+
+
+                //职称级别
+                Comm.initData.currTitle = value.TitleR;
+                $('.reg-jobLevel span').html(value.TitleR.Title)
+
 
                 //职业证书
-                Comm.Tool.ImgOnload(".certificate", "", value.PicDomain + value.CertificatePic);
+                Comm.initData.CertificateImg = value.CertificatePic 
+                $(".certificate img").attr("src", value.PicDomain + value.CertificatePic);
+
                 $('.reg-Departments span,.reg-jobTitle span,.reg-jobLevel span,.reg-hospital span').css('color','#464646')
 
 
@@ -367,31 +749,36 @@ define(function(require, exports, module) {
         }
 
         //医院
-        if (!Comm.initData.SelectHospita) { 
+        if (!Comm.initData.currHospita.HospitalID) { 
             
             Comm.popupsUtil.init({
                 msgText:'请选择医院！',
-                btnType:1
             });
             return;
         }
 
         //科室
-        if (Comm.initData.Dep==null || Comm.initData.Dep=='') { 
+        if (!Comm.initData.currDepartment.length) { 
         
             Comm.popupsUtil.init({
                 msgText:'请选择科室！',
-                btnType:1
             });
             return;
         }
 
         //职称
-        if (!Comm.initData.Txt) { 
+        if (!Comm.initData.currTitleClass.id) { 
             
             Comm.popupsUtil.init({
-                msgText:'请选择职称！',
-                btnType:1
+                msgText:'请选择职务名称！',
+            });
+            return;
+        }
+        //职称
+        if (!Comm.initData.currTitle.id) { 
+            
+            Comm.popupsUtil.init({
+                msgText:'请选择职称级别！',
             });
             return;
         }
@@ -405,12 +792,13 @@ define(function(require, exports, module) {
 
     //保存信息提交
     function addDocInfo(){
-         $(".reg-button").off('click');
+
+        $(".reg-button").off('click');
 
         var DepStr=[];
 
-        for(var i=0; i<Comm.initData.Dep.length;i++){
-            DepStr.push(Comm.initData.Dep[i].DepartmentID)
+        for(var i=0; i<Comm.initData.currDepartment.length;i++){
+            DepStr.push(Comm.initData.currDepartment[i].DepartmentID)
         }
 
         var data = {
@@ -423,10 +811,10 @@ define(function(require, exports, module) {
             // PID:AddreEvent.Province,  //省份编号
             // CID: AddreEvent.City,  //城市编号
             DepartmentID: DepStr.toString(), //科室 多个用英文逗号隔开
-            RoleTitleID:Comm.initData.level.id ,//职务名称
-            Title: Comm.initData.Txt.id,  //职称
+            RoleTitleID:Comm.initData.currTitleClass.id ,//职务名称
+            Title: Comm.initData.currTitle.id,  //职称级别
             CertificatePic:Comm.initData.CertificateImg,  //执业或资格证书
-            HospitalID:Comm.initData.hosid, //医院编号
+            HospitalID:Comm.initData.currHospita.HospitalID, //医院编号
             IsEnable:Comm.initData.IsEnable,//是否用户端显示
             RegDoctorChannel:Comm.initData.channel//选择注册平台
         }
@@ -444,8 +832,7 @@ define(function(require, exports, module) {
        
         Comm.firstAjax({
             isload:isloadObj, //页面load
-
-            // url:'/SaleApi/GetSaleDoctorReg', //接口地址
+            url:'/SaleApi/GetSaleDoctorReg', //接口地址
             value:data,     //接口参数 对象
 
             success:function(value){
@@ -455,12 +842,9 @@ define(function(require, exports, module) {
                 if (Comm.initData.issaoma) {
                     WeixinJSBridge.call('closeWindow');
                 }else{
-                     Comm.goToUrl({h5Url:'mydoctor.html'});
+                     Comm.goToUrl({h5Url:'mydoctor.html?sid='+Comm.initData.sid});
                 }
 
-            },
-            error: function (value) {
-                console.log(value)
             }
         })
     }
@@ -487,9 +871,6 @@ define(function(require, exports, module) {
         } 
     }
 
-
-
-    
     //------------------------------------------------------------------------
 
 
