@@ -67,6 +67,7 @@ define(function(require, exports, module) {
 
         Comm.init.back();
 
+
         // 获取焦点or失去焦点
         $(".inpTxt").focus(function(){
             $(this).siblings('i').show()
@@ -92,15 +93,34 @@ define(function(require, exports, module) {
     		$("#scroll").removeClass('doc-reg-bottom')
     	})
 
-    	//显示医院列表
+    	//显示医院列表 存数据
     	$(".reg-hospital").on('click',function(){
-    		$(".reg-list-con").html('<p class="reg-list-terms">输入医院名称查询</p>');
-    		$(".reg-list-con").addClass('reg-list-hospital');
-            $('.reg-filter,.bar-hospital').show();
+            var phone = $('input[name="mobile"]').val();//手机号
+            var password = $('input[name="password"]').val();//密码
+            var channel = $('input[name="channel-name"]').val();//注册平台
+            var username = $('input[name="username"]').val();//姓名
+            var departments = $('.reg-Departments span').html();//科室
+            var jobTitle = $('.reg-jobTitle span').html();//职称
+            var jobLevel = $('.reg-jobLevel span').html();//级别
+
+            var data = {
+                userpic:Comm.initData.qiniudomain+Comm.initData.HeadImg,
+                certificate:Comm.initData.qiniudomain+Comm.initData.CertificateImg,
+                username:username,
+                phone:phone,
+                password:password,
+                jobTitle:jobTitle,
+                jobLevel:jobLevel,
+                hosname:Comm.initData.hosname,
+                channel:channel
+            }
+            console.log(data);
+            Comm.Tool.SessionAttr.setSwssionAttr('beforedata',JSON.stringify(data));
+
+            Comm.goToUrl({h5Url:'selectHospital.html'});
     	})
 
-    	//搜索医院
-    	$(".search-but").on('click',Hospital.selectHospital);
+    	 
 
     	//选择科室
     	$(".reg-Departments").on('click',function(){
@@ -157,13 +177,38 @@ define(function(require, exports, module) {
 
         $('#inputfile').change(function(){
             Comm.UploadImg("https://www.yuer24h.com/webapi/API/upload_json.ashx", "inputfile", 2, function(value) {
+                console.log(value.qiniudomain);
+                Comm.initData.qiniudomain = value.qiniudomain
                 postIMGCallback(value);
             });
         })
 
+        //获取当前页面信息
+        var currentinfo = Comm.Tool.SessionAttr.getSwssionAttr('beforedata');
+            if (currentinfo) {
+                var jsonData = JSON.parse(currentinfo);
+                console.log(jsonData);
+                $('input[name="mobile"]').val(jsonData.phone);//手机
+                $('input[name="password"]').val(jsonData.password);//密码
+                $('input[name="username"]').val(jsonData.username);//名字
+                $('.reg-hospital span').html(decodeURI(Comm.initData.hosname));//医院
+                $('.reg-Departments span').html(jsonData.departments);//科室
+                $('.reg-jobTitle span').html(jsonData.jobTitle);//职称
+                $('.reg-jobLevel span').html(jsonData.jobLevel);//级别
+                Comm.Tool.ImgOnload(".headimg", "", jsonData.userpic);//头像
+                Comm.Tool.ImgOnload(".certificate", "", jsonData.certificate);//职业证书
 
+                if (jsonData.channel==2) {//育儿
 
-
+                    $('.platform input[name="channel-name"]').eq(0).attr('checked', true);
+                    $(".platform .radio-btn").eq(0).addClass('checkedRadio')
+                }else if (jsonData.channel==4) {//安建宝
+                    $(".platform .radio-btn").eq(1).addClass('checkedRadio')
+                    $('.platform .radio-btn').eq(0).removeClass('checkedRadio');
+                    $('.platform input[name="channel-name"]').eq(1).attr('checked', true);
+                }
+            }
+            Comm.Tool.SessionAttr.removeSwssionAllAttr();
     }
 
     
@@ -187,6 +232,8 @@ define(function(require, exports, module) {
             success:function(value){
                 Comm.initData.isLoading = false;
                 console.log(value);
+
+
                 var w = ($(window).width()-32)*0.2;
                 $(".headimg,.certificate").height(w);
 
@@ -379,7 +426,7 @@ define(function(require, exports, module) {
             RoleTitleID:Comm.initData.level.id ,//职务名称
             Title: Comm.initData.Txt.id,  //职称
             CertificatePic:Comm.initData.CertificateImg,  //执业或资格证书
-            HospitalID:Comm.initData.SelectHospita.HospitalID, //医院编号
+            HospitalID:Comm.initData.hosid, //医院编号
             IsEnable:Comm.initData.IsEnable,//是否用户端显示
             RegDoctorChannel:Comm.initData.channel//选择注册平台
         }
