@@ -617,9 +617,10 @@ define(function(require, exports, module) {
                 $('input[name=username]').val(Comm.Tool.getString(value,'Name'))
 
                 //头像
-                Comm.initData.HeadImg = value.HeadPic;
-                $(".headimg img").attr("src", Comm.Tool.getPicUrl(value.PicDomain + value.HeadPic,70,70) );
-
+                if(value.HeadPic){
+                    Comm.initData.HeadImg = value.HeadPic;
+                    $(".headimg img").attr("src", Comm.Tool.getPicUrl(value.PicDomain + value.HeadPic,70,70) );
+                }
 
                 //医院
                 Comm.initData.currHospita = value.Hospital
@@ -639,18 +640,25 @@ define(function(require, exports, module) {
 
 
                 //职务名称
-
-                //职称级别
-                Comm.initData.currTitle = value.TitleR;
-                $('.reg-jobLevel span').html(value.TitleR.Title)
-
-
+                if(value.RoleItem){
+                    Comm.initData.currTitleClass = value.RoleItem ;
+                    $('.reg-jobTitle span').html(value.RoleItem.name);
+                    $('.reg-jobTitle span').css('color','#464646')
+                    //职称级别
+                    if(Comm.initData.currTitle){
+                        Comm.initData.currTitle = value.TitleItem;
+                        $('.reg-jobLevel span').html(value.TitleItem.name)
+                        $('.reg-jobLevel span').css('color','#464646')
+                    }
+                }
 
                 //职业证书
-                Comm.initData.CertificateImg = value.CertificatePic 
-                $(".certificate img").attr("src", value.PicDomain + value.CertificatePic);
+                if(value.CertificatePic){
+                    Comm.initData.CertificateImg = value.CertificatePic 
+                    $(".certificate img").attr("src", value.PicDomain + value.CertificatePic);
+                }
 
-                $('.reg-Departments span,.reg-jobTitle span,.reg-jobLevel span,.reg-hospital span').css('color','#464646')
+                $('.reg-Departments span,.reg-hospital span').css('color','#464646')
 
 
                 //注册平台
