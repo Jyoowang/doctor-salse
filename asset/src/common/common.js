@@ -61,6 +61,7 @@ define(function (require, exports, module) {
                 success: function (value) {
                     console.log(value)
                 },
+                isError:false, //是否要接管错误
                 error: null, //function
                 errorError: function (xhr, status, err) {
                     console.log(value)
@@ -72,8 +73,7 @@ define(function (require, exports, module) {
 
                 if (defaults.isload.loadVal) {
                     loading.show(defaults.isload.loadView);
-                }
-                ;
+                };
 
                 defaults.value['appid'] = '';
                 defaults.value['sign'] = '';
@@ -100,37 +100,38 @@ define(function (require, exports, module) {
                         } else {
                
                             if (defaults.error) {
-                                    if (typeof defaults.error == 'function')
-                                    defaults.error();
-
-                                }else{
-                                    popups.init({
-                                        msgText:data.message,
-                                        topTitle:'提示',
-                                        yesEvent:function(){
-                                            console.log('确定');
-                                        },
-                                        noEvent:function(){
-                                            console.log('取消');
-                                        }
-                                    })
+                                if (typeof defaults.error == 'function')
+                                defaults.error();
+                            }
+                            if(!defaults.isError){
+                                var mes = data.message
+                                if(data.message==''){
+                                    mes = data.result
                                 }
-                                // alert(data.message);
-                            } 
-
+                                popups.init({
+                                    msgText:mes,
+                                    topTitle:'提示',
+                                    yesEvent:function(){
+                                        console.log('确定');
+                                    },
+                                    noEvent:function(){
+                                        console.log('取消');
+                                    }
+                                })
+                            }
+                        }
                             //弹出窗口
-                        },
-                        error: function (xhr, status, err) {
+                    },
+                    error: function (xhr, status, err) {
                         if (defaults.errorError) {
                             defaults.errorError(xhr, status, err);
                         }
                         if (err) {
                             console.log(err.toString());
-                        }
-                        ;
+                        };
                         //弹出系统异常
-                     }
-                    
+                    }
+                
                    
                 });
 
@@ -201,24 +202,22 @@ define(function (require, exports, module) {
                             defaults.success(response);
                         } else {
                             // ResultMessage
-                            // if (Math.abs(response.ResultCode) || response.ResultCode==0) {
-                                if (defaults.error) {
-                                    if (typeof defaults.error == 'function')
-                                    defaults.error();
-                                }else{
-                                    popups.init({
-                                        msgText:response.ResultMessage,
-                                        topTitle:'提示',
-                                        yesEvent:function(){
-                                            console.log('确定');
-                                        },
-                                        noEvent:function(){
-                                            console.log('取消');
-                                        }
-                                    })
-                                }
-                                // alert(data.message);
-                            // }
+                            if (defaults.error) {
+                                if (typeof defaults.error == 'function')
+                                defaults.error();
+                            }
+                            if(!defaults.isError){
+                                popups.init({
+                                    msgText:response.ResultMessage,
+                                    topTitle:'提示',
+                                    yesEvent:function(){
+                                        console.log('确定');
+                                    },
+                                    noEvent:function(){
+                                        console.log('取消');
+                                    }
+                                })
+                            }
                         }
                     },
                     error: function (xhr, status, err) {

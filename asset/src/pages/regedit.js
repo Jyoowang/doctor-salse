@@ -318,6 +318,10 @@ define(function(require, exports, module) {
         var _index = $(this).index();
         Comm.initData.currTitleClass = Comm.initData.titleData[_index];
 
+        Comm.initData.currTitle = {id:0}; //职称级别
+        $('.reg-jobLevel span').html('职称级别');
+        $('.reg-jobLevel span').css({'color':'#aaa'})
+
         $('.reg-jobTitle span').html(Comm.initData.currTitleClass.name);
         $('.reg-jobTitle span').css({'color':'#464646'})
         setTimeout(function () {
@@ -744,7 +748,6 @@ define(function(require, exports, module) {
             return;
             
         }
-
      
 
         //姓名验证
@@ -839,7 +842,7 @@ define(function(require, exports, module) {
             }
         }
         
-        console.log(data);
+        // console.log(data);
         Comm.initData.isLoading = true;
        
         Comm.firstAjax({
@@ -856,7 +859,6 @@ define(function(require, exports, module) {
                 }else{
                      Comm.goToUrl({h5Url:'mydoctor.html?sid='+Comm.initData.sid});
                 }
-
             }
         })
     }
