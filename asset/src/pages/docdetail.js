@@ -35,7 +35,6 @@ define(function(require, exports, module) {
             Comm.goToUrl({h5Url:'program.html?docid=' + Comm.initData.docid});
         })
 
-        // $('.toggle').on('click',fansPrice);
         // $('input[name=isdefault]').on('click',fansPrice);
     }
 

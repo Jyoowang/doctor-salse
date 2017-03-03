@@ -736,7 +736,7 @@ define(function(require, exports, module) {
 
         //注册平台
       
-        Comm.initData.channel = $("input:radio[name='channel-name']:checked").val();
+        Comm.initData.channel = $("input:radio[name='channel-name'][checked]").val();
         if(!Comm.initData.channel){
             Comm.popupsUtil.init({
                 msgText:'请选择注册平台！',
@@ -748,7 +748,6 @@ define(function(require, exports, module) {
             return;
             
         }
-     
 
         //姓名验证
     	if ($('input[name=username]').val() == '') { 
@@ -799,7 +798,8 @@ define(function(require, exports, module) {
         }
 
         //用户端显示
-        Comm.initData.IsEnable = $("input:radio[name='radio-btn']:checked").val();
+        // Comm.initData.IsEnable = $("input:radio[name='radio-btn']:checked").val();
+        Comm.initData.IsEnable = $("input:radio[name='radio-btn'][checked]").val();
           	
         addDocInfo();
 
