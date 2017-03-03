@@ -36,7 +36,7 @@ define(function(require, exports, module) {
         })
 
         // $('.toggle').on('click',fansPrice);
-        $('input[name=isdefault]').on('click',fansPrice);
+        // $('input[name=isdefault]').on('click',fansPrice);
     }
 
     //-------------------------------------------------------------------
