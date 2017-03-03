@@ -144,9 +144,6 @@ define(function(require, exports, module) {
                 _this.addClass('gray');
                 _this.html('已添加');
 
-            },
-            error:function(){
-                
             }
         })
 

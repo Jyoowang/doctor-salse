@@ -78,7 +78,7 @@ define(function(require, exports, module) {
                 if(!SaleDoctorList.length){
                     Comm.initData.isLoading = true;
                 }
-                  pushDocList(value);
+                pushDocList(value);
                 if(Comm.initData.isLoading){
                     Comm.initData.ListScroll.ArraynNullHideLoding()
                 }else{
