@@ -66,8 +66,14 @@ define(function(require, exports, module) {
     }
 
     function personalinfo(value){
+
+        if (value.HeadPic) {
+            $('.doc-pic img').attr("src",Comm.Tool.getPicUrl(value.PicDomain + value.HeadPic,68,68));
+        }else{
+            str +='<img src="../asset/images/public/default_v2.png" alt="">'
+        }
         
-        $('.doc-pic img').attr("src",Comm.Tool.getPicUrl(value.PicDomain + value.HeadPic,68,68));
+        
         $(".docinfo .col p").html( Comm.Tool.getString(value,'Name')+'<br><span>'+ Comm.Tool.getString(value.Hospital,'HospitalName') +'</span>');
         //用户数
         $('.user-num').html(Comm.Tool.getInt(value,'UserCount'));
