@@ -165,7 +165,7 @@ define(function(require, exports, module) {
     function pushAddprogram(value){
 
         var str=""
-        var imgwi=parseInt($(window).width()*0.66)*2;
+        var imgwi=parseInt($(window).width()*0.66);
 
         if (Comm.Tool.getArray(value.result,'result').length) {
 

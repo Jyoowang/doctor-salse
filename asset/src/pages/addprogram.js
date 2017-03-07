@@ -87,7 +87,7 @@ define(function(require, exports, module) {
     function pushAddpro(value){
 
         str = "";
-        var imgwi=parseInt($(window).width()*0.66)*2;
+        var imgwi=parseInt($(window).width()*0.66);
         if (Comm.Tool.getArray(value.result,'result').length) {
 
             $.each(Comm.Tool.getArray(value.result,'result'),function(){

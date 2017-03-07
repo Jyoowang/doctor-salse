@@ -140,7 +140,7 @@ define(function(require, exports, module) {
                 str +='<div class="pro-box mt10 line-bot" data-proid="'+ Comm.Tool.getInt(this,'productid')+'">'
                 str +='<span>'+ (index+1) +'</span>'
                 str +='<div class="pro line-bot">'
-                str +='<div class="pro-pic imgCenter"><img src="'+ Comm.Tool.getPicUrl(this.smallimg ,0,0) +'" alt=""><i></i></div>'
+                str +='<div class="pro-pic imgCenter"><img src="'+ Comm.Tool.getPicUrl(this.smallimg ,68,0) +'" alt=""><i></i></div>'
                 str +='<div class="pro-txt">'
                 str +='<p class="many-text-overflow">'+ Comm.Tool.getString(this,'productname') +'</p>'
                 str +='<span>售价：'+ Comm.Tool.getInt(this,'originalprice') +'元</span>'
