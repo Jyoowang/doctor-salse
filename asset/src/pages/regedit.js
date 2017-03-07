@@ -39,6 +39,9 @@ define(function(require, exports, module) {
         Comm.initData.currTitleClass = {id:0}; //职称级别
         Comm.initData.currTitle = {id:0}; //职称级别
     	// Comm.initData.issaoma = false; 
+
+        Comm.initData.code = 60; //默认倒计时时间
+        Comm.initData.iTime = null;
     }
 
     function initUi(){
@@ -102,6 +105,9 @@ define(function(require, exports, module) {
 	    $(".ion-close-circled").on('click',function(){
 	    	$(this).siblings('input').val('')
 	    })
+
+        //获取验证码
+        $('.code').on('click',clickCode);
 
 
 
@@ -682,6 +688,86 @@ define(function(require, exports, module) {
         })
     }
 
+    //倒计时
+    function timer() {
+        if (Comm.initData.code >= 0) {
+            $(".code").html(Comm.initData.code + '秒后重发');
+            $(".code").addClass('cur');
+            Comm.initData.code--;
+            Comm.initData.iTime = setTimeout(timer,1000);
+        } else {
+            Comm.initData.code = 60;
+            $(".code").on('click',clickCode);
+            $(".code").removeClass('cur');
+            $(".code").html('获取验证码');
+        }
+    };
+
+    //获取验证码
+    function clickCode(){
+
+        var inpMobile = $("input[name='mobile']").val();
+        var reg = /^0?1[3|4|5|7|8][0-9]\d{8}$/;
+
+        if (!reg.test(inpMobile)) {  //手机号验证
+            Comm.popupsUtil.init({
+                msgText:'请输入正确的手机号码！',
+                btnType:1,
+                yesEvent:function(){
+                    $("input[name='mobile']").focus();
+                }
+            });
+            return
+        }
+
+        if (Comm.initData.code == 60) {
+            getCode();
+        }
+
+    }
+
+    function getCode(){
+        var inpMobile = $("input[name='mobile']").val();
+        var data = {
+            Phone:inpMobile,
+        }
+        var isloadObj = {
+            loadVal:true,
+            loadView:{
+                loadText:false, // false   字符串
+                isTransparent:true  //布尔值
+            }
+        } 
+
+        $(".code").off('click');
+
+        Comm.initData.isLoading = true;
+
+        Comm.firstAjax({
+            isload:isloadObj, //页面load
+
+            url:'/SaleApi/GetRegCode', //接口地址
+            value:data,     //接口参数 对象
+
+            success:function(value){
+                 // console.log(value);
+                Comm.popupsUtil.init({
+                    msgText:value.ResultMessage,
+                    btnType:1,
+                    yesEvent:function(){
+                        return;
+                    }
+                });
+               
+                Comm.initData.isLoading = false;
+                Comm.initData.code = 60;
+                clearTimeout(Comm.initData.iTime);
+                timer();
+            }
+
+        })
+    }
+
     //保存信息验证
     function getSave(){
 
@@ -811,7 +897,7 @@ define(function(require, exports, module) {
             SID:Comm.initData.sid, //销售编号         
             Phone: $('input[name=mobile]').val(), //手机号
             Password: md5($('input[name=password]').val()),  //密码
-            VCode: $('input[name=yzm]').val(), //验证码
+            VCode: $('input[name=code]').val(), //验证码
             HeadPic:Comm.initData.HeadImg, //头像
             Name:$('input[name=username]').val(),  //医生姓名
             // PID:AddreEvent.Province,  //省份编号
@@ -849,6 +935,12 @@ define(function(require, exports, module) {
                 }else{
                      Comm.goToUrl({h5Url:'mydoctor.html?sid='+Comm.initData.sid});
                 }
+            },
+            error: function (value) {
+                Comm.initData.code = 60;
+                $(".code").on('click',clickCode);
+                $(".code").removeClass('cur');
+                $(".code").html('获取验证码');
             }
         })
     }

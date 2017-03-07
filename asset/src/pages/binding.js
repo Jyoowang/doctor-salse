@@ -177,6 +177,13 @@ define(function(require, exports, module) {
             value:data,     //接口参数 对象
 
             success:function(value){
+                Comm.popupsUtil.init({
+                    msgText:value.ResultMessage,
+                    btnType:1,
+                    yesEvent:function(){
+                        return;
+                    }
+                });
             	Comm.initData.isLoading = false;
             	Comm.initData.code = 60;
                 clearTimeout(Comm.initData.iTime);
