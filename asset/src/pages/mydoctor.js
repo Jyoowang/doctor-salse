@@ -21,7 +21,7 @@ define(function(require, exports, module) {
     //获取页面数据
     getData(true);
 
-    console.log(Comm.initData);
+    // console.log(Comm.initData);
 
     function initEvent(){
         Comm.init.back();
@@ -38,7 +38,6 @@ define(function(require, exports, module) {
                 if (!Comm.initData.isLoading) {
                     Comm.initData.pageindex++;
                     getData(false);
-                    console.log(1)
                 }
             }
         })
@@ -73,7 +72,7 @@ define(function(require, exports, module) {
 
             success:function(value){
                 Comm.initData.isLoading = false;
-                console.log(value);
+                // console.log(value);
                 var SaleDoctorList =  Comm.Tool.getArray(value,'SaleDoctorList')
                 if(!SaleDoctorList.length){
                     Comm.initData.isLoading = true;
@@ -98,7 +97,12 @@ define(function(require, exports, module) {
 
                 str +='<div class="doc-item line-bot" data-doc-id="'+ Comm.Tool.getInt(this,'DoctorID')+'" data-exam-id="'+ Comm.Tool.getInt(this,'Examine')+'">'
                 str +='<div class="doc-pic">'
-                str +='<img src="'+ value.PicDomain + this.HeadPic +'" alt="" height="100%">'
+                if (this.HeadPic) {
+                    str +='<img src="'+ Comm.Tool.getPicUrl(value.PicDomain + this.HeadPic,70,70) +'" alt="">'
+                }else{
+                     str +='<img src="../asset/images/public/default_v2.png" alt="">'
+                }
+               
                 str +='</div>'
                 str +='<div class="doc-txt">'
                 str +='<p class="info line-bot">'+ Comm.Tool.getString(this,'Name')+' <small>'+ this.Title+' </small></br><span>'+ Comm.Tool.getString(this,'Hospital')+'</span></p>'

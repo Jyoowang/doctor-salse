@@ -18,7 +18,7 @@ define(function(require, exports, module) {
     //初始化页面控件事件
     initEvent();   
 
-    console.log(Comm.initData);
+    // console.log(Comm.initData);
 
     function initEvent(){
 
@@ -64,7 +64,6 @@ define(function(require, exports, module) {
 
             success:function(value){
                 Comm.initData.isLoading = false;
-                console.log(value);
                  if(value.ExamineFailReason){
                     $('.retroaction').html('备注：' + value.ExamineFailReason );
                 }else{

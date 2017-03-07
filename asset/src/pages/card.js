@@ -20,7 +20,7 @@ define(function(require, exports, module) {
     //获取页面数据
      getData();
 
-    console.log(Comm.initData);
+    // console.log(Comm.initData);
 
     //--------------------------------------------------------------
 
@@ -48,8 +48,7 @@ define(function(require, exports, module) {
 
             success:function(value){
                 Comm.initData.isLoading = false;
-                console.log(value);
-                Comm.Tool.ImgOnload(".doc-pic", "", value.PicDomain + value.HeadPic);
+                $('.doc-pic img').attr("src",Comm.Tool.getPicUrl(value.PicDomain + value.HeadPic,70,70));
                 $(".docinfo .col p").html( Comm.Tool.getString(value,'Name')+'<br><span>'+ Comm.Tool.getString(value,'Title') +'</span>');
                 $(".code img").attr('src',value.QRCodeImg);        
                

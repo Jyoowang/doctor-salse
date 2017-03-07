@@ -21,7 +21,7 @@ define(function(require, exports, module) {
     //获取页面数据
     getData(true);
 
-    console.log(Comm.initData);
+    // console.log(Comm.initData);
 
     function initData(){
         Comm.initData.pageindex = 1;
@@ -38,7 +38,6 @@ define(function(require, exports, module) {
                 if (!Comm.initData.isLoading) {
                     Comm.initData.pageindex++;
                     getData(false);
-                    console.log(1)
                 }
             }
         })
@@ -74,7 +73,6 @@ define(function(require, exports, module) {
 
             success:function(value){
                 Comm.initData.isLoading = false;
-                console.log(value);
                 var result =  Comm.Tool.getArray(value,'result')
                 if(!result.length){
                     Comm.initData.isLoading = true;
@@ -99,7 +97,7 @@ define(function(require, exports, module) {
 
                 str +='<div class="pro-box line-bot">'
                 str +='<div class="pro line-bot">'
-                str +='<div class="pro-pic imgCenter"><img src="'+ this.smallimg +'" alt=""><i></i></div>'
+                str +='<div class="pro-pic imgCenter"><img src="'+ Comm.Tool.getPicUrl(this.smallimg ,0,0) +'" alt=""><i></i></div>'
                 str +='<div class="pro-txt">'
                 str +='<p class="many-text-overflow">'+ Comm.Tool.getString(this,'productname') +'</p>'
                 str +='<span>售价：'+ Comm.Tool.getInt(this,'originalprice') +'元</span>'
@@ -145,7 +143,6 @@ define(function(require, exports, module) {
 
             success:function(value){
                 Comm.initData.isLoading = false;
-                console.log(value);
                 _this.addClass('gray');
                 _this.html('已添加');
             }

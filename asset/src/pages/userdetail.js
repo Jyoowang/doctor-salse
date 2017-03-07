@@ -21,7 +21,7 @@ define(function(require, exports, module) {
     //获取页面数据
     getData();
 
-    console.log(Comm.initData);
+    // console.log(Comm.initData);
 
     function initEvent(){
         Comm.init.back();
@@ -34,7 +34,6 @@ define(function(require, exports, module) {
                 if (!Comm.initData.isLoading) {
                     Comm.initData.pageindex++;
                     getData(false);
-                    console.log(1)
                 }
             }
         })
@@ -71,7 +70,6 @@ define(function(require, exports, module) {
 
             success:function(value){
                 Comm.initData.isLoading = false;
-                console.log(value);
                 var result =  Comm.Tool.getArray(value,'result')
                 if(!result.length){
                     Comm.initData.isLoading = true;

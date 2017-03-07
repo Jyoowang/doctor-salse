@@ -21,7 +21,7 @@ define(function(require, exports, module) {
     //获取页面数据
     getData(true);
 
-    console.log(Comm.initData);
+    // console.log(Comm.initData);
 
     function initData(){
         Comm.initData.pagesize == 0
@@ -42,7 +42,7 @@ define(function(require, exports, module) {
                 if (!Comm.initData.isLoading) {
                     Comm.initData.pageindex++;
                     getData(false);
-                    console.log(1)
+                   
                 }
             }
         })
@@ -77,7 +77,6 @@ define(function(require, exports, module) {
 
             success:function(value){
                 Comm.initData.isLoading = false;
-                console.log(value);
                 var result =  Comm.Tool.getArray(value.result,'result')
                 if(!result.length){
                     Comm.initData.isLoading = true;
@@ -114,7 +113,6 @@ define(function(require, exports, module) {
 
             success:function(value){
                 Comm.initData.isLoading = false;
-                console.log(value);
                 $('.product').html('');
                 var result =  Comm.Tool.getArray(value.result,'result')
                 if(!result.length){
@@ -149,7 +147,6 @@ define(function(require, exports, module) {
 
             success:function(value){
                 Comm.initData.isLoading = false;
-                console.log(value);
                 Comm.initData.this.parent().parent('.pro-box').remove();
                 if (!$('.product .pro-box').length) {
                     $('#add-btn').hide();
@@ -168,8 +165,7 @@ define(function(require, exports, module) {
     function pushAddprogram(value){
 
         var str=""
-        var imgwi=parseInt($(window).width()*0.95)*2;
-        var imghei=parseInt($(window).width()*0.95*0.357)*2;
+        var imgwi=parseInt($(window).width()*0.66)*2;
 
         if (Comm.Tool.getArray(value.result,'result').length) {
 
@@ -178,7 +174,7 @@ define(function(require, exports, module) {
                 str +='<div class="pro-box mt10 line-bot">'
                 str +='<span>'+ (index+1) +'</span>'
                 str +='<div class="pro line-bot">'
-                str +='<div class="imgCenter pro_img"><img src="'+ this.img +'?imageView2/5/w/'+ imgwi+'/h/'+imghei+' "alt=""><i></i></div>'
+                str +='<div class="imgCenter pro_img"><img src="'+Comm.Tool.getPicUrl(this.img,imgwi,0)+' "alt=""><i></i></div>'
                 str +='<div class="del"><span>删除</span><i></i></div>'
                 str +='</div>'
                 str +='<div class="subtotal" data-linkid="'+ this.linkid +'">向上</div>'

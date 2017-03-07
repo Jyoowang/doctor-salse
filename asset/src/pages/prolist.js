@@ -22,7 +22,7 @@ define(function(require, exports, module) {
     //获取页面数据
     getData(true);
 
-    console.log(Comm.initData);
+    // console.log(Comm.initData);
 
     function initData(){
         Comm.initData.pageindex = 1;
@@ -77,7 +77,6 @@ define(function(require, exports, module) {
 
             success:function(value){
                 Comm.initData.isLoading = false;
-                console.log(value);
                 var result =  Comm.Tool.getArray(value,'result')
                 if(!result.length){
                     Comm.initData.isLoading = true;
@@ -114,7 +113,6 @@ define(function(require, exports, module) {
 
             success:function(value){
                 Comm.initData.isLoading = false;
-                console.log(value);
                 $('.product').html('');
                 var result =  Comm.Tool.getArray(value,'result')
                 if(!result.length){
@@ -142,7 +140,7 @@ define(function(require, exports, module) {
                 str +='<div class="pro-box mt10 line-bot" data-proid="'+ Comm.Tool.getInt(this,'productid')+'">'
                 str +='<span>'+ (index+1) +'</span>'
                 str +='<div class="pro line-bot">'
-                str +='<div class="pro-pic imgCenter"><img src="'+ this.smallimg +'" alt=""><i></i></div>'
+                str +='<div class="pro-pic imgCenter"><img src="'+ Comm.Tool.getPicUrl(this.smallimg ,0,0) +'" alt=""><i></i></div>'
                 str +='<div class="pro-txt">'
                 str +='<p class="many-text-overflow">'+ Comm.Tool.getString(this,'productname') +'</p>'
                 str +='<span>售价：'+ Comm.Tool.getInt(this,'originalprice') +'元</span>'
@@ -168,7 +166,6 @@ define(function(require, exports, module) {
         $(".del").on('click',function(){
             Comm.initData.this=$(this);
             Comm.initData.linkid = $(this).parent().siblings('.turntop').attr('data-linkid'); 
-            console.log(Comm.initData.linkid);
             Comm.popupsUtil.init({
                 msgText:'是否删除',
                 btnType:2,//1 2
@@ -196,7 +193,6 @@ define(function(require, exports, module) {
 
             success:function(value){
                 Comm.initData.isLoading = false;
-                console.log(value);
                 Comm.initData.this.parent().parent('.pro-box').remove();
                 console.log($('.product .pro-box').length);
                 if (!$('.product .pro-box').length) {

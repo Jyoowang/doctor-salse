@@ -58,7 +58,6 @@ define(function(require, exports, module) {
             success:function(value){
 
                 Comm.initData.isLoading = false;
-                console.log(value);
                 personalinfo(value);
                 
             }
@@ -68,7 +67,7 @@ define(function(require, exports, module) {
 
     function personalinfo(value){
         
-        Comm.Tool.ImgOnload(".doc-pic", "", value.PicDomain + value.HeadPic);
+        $('.doc-pic img').attr("src",Comm.Tool.getPicUrl(value.PicDomain + value.HeadPic,68,68));
         $(".docinfo .col p").html( Comm.Tool.getString(value,'Name')+'<br><span>'+ Comm.Tool.getString(value.Hospital,'HospitalName') +'</span>');
         //用户数
         $('.user-num').html(Comm.Tool.getInt(value,'UserCount'));
@@ -109,8 +108,6 @@ define(function(require, exports, module) {
             value:data,     //接口参数 对象
 
             success:function(value){
-                console.log(value);
-
                 Comm.initData.isLoading = false;
                 
             }

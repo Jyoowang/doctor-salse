@@ -80,7 +80,6 @@ define(function(require, exports, module) {
                 if (!Comm.initData.isLoading) {
                     Comm.initData.pageindex++;
                     getHospital(false)
-                    console.log(1)
                 }
             }
         })
@@ -113,7 +112,6 @@ define(function(require, exports, module) {
         });
 
         $('#search').bind('input propertychange', function () {
-            // console.log($(this).val());
             var valStr = $(this).val();
             if (valStr != '') {
                 $('.search-input-box i').show();
@@ -188,7 +186,6 @@ define(function(require, exports, module) {
 
         $('#inputfile').change(function(){
             Comm.UploadImg("https://www.yuer24h.com/webapi/API/upload_json.ashx", "inputfile", 2, function(value) {
-                console.log(value.qiniudomain);
                 Comm.initData.qiniudomain = value.qiniudomain
                 postIMGCallback(value);
             });
@@ -245,7 +242,7 @@ define(function(require, exports, module) {
         $('.public-list-s li').removeClass('cur');
         $(this).addClass('cur');
         var _index = $(this).index();
-         var currData = Comm.initData.currTitleClass.list
+        var currData = Comm.initData.currTitleClass.list
         Comm.initData.currTitle = currData[_index];
 
         $('.reg-jobLevel span').html(Comm.initData.currTitle.name);
@@ -393,8 +390,6 @@ define(function(require, exports, module) {
     //选择科室事件
     function selcetDepartmentEvent(){
 
-        // $('.public-list-s li').removeClass('cur');
-        
 
         var _index = $(this).index();
         var currDepartment = Comm.initData.DepartmentData[_index];
@@ -416,8 +411,6 @@ define(function(require, exports, module) {
                 });
             }
         }
-
-        // console.log(Comm.initData.currDepartment)
 
         if(Comm.initData.currDepartment.length){
             var str='';
@@ -521,7 +514,6 @@ define(function(require, exports, module) {
             value:data,     //接口参数 对象
 
             success:function(value){
-                 console.log(value);
 
                 Comm.initData.isLoading = false;
 
@@ -614,8 +606,6 @@ define(function(require, exports, module) {
 
             success:function(value){
                 Comm.initData.isLoading = false;
-                console.log(value);
-
 
                 $('input[name=mobile]').val(Comm.Tool.getInt(value,'Phone'))
                 $('input[name=username]').val(Comm.Tool.getString(value,'Name'))
@@ -841,8 +831,7 @@ define(function(require, exports, module) {
                 isTransparent:false  //布尔值
             }
         }
-        
-        // console.log(data);
+      
         Comm.initData.isLoading = true;
        
         Comm.firstAjax({
