@@ -18,7 +18,7 @@ define(function(require, exports, module) {
     initEvent();
 
     //获取页面数据
-    // getData();
+    getData();
 
     console.log(Comm.initData);
 
@@ -28,8 +28,29 @@ define(function(require, exports, module) {
             Comm.goToUrl({h5Url:'walletdetail.html'});
         })
 
-        $('.expense').on('click',function(){
-            Comm.goToUrl({h5Url:'expense.html'});
+    }
+
+    function getData(){
+
+        var data = {
+            SaleID:Comm.initData.sid
+        }
+
+        Comm.initData.isLoading = true; 
+
+        Comm.firstAjax({
+            isload:{loadVal:true}, //页面load
+
+            url:'/SaleApi/GetPersonalCenterWealth',  //接口地址
+
+            value:data,     //接口参数 对象
+
+            success:function(value){
+
+                Comm.initData.isLoading = false;
+                $('.price').html(Comm.Tool.getString(value,"WalletMoney"));
+                
+            }
         })
     }
 

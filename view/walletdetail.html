@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="balack" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<title>收支明细</title>
+	<link rel="stylesheet" type="text/css" href="../asset/libs/ionic/1.3.1/css/ionic.min.css">
+	<link rel="stylesheet" type="text/css" href="../asset/css/base/public.css">
+	<link rel="stylesheet" type="text/css" href="../asset/css/style.css">
+</head>
+<body>
+	<div class="bar bar-header">
+		<i class="icon ion-ios-arrow-left icon-return goback"></i>
+		<span class="title title-address">收支明细</span>
+	<!-- 	<button class="button button-clear top-subtitle" id="add-btn">添加伙伴</button> -->
+	</div>
+	<div id="wrapper" class="scroll-content single doc-reg-top">
+		<div id="scroller">
+			
+		
+	        <div class="wallts">
+
+				<!-- <div class="public-list line-bot">
+					<div class="detail_left">
+						<dl>
+							<dt>[咨询]电话咨询</dt>
+							<dd>2015/05/12 17:19:23</dd>
+						</dl>
+					</div>
+					<div class="detail_right">
+						<p class="color_red">-20.00</p>
+					</div>
+				</div>
+
+				<div class="public-list line-bot">
+					<div class="detail_left">
+						<dl>
+							<dt>订购商品奖励</dt>
+							<dd>2015/05/12  17:19:23</dd>
+						</dl>
+					</div>
+					<div class="detail_right">
+						<p class="color_green">+5</p>
+					</div>
+				</div> -->
+
+		    </div>
+         
+			
+		</div>
+	</div>
+
+	<!-- loading -->
+	 <div class="loadbox" style="display: block;">
+		<div class="load-main"><i></i><p>加载中...</p></div>
+	</div> 
+</body>
+<script src="../asset/libs/sea/sea/2.2.0/sea.js"></script>
+<script src="../asset/libs/sea/sea-css/1.0.5/seajs-css.js"></script>
+<script src="../config.js"></script>
+<script>
+	if(!seajs.ISDEV){
+		seajs.use("../asset/dist/pages/walletdetail");
+	}else{
+		seajs.use("../asset/src/pages/walletdetail");
+	}
+
+</script>
+</html>

@@ -37,7 +37,8 @@ define(function(require, exports, module) {
 
         Comm.initData.titleData = null; //职称
         Comm.initData.currTitleClass = {id:0}; //职称级别
-    	Comm.initData.currTitle = {id:0}; //职称级别
+        Comm.initData.currTitle = {id:0}; //职称级别
+    	// Comm.initData.issaoma = false; 
     }
 
     function initUi(){
@@ -61,7 +62,7 @@ define(function(require, exports, module) {
         }
 
         if (Comm.initData.issaoma) { //医生注册 //显示验证码，完善资料title
-            $('.item-code,.firstregedittit,').show();
+            $('.item-code,.firstregedittit').show();
         }
 
 
