@@ -47,7 +47,7 @@ define(function(require, exports, module) {
         var data={
             method:'QuickSoft.AppService.DoctorService.GetDoctorUserOrderList',
             data:{
-                userid:Comm.initData.sid,
+                userid:Comm.initData.uid,
                 doctorid:Comm.initData.docid,
                 pageindex:Comm.initData.pageindex,
                 pagesize:20

@@ -90,7 +90,7 @@ define(function(require, exports, module) {
 
             $.each(Comm.Tool.getArray(value,'SaleDoctorUserList'),function(){
 
-                str +='<div class="user-item line-bot" data-doc-id="'+ Comm.Tool.getInt(this,'DoctorID')+'" data-exam-id="'+ Comm.Tool.getInt(this,'Examine')+'">'
+                str +='<div class="user-item line-bot" data-id="'+ Comm.Tool.getInt(this,'UserID')+'" >'
                 str +=' <div class="user-pic fl">'
                 str +='<img src="'+Comm.Tool.getPicUrl(value.PicDomain + this.HeadPic,70,70) +'" alt="">'
                 str +='</div>'
@@ -114,7 +114,8 @@ define(function(require, exports, module) {
 
         $('.userlist').append(str);
         $('.user-item').on('click',function(){
-             Comm.goToUrl({h5Url:'userdetail.html?docid=' + Comm.initData.docid});
+            var id = $(this).attr('data-id');
+            Comm.goToUrl({h5Url:'userdetail.html?uid='+ id +'&docid=' + Comm.initData.docid});
         })
    }
 

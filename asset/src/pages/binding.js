@@ -98,10 +98,25 @@ define(function(require, exports, module) {
 
             success:function(value){
             	Comm.initData.isLoading = false;
-                //跳转医生列表页
-            	Comm.goToUrl({
-                    h5Url:'mydoctor.html?sid=' + value.SID
-                });
+
+                var urls = window.location.origin +'/beiyuer/view/'
+
+                if(Comm.initData.isDirection==1){
+                    //跳转签到列表
+                    Comm.goToUrl({
+                        h5Url: urls + 'visitlist.html?sid=' + value.SID
+                    });
+                }else if(Comm.initData.isDirection==2){
+                    //跳转医生列表页
+                    Comm.goToUrl({
+                        h5Url:'mydoctor.html?sid=' + value.SID
+                    });
+                }else{
+                    //统计
+                    Comm.goToUrl({
+                        h5Url: urls + 'statistics.html?sid=' + value.SID
+                    });
+                }
                
             },
             error: function (value) {
