@@ -70,7 +70,7 @@ define(function(require, exports, module) {
         if (value.HeadPic) {
             $('.doc-pic img').attr("src",Comm.Tool.getPicUrl(value.PicDomain + value.HeadPic,68,68));
         }else{
-            str +='<img src="../asset/images/public/default_v2.png" alt="">'
+            // str +='<img src="../asset/images/public/default_v2.png" alt="">'
         }
         
         
