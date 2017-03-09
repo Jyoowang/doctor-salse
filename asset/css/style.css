@@ -74,12 +74,13 @@ input::-webkit-input-placeholder {color: #aaa;}
 .per-it .item{padding: 18px}
 
 /*医生绩效明细*/
-.docinfo{width: 100%;height: 170px;background-color: #d32f2f;text-align: center;color: white;display:flex;align-items: center;}
-.docinfo .doc-pic{width: 88px;height: 88px;overflow: hidden;border-radius: 50%;display: inline-block;}
-.docinfo .col {padding-top: 8px}
-.docinfo .col p{margin: 0;font-size: 16px}
-.docinfo .col p span{font-size: 0.8em}
-.docinfo .doc-pic img{width: 100%}
+.docinfo{width: 100%;/*height: 80px;*/background-color: #ff5252;color: white;}
+.docinfo .doc-head{background: url('../images/public/head-line.png')no-repeat right center;background-size: 50% 100%;overflow:hidden;height:100%;padding:12px 13px}
+.docinfo .doc-pic{width: 66px;height:66px;overflow: hidden;border-radius: 50%;float: left;border:2px solid #ffcdd2;box-shadow: 0px 0px 0px 4px #f44336;}
+.doc-head .doc-txt{font-size: 16px;margin-left: 76px;margin-top: 10px;line-height: 14px;}
+.doc-head .doc-txt p{margin-bottom: 7px;}
+.doc-head .doc-txt span{font-size: 12px;color: #ffcdd2;}
+.docinfo img{width: 100%}
 .data{display: flex;width: 100%;height: 85px;background-color: white;align-items: center;text-align: center;}
 .data .col{position: relative;}
 .data .col img{width: 32px;vertical-align: middle;display: inline-block;}

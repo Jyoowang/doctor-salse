@@ -48,7 +48,7 @@ define(function(require, exports, module) {
 
    function getData(isload){
        
-       var data = {
+        var data = {
             SID:Comm.initData.sid,
             PageIndex:Comm.initData.pageindex,
             PageSize:20

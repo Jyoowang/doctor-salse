@@ -73,8 +73,10 @@ define(function(require, exports, module) {
             // str +='<img src="../asset/images/public/default_v2.png" alt="">'
         }
         
-        
-        $(".docinfo .col p").html( Comm.Tool.getString(value,'Name')+'<br><span>'+ Comm.Tool.getString(value.Hospital,'HospitalName') +'</span>');
+        //名字
+        $(".doc-txt p").html( Comm.Tool.getString(value,'Name'));
+        //医院名
+        $(".doc-txt span").html(Comm.Tool.getString(value.Hospital,'HospitalName'));
         //用户数
         $('.user-num').html(Comm.Tool.getInt(value,'UserCount'));
 

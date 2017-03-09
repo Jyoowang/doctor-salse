@@ -48,8 +48,14 @@ define(function(require, exports, module) {
 
             success:function(value){
                 Comm.initData.isLoading = false;
+                
+                //头像
                 $('.doc-pic img').attr("src",Comm.Tool.getPicUrl(value.PicDomain + value.HeadPic,70,70));
-                $(".docinfo .col p").html( Comm.Tool.getString(value,'Name')+'<br><span>'+ Comm.Tool.getString(value,'Title') +'</span>');
+                //名字
+                $(".doc-txt p").html(Comm.Tool.getString(value,'Name'));
+                //医院名
+                $(".doc-txt span").html(Comm.Tool.getString(value,'Title'));
+                //二维码
                 $(".code img").attr('src',value.QRCodeImg);        
                
             }
