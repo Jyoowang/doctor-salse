@@ -55,6 +55,8 @@ define(function(require, exports, module) {
                 $(".doc-txt p").html(Comm.Tool.getString(value,'Name'));
                 //医院名
                 $(".doc-txt span").html(Comm.Tool.getString(value,'Title'));
+                 //邀请码
+                $(".invite  small").html(Comm.Tool.getString(value,'InviCode'));
                 //二维码
                 $(".code img").attr('src',value.QRCodeImg);        
                
