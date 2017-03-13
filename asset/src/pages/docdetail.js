@@ -81,7 +81,7 @@ define(function(require, exports, module) {
         $('.user-num').html(Comm.Tool.getInt(value,'UserCount'));
 
         //咨询量
-        $('.ask-num').html(Comm.Tool.getInt(value,'PictextCount'));
+        $('.ask-num').html(Comm.Tool.getInt(value,'TelPhoneCount')+Comm.Tool.getInt(value,'PictextCount'));
 
         //账户额
         $('.account span').html(Comm.Tool.getInt(value,'WalletMoney'));
